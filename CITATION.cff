@@ -1,14 +1,14 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 authors:
-- family-names: "Lisa"
-  given-names: "Mona"
-  orcid: "https://orcid.org/0000-0000-0000-0000"
-- family-names: "Bot"
-  given-names: "Hew"
-  orcid: "https://orcid.org/0000-0000-0000-0000"
+- family-names: "Bell"
+  given-names: "Ian"
+- family-names: "Cuevas"
+  given-names: "Reydesel"
+- family-names: "Delos Santos"
+  given-names: "Jero"
 title: "ECE 513 Project"
 version: 2.0.4
 doi: 10.5281/zenodo.1234
-date-released: 2017-12-18
-url: "https://github.com/github/linguist"
+date-released: 2021-12-18
+url: "https://github.com/jdelossantos22/ECE513"

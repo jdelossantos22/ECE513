@@ -8,7 +8,6 @@ authors:
 - family-names: "Delos Santos"
   given-names: "Jero"
 title: "ECE 513 Project"
-version: 2.0.4
-doi: 10.5281/zenodo.1234
+version: 1
 date-released: 2021-12-18
 url: "https://github.com/jdelossantos22/ECE513"

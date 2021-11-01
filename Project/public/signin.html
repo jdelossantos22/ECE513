@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <title>Smart Home - Sign in</title>
+    <link rel="shortcut icon" type="image/png" href="images/logo.png">
+
+	 <!-- Import jQuery -->
+	 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+	 <!-- Import Google Icon Font -->
+	 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+	 <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script src="/javascripts/signin.js"></script>
+    <link href="/stylesheets/smarthome.css" rel="stylesheet">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  </head>
+
+  <body>
+    <!-- Dropdown Structure -->
+    <ul id='dropdown1' class='dropdown-content'>
+       <li><a href="index.html">Home</a></li>
+    </ul>
+      
+    <nav>
+      <div class="nav-wrapper blue-grey darken-2">
+        <a href="#!" class="brand-logo left"><img id="logo" src="images/logo.png" width=48px height=48px><span id="name"> Smart Home</span></a>
+        <ul class="right ">
+            <!-- Dropdown Trigger -->
+           <li><a class='dropdown-trigger btn' href='#' data-target='dropdown1'><i class="material-icons">more_vert</i></a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="row">
+      <div class="col s12 m6">
+        <div class="card blue-grey ">
+          <div class="card-content white-text">
+            <span class="card-title">Sign in</span>
+
+            <div class="input-field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" >
+            </div>
+
+              <div class="input-field">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" >
+              </div>
+
+              <div class="card-action">
+                <div><button id="signin" class="waves-effect waves-light btn">Sign in</button></div>
+                <div id="account">Need an account? <a href="register.html">Register</a></div>
+              </div>
+              
+          </div>
+          <div class="card-panel blue-text" id="ServerResponse" style="display: none"></div>
+        </div>
+      </div>
+  </body>
+  <script>
+    $('.dropdown-trigger').dropdown();
+  </script>
+</html>

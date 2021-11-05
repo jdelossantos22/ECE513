@@ -55,14 +55,15 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="px-0" id="thermostat">
-                    <div class="row py-5" id="weather">
+                  <!--Weather Widget, Openweathermap.org-->
+                    <div class="row py-5 rounded m-2" id="weather">
                       <div class="row justify-content-end">
                         <div class="col-md float-left">
                           <div id="weather-icon" class="d-inline-block">
-                          <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather" width="100px" height="100px">
+                          <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather" width="150px" height="150px">
                           </div>
                           <div id="weather-temp" class="align-top d-inline-block">
-                            <p><span id="weather-temp-num">74</span>&#176; <span id="farenheit">F</span>|<span id="celsius">C</span> </p>
+                            <p><span id="weather-temp-num">74&#176;</span> <span id="farenheit">F</span>|<span id="celsius">C</span> </p>
                           </div>
                           <div id="other-weather-info" class="float-left d-inline-block align-top">
                             <p>High: <span id="weather-high">39</span>&#176;</p>
@@ -83,9 +84,10 @@
                         8-day forecast
                       </div>
                     </div>
-                    <div class="row" id="display">
-                      <div class="bg-dark text-light" id="temp-display">
-                        <div class="row my-5">
+                    <!--Thermostat-->
+                    <div class="row rounded m-2" id="display">
+                      <div class="bg-dark text-light rounded" id="temp-display">
+                        <div class="row my-5 ">
                           <div class="col-sm text-center" id="curr-temp">
                             <h3>Current Temperature:</h3>
                             <h1 id="curr-temp-num">74&#176;F</h1>
@@ -93,6 +95,7 @@
                           </div>
                           <div class="col-sm text-center d-flex align-items-center" id="set_temp">
                             <!--<h3>Set Temperature:</h3>-->
+                            
                             <label class="btn btn-light rounded-circle">
                               <input type="button" id="up"> 
                               <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">

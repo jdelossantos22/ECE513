@@ -50,152 +50,157 @@
            </div>
         </nav>
     </header>
-       <main>
+      <main>
         <div class="container-fluid">
-            <div class="row">
-                <div class="px-0" id="thermostat">
-                  <!--Weather Widget, Openweathermap.org-->
-                    <div class="row py-5 rounded m-3 shadow" id="weather">
-                      <div class="row justify-content-end">
-                        <div class="col-md float-left">
-                          <div id="weather-icon" class="d-inline-block">
-                          <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather" width="150px" height="150px">
-                          </div>
-                          <div id="weather-temp" class="align-top d-inline-block">
-                            <p><span id="weather-temp-num">74&#176;</span> <span id="farenheit">F</span>|<span id="celsius">C</span> </p>
-                          </div>
-                          <div id="other-weather-info" class="float-left d-inline-block align-top">
-                            <p>High: <span id="weather-high">39</span>&#176;</p>
-                            <p>Low: <span id="weather-low">39</span>&#176;</p>
-                            <p>Humidity: <span id="weather-humidity">39</span>%</p>
-                            <p>Wind: <span id="weather-wind">8</span> mph</p>
-                          </div>
-                        </div>
-                        <div class="col-md me-auto">
-                          <div class="text-md-end">
-                            <h3 id="weather-city">Phoenix, AZ</h3>
-                            <p id=weather-date>Wednesday 8:00 AM</p>
-                            <p id="weather-description">Sunny</p>
-                          </div>
-                        </div>
+          <div class="row">
+            <div class="px-0" id="thermostat">
+              <!--Weather Widget, Openweathermap.org-->
+              <div class="row py-5 rounded m-3 shadow" id="weather">
+                <div class="row justify-content-end">
+                  <div class="col-md float-left">
+                    <div id="weather-icon" class="d-inline-block">
+                      <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather" width="150px" height="150px">
+                    </div>
+                    <div id="weather-temp" class="align-top d-inline-block">
+                      <p><span id="weather-temp-num">74&#176;</span> <span id="farenheit">F</span>|<span id="celsius">C</span> </p>
+                    </div>
+                    <div id="other-weather-info" class="float-left d-inline-block align-top">
+                      <p>High: <span id="weather-high">39</span>&#176;</p>
+                      <p>Low: <span id="weather-low">39</span>&#176;</p>
+                      <p>Humidity: <span id="weather-humidity">39</span>%</p>
+                      <p>Wind: <span id="weather-wind">8</span> mph</p>
+                    </div>
+                  </div>
+                  <div class="col-md me-auto">
+                    <div class="text-md-end">
+                      <h3 id="weather-city">Phoenix, AZ</h3>
+                      <p id=weather-date>Wednesday 8:00 AM</p>
+                      <p id="weather-description">Sunny</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row d-none d-md-block">
+                  <div class="col weather-forecast">
+                    <div class="forecast-day"></div>
+                    <div class="forecast-icon"></div>
+                    <div class="forecast-temp">
+                      <span class="forecase-high"></span>
+                      <span class="forecase-low"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--Thermostat-->
+              <div class="row rounded m-3 shadow" id="display">
+                <div class="bg-dark text-light rounded" id="temp-display">
+                  <div class="row my-5 ">
+                    <div class="col-sm text-center" id="curr-temp">
+                      <h3>Current Temperature:</h3>
+                      <h1 id="curr-temp-num">74&#176;F</h1>
+                      <p id="humidity">54% Humidity</p>
+                    </div>
+                    <div class="col-sm text-center d-flex align-items-center" id="set_temp">
+                      <!--<h3>Set Temperature:</h3>-->
+                      <label class="btn btn-light rounded-circle">
+                        <input type="button" id="up"> 
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                          <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                        </svg>
+                      </label><br>
+                      <div id="set-temp-num">
+                        <h1 id="set-temp-num">70&#176;F</h1>
                       </div>
-                      <div class="row d-none d-md-block">
-                        <div class="col weather-forecast">
-                          <div class="forecast-day"></div>
-                          <div class="forecast-icon"></div>
-                          <div class="forecast-temp">
-                            <span class="forecase-high"></span>
-                            <span class="forecase-low"></span>
-                          </div>
-                        </div>
+                      <label class="btn btn-light rounded-circle">
+                        <input type="button" id="up"> 
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                          <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                        </svg>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="row" id="controls">
+                    <div class="col-md-4 m-2">
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-light active rounded-circle mx-2">
+                          <input type="radio" name="mode" id="off" autocomplete="off" checked> 
+                          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="green" class="bi bi-power" viewBox="0 0 16 16">
+                            <path d="M7.5 1v7h1V1h-1z"/>
+                            <path d="M3 8.812a4.999 4.999 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812z"/>
+                          </svg> 
+                        </label>
+                        <label class="btn btn-light rounded-circle mx-2">
+                          <input type="radio" name="mode" id="cold" autocomplete="off"> 
+                          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="blue" class="bi bi-thermometer-snow" viewBox="0 0 16 16">
+                            <path d="M5 12.5a1.5 1.5 0 1 1-2-1.415V9.5a.5.5 0 0 1 1 0v1.585A1.5 1.5 0 0 1 5 12.5z"/>
+                            <path d="M1 2.5a2.5 2.5 0 0 1 5 0v7.55a3.5 3.5 0 1 1-5 0V2.5zM3.5 1A1.5 1.5 0 0 0 2 2.5v7.987l-.167.15a2.5 2.5 0 1 0 3.333 0L5 10.486V2.5A1.5 1.5 0 0 0 3.5 1zm5 1a.5.5 0 0 1 .5.5v1.293l.646-.647a.5.5 0 0 1 .708.708L9 5.207v1.927l1.669-.963.495-1.85a.5.5 0 1 1 .966.26l-.237.882 1.12-.646a.5.5 0 0 1 .5.866l-1.12.646.884.237a.5.5 0 1 1-.26.966l-1.848-.495L9.5 8l1.669.963 1.849-.495a.5.5 0 1 1 .258.966l-.883.237 1.12.646a.5.5 0 0 1-.5.866l-1.12-.646.237.883a.5.5 0 1 1-.966.258L10.67 9.83 9 8.866v1.927l1.354 1.353a.5.5 0 0 1-.708.708L9 12.207V13.5a.5.5 0 0 1-1 0v-11a.5.5 0 0 1 .5-.5z"/>
+                          </svg>
+                        </label>
+                        <label class="btn btn-light rounded-circle mx-2">
+                          <input type="radio" name="mode" id="heat" autocomplete="off">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="red" class="bi bi-thermometer-sun" viewBox="0 0 16 16">
+                            <path d="M5 12.5a1.5 1.5 0 1 1-2-1.415V2.5a.5.5 0 0 1 1 0v8.585A1.5 1.5 0 0 1 5 12.5z"/>
+                            <path d="M1 2.5a2.5 2.5 0 0 1 5 0v7.55a3.5 3.5 0 1 1-5 0V2.5zM3.5 1A1.5 1.5 0 0 0 2 2.5v7.987l-.167.15a2.5 2.5 0 1 0 3.333 0L5 10.486V2.5A1.5 1.5 0 0 0 3.5 1zm5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5zm4.243 1.757a.5.5 0 0 1 0 .707l-.707.708a.5.5 0 1 1-.708-.708l.708-.707a.5.5 0 0 1 .707 0zM8 5.5a.5.5 0 0 1 .5-.5 3 3 0 1 1 0 6 .5.5 0 0 1 0-1 2 2 0 0 0 0-4 .5.5 0 0 1-.5-.5zM12.5 8a.5.5 0 0 1 .5-.5h1a.5.5 0 1 1 0 1h-1a.5.5 0 0 1-.5-.5zm-1.172 2.828a.5.5 0 0 1 .708 0l.707.708a.5.5 0 0 1-.707.707l-.708-.707a.5.5 0 0 1 0-.708zM8.5 12a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5z"/>
+                          </svg>
+                        </label>
                       </div>
                     </div>
-                    <!--Thermostat-->
-                    <div class="row rounded m-3 shadow" id="display">
-                      <div class="bg-dark text-light rounded" id="temp-display">
-                        <div class="row my-5 ">
-                          <div class="col-sm text-center" id="curr-temp">
-                            <h3>Current Temperature:</h3>
-                            <h1 id="curr-temp-num">74&#176;F</h1>
-                            <p id="humidity">54% Humidity</p>
-                          </div>
-                          <div class="col-sm text-center d-flex align-items-center" id="set_temp">
-                            <!--<h3>Set Temperature:</h3>-->
-                            
-                            <label class="btn btn-light rounded-circle">
-                              <input type="button" id="up"> 
-                              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
-                                <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
-                              </svg>
-                            </label><br>
-                            <div id="set-temp-num">
-
-                              <h1 id="set-temp-num">70&#176;F</h1>
-                            </div>
-                            <label class="btn btn-light rounded-circle">
-                              <input type="button" id="up"> 
-                              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-                              </svg>
-                            </label>
-
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row" id="controls">
-                      <div class="col-md-4 m-2">
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                          <label class="btn btn-light active rounded-circle mx-2">
-                            <input type="radio" name="mode" id="off" autocomplete="off" checked> 
-                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="green" class="bi bi-power" viewBox="0 0 16 16">
+                    <div class="col-md-4">
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-light active">
+                          <input type="radio" name="fan" id="on" autocomplete="off" checked>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="red" class="bi bi-power" viewBox="0 0 16 16">
                               <path d="M7.5 1v7h1V1h-1z"/>
                               <path d="M3 8.812a4.999 4.999 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812z"/>
                             </svg>
-                            
-                          </label>
-                          <label class="btn btn-light rounded-circle mx-2">
-                            <input type="radio" name="mode" id="cold" autocomplete="off"> 
-                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="blue" class="bi bi-thermometer-snow" viewBox="0 0 16 16">
-                              <path d="M5 12.5a1.5 1.5 0 1 1-2-1.415V9.5a.5.5 0 0 1 1 0v1.585A1.5 1.5 0 0 1 5 12.5z"/>
-                              <path d="M1 2.5a2.5 2.5 0 0 1 5 0v7.55a3.5 3.5 0 1 1-5 0V2.5zM3.5 1A1.5 1.5 0 0 0 2 2.5v7.987l-.167.15a2.5 2.5 0 1 0 3.333 0L5 10.486V2.5A1.5 1.5 0 0 0 3.5 1zm5 1a.5.5 0 0 1 .5.5v1.293l.646-.647a.5.5 0 0 1 .708.708L9 5.207v1.927l1.669-.963.495-1.85a.5.5 0 1 1 .966.26l-.237.882 1.12-.646a.5.5 0 0 1 .5.866l-1.12.646.884.237a.5.5 0 1 1-.26.966l-1.848-.495L9.5 8l1.669.963 1.849-.495a.5.5 0 1 1 .258.966l-.883.237 1.12.646a.5.5 0 0 1-.5.866l-1.12-.646.237.883a.5.5 0 1 1-.966.258L10.67 9.83 9 8.866v1.927l1.354 1.353a.5.5 0 0 1-.708.708L9 12.207V13.5a.5.5 0 0 1-1 0v-11a.5.5 0 0 1 .5-.5z"/>
+                        </label>
+                        <label class="btn btn-light">
+                          <input type="radio" name="fan" id="auto" autocomplete="off"> 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-fan" viewBox="0 0 16 16">
+                              <path d="M10 3c0 1.313-.304 2.508-.8 3.4a1.991 1.991 0 0 0-1.484-.38c-.28-.982-.91-2.04-1.838-2.969a8.368 8.368 0 0 0-.491-.454A5.976 5.976 0 0 1 8 2c.691 0 1.355.117 1.973.332.018.219.027.442.027.668Zm0 5c0 .073-.004.146-.012.217 1.018-.019 2.2-.353 3.331-1.006a8.39 8.39 0 0 0 .57-.361 6.004 6.004 0 0 0-2.53-3.823 9.02 9.02 0 0 1-.145.64c-.34 1.269-.944 2.346-1.656 3.079.277.343.442.78.442 1.254Zm-.137.728a2.007 2.007 0 0 1-1.07 1.109c.525.87 1.405 1.725 2.535 2.377.2.116.402.222.605.317a5.986 5.986 0 0 0 2.053-4.111c-.208.073-.421.14-.641.199-1.264.339-2.493.356-3.482.11ZM8 10c-.45 0-.866-.149-1.2-.4-.494.89-.796 2.082-.796 3.391 0 .23.01.457.027.678A5.99 5.99 0 0 0 8 14c.94 0 1.83-.216 2.623-.602a8.359 8.359 0 0 1-.497-.458c-.925-.926-1.555-1.981-1.836-2.96-.094.013-.191.02-.29.02ZM6 8c0-.08.005-.16.014-.239-1.02.017-2.205.351-3.34 1.007a8.366 8.366 0 0 0-.568.359 6.003 6.003 0 0 0 2.525 3.839 8.37 8.37 0 0 1 .148-.653c.34-1.267.94-2.342 1.65-3.075A1.988 1.988 0 0 1 6 8Zm-3.347-.632c1.267-.34 2.498-.355 3.488-.107.196-.494.583-.89 1.07-1.1-.524-.874-1.406-1.733-2.541-2.388a8.363 8.363 0 0 0-.594-.312 5.987 5.987 0 0 0-2.06 4.106c.206-.074.418-.14.637-.199ZM8 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/>
+                              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14Zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16Z"/>
                             </svg>
-                          </label>
-                          <label class="btn btn-light rounded-circle mx-2">
-                            <input type="radio" name="mode" id="heat" autocomplete="off">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="red" class="bi bi-thermometer-sun" viewBox="0 0 16 16">
-                              <path d="M5 12.5a1.5 1.5 0 1 1-2-1.415V2.5a.5.5 0 0 1 1 0v8.585A1.5 1.5 0 0 1 5 12.5z"/>
-                              <path d="M1 2.5a2.5 2.5 0 0 1 5 0v7.55a3.5 3.5 0 1 1-5 0V2.5zM3.5 1A1.5 1.5 0 0 0 2 2.5v7.987l-.167.15a2.5 2.5 0 1 0 3.333 0L5 10.486V2.5A1.5 1.5 0 0 0 3.5 1zm5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5zm4.243 1.757a.5.5 0 0 1 0 .707l-.707.708a.5.5 0 1 1-.708-.708l.708-.707a.5.5 0 0 1 .707 0zM8 5.5a.5.5 0 0 1 .5-.5 3 3 0 1 1 0 6 .5.5 0 0 1 0-1 2 2 0 0 0 0-4 .5.5 0 0 1-.5-.5zM12.5 8a.5.5 0 0 1 .5-.5h1a.5.5 0 1 1 0 1h-1a.5.5 0 0 1-.5-.5zm-1.172 2.828a.5.5 0 0 1 .708 0l.707.708a.5.5 0 0 1-.707.707l-.708-.707a.5.5 0 0 1 0-.708zM8.5 12a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5z"/>
-                            </svg>
-                          </label>
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                          <label class="btn btn-light active">
-                            <input type="radio" name="fan" id="on" autocomplete="off" checked>
-                              <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="red" class="bi bi-power" viewBox="0 0 16 16">
-                                <path d="M7.5 1v7h1V1h-1z"/>
-                                <path d="M3 8.812a4.999 4.999 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812z"/>
-                              </svg>
-                          </label>
-                          <label class="btn btn-light">
-                            <input type="radio" name="fan" id="auto" autocomplete="off"> 
-                              <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-fan" viewBox="0 0 16 16">
-                                <path d="M10 3c0 1.313-.304 2.508-.8 3.4a1.991 1.991 0 0 0-1.484-.38c-.28-.982-.91-2.04-1.838-2.969a8.368 8.368 0 0 0-.491-.454A5.976 5.976 0 0 1 8 2c.691 0 1.355.117 1.973.332.018.219.027.442.027.668Zm0 5c0 .073-.004.146-.012.217 1.018-.019 2.2-.353 3.331-1.006a8.39 8.39 0 0 0 .57-.361 6.004 6.004 0 0 0-2.53-3.823 9.02 9.02 0 0 1-.145.64c-.34 1.269-.944 2.346-1.656 3.079.277.343.442.78.442 1.254Zm-.137.728a2.007 2.007 0 0 1-1.07 1.109c.525.87 1.405 1.725 2.535 2.377.2.116.402.222.605.317a5.986 5.986 0 0 0 2.053-4.111c-.208.073-.421.14-.641.199-1.264.339-2.493.356-3.482.11ZM8 10c-.45 0-.866-.149-1.2-.4-.494.89-.796 2.082-.796 3.391 0 .23.01.457.027.678A5.99 5.99 0 0 0 8 14c.94 0 1.83-.216 2.623-.602a8.359 8.359 0 0 1-.497-.458c-.925-.926-1.555-1.981-1.836-2.96-.094.013-.191.02-.29.02ZM6 8c0-.08.005-.16.014-.239-1.02.017-2.205.351-3.34 1.007a8.366 8.366 0 0 0-.568.359 6.003 6.003 0 0 0 2.525 3.839 8.37 8.37 0 0 1 .148-.653c.34-1.267.94-2.342 1.65-3.075A1.988 1.988 0 0 1 6 8Zm-3.347-.632c1.267-.34 2.498-.355 3.488-.107.196-.494.583-.89 1.07-1.1-.524-.874-1.406-1.733-2.541-2.388a8.363 8.363 0 0 0-.594-.312 5.987 5.987 0 0 0-2.06 4.106c.206-.074.418-.14.637-.199ZM8 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/>
-                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14Zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16Z"/>
-                              </svg>
-                          </label>
-                        </div>
+                        </label>
                       </div>
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
-            <div class="row my-5">
-                <div id="smart-bulb" class="col-md-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="currentColor" class="bi bi-lightbulb-fill" viewBox="0 0 16 16">
-                    <path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13h-5a.5.5 0 0 1-.46-.302l-.761-1.77a1.964 1.964 0 0 0-.453-.618A5.984 5.984 0 0 1 2 6zm3 8.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1-.5-.5z"/>
-                  </svg>
+            <div class="mx-auto">
+              <div class="row rounded m-3 shadow" id="displayBulb">
+                <div class="bg-dark text-light rounded" id="bulb-display">
+                  <div id="smart-bulb" class="col-md-4">
+                    <h3>Smart Bulb</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="currentColor" class="bi bi-lightbulb-fill" viewBox="0 0 16 16">
+                      <path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13h-5a.5.5 0 0 1-.46-.302l-.761-1.77a1.964 1.964 0 0 0-.453-.618A5.984 5.984 0 0 1 2 6zm3 8.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
+                  </div>
                 </div>
-                <div id="door-sensor" class="col-md-4">
-                  &nbsp&nbsp&nbsp&nbsp&nbspDoor Sensor: OPEN/CLOSED <br>
+              </div>
+              <div class="row rounded m-3 shadow" id="displayDoor">
+                <div class="bg-dark text-light rounded" id="door-display">
+                  <div id="door-sensor" class="col-md-4">
+                    <h3>Door Sensor</h3>
                     <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="#006400" class="bi bi-door-closed-fill" viewBox="0 0 16 16">
                       <path d="M12 1a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V2a1 1 0 0 1 1-1h8zm-2 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
                     </svg>
                     <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="#8B0000" class="bi bi-door-open-fill" viewBox="0 0 16 16">
                       <path d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15H1.5zM11 2h.5a.5.5 0 0 1 .5.5V15h-1V2zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z"/>
                     </svg>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
         <footer class="page-footer bg-az-red darken-2">
-            <div class="footer-copyright">
-                <div class="container">
-                    &copy; 2021, Ian Louis Bell, Reydesel Alejandro Cuevas, and Jero Delos Santos
-                    <span style="float:right;"class="grey-text text-lighten-4 right">Electrical and Computer Engineering, University of Arizona</a>
-                </div>
+          <div class="footer-copyright">
+            <div class="container">
+                  &copy; 2021, Ian Louis Bell, Reydesel Alejandro Cuevas, and Jero Delos Santos
+                  <span style="float:right;"class="grey-text text-lighten-4 right">Electrical and Computer Engineering, University of Arizona</a>
             </div>
+          </div>
         </footer>
-       </main>
+      </main>
     </body>
 </html>

@@ -1,0 +1,21 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  color: #5a5a5a;
+  margin: 0;
+}
+
+.footer-copyright{
+  color:white;
+}
+
+.sss {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding: 10px;
+ }

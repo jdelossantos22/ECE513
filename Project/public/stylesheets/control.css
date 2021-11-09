@@ -21,7 +21,7 @@ body{
     font-size:3vw;
     font-family: Arial, Helvetica, sans-serif;
 }
-#up, #down{
+#up{
     display:none;
 }
 #weather p{
@@ -44,6 +44,15 @@ body{
     color:white;
 }
 
+#thermoHeader {
+    font-size: 60px;
+    color: rgb(255, 255, 255); 
+    text-align: center;
+}
+
+h1 {
+    background-color:rgb(0, 0, 0); 
+}
 
 @media screen and (min-width: 1200px) {
     #curr-temp-num {

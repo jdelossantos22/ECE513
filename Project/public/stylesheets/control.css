@@ -1,3 +1,4 @@
+
 input[type="radio"] {
     display:none;
 }
@@ -5,13 +6,18 @@ input[type="radio"] {
     background-color: #2a5f9a;
     color:lightgray;
 }
+#thermostat{
+    font-family: "Barlow", sans-serif;
+}
 #curr-temp-num{
     font-size:20vw;
-    font-family: Arial, Helvetica, sans-serif;
+    /*font-family: Arial, Helvetica, sans-serif;*/
+    font-family: "Barlow", sans-serif
 }
 #set-temp-num{
     font-size:15vw;
-    font-family: Arial, Helvetica, sans-serif;
+    /*font-family: Arial, Helvetica, sans-serif;*/
+    font-family: "Barlow", sans-serif
 }
 body{
     margin-right:0;

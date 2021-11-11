@@ -25,13 +25,38 @@ function Register() {
     return;
   }
 
+  else { 
+
+    var alphanumericTest = /^[a-zA-Z0-9_]{8,}$/;
+    if (alphanumericTest.test(password)) {
+      authorizationKey = getNewApikey();
+      message = "Enter the key to register your account: " + authorizationKey;
+
+      Email.send({
+          SecureToken : "b543ae45-4be8-7871-45ef-9b6ebc4dsa50",
+          // Host : "smtp.elasticemail.com",
+          // Username : "cuevasr@email.arizona.edu",
+          // Password : "PASS",
+          To : email,
+          From : "cuevasr@email.arizona.edu",
+          Subject : "Register your Account",
+          Body : message
+      }).then(
+        message => console.log(message)
+      );
+
+
   $.ajax({
    url: '/users/register',
    type: 'POST',
    contentType: 'application/json',
-   data: JSON.stringify({email:email, fullName:fullName, password:password}),
-   dataType: 'json'
-  })
+   data: JSON.stringify({email:email, 
+   fullName:fullName, 
+   APIKEY: authorizationKey,
+   password: password
+    }),
+dataType: 'json'
+})
     .done(registerSuccess)
     .fail(registerError);
 }
@@ -60,3 +85,14 @@ function registerError(jqXHR, textStatus, errorThrown) {
 $(function () {
   $('#signup').click(Register);
 });
+
+function getNewApikey() {
+  let newApikey = "";
+  let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  
+  for (let i = 0; i < 32; i++) 
+  {
+    newApikey += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+  }
+  return newApikey;
+}

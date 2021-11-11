@@ -16,7 +16,69 @@ var user_already = fs.readFileSync(__dirname + '/../../jwtkey').toString();
 
 
 
+
+
+
+
+/*Signin*/
+router.post('/signin', function(req, res, next) {
+  User.findOne({email: req.body.email}, function(err, user) {
+    if (err) {
+       res.status(401).json({success : false, message : "Can't connect."});         
+    }
+    else if(!user) {
+       res.status(401).json({success : false, message : "Invalid Email or password ."});         
+    }
+    else {
+      bcrypt.compare(req.body.password, user.passwordHash, function(err, valid) {
+         if (err) {
+           res.status(401).json({success : false, message : "Error authenticating."});         
+         }
+         else if(valid) {
+            var authToken = jwt.encode({email: req.body.email}, user_already);
+            res.status(201).json({success:true, authToken: authToken});
+         }
+         else {
+            res.status(401).json({success : false, message : "Invalid Email or password."});         
+         }
+         
+      });
+    }
+  });
+});
+ 
+
 /* Register */
+router.post('/register', function(req, res, next) {
+  bcrypt.hash(req.body.password, 10, function(err, hash) {
+     if (err) {
+        res.status(400).json({success : false, message : err.errmsg, error:"bcryptjs error"});
+     }
+     else {
+       var newUser = new User ({
+        email: req.body.email,
+        fullName: req.body.fullName,
+        passwordHash: hash,
+        userDevices:[],
+        zip:[]
+       });
+
+       newUser.save(function(err, user) {
+         if (err) {
+            res.status(400).json({success : false, message : err.errmsg, error: "Error"});
+         }
+         else {
+            res.status(201).json({success : true, message : user.fullName + "has been created"});
+         }
+       });
+     }
+  });
+});
+
+
+
+
+/* //register Not currently working trying something simpler
 router.post('/register', function(req, res, next) {
 
   if (!req.body.hasOwnProperty("email")){
@@ -46,10 +108,12 @@ router.post('/register', function(req, res, next) {
            res.status(400).json({success : false, message : err.errmsg});
         }
         else {
+          
           /*Create token*/
-          var token = new Token({ _userId: user._id, token: crypto.randomBytes(16).toString('hex') });
+         // var token = new Token({ _userId: user._id, token: crypto.randomBytes(16).toString('hex') });
 
           /* Save token*/
+          /*
           token.save(function (err) {
               if (err) {
                   console.log("Token was not saved" );
@@ -89,48 +153,8 @@ router.post('/register', function(req, res, next) {
       });
     }
  });
-});
+*/
 
-
-
-/*Signin*/
-router.post('/signin', function(req, res, next) {
-  User.findOne({email: req.body.email}, function(err, user) {
-      if (err) { 
-          res.status(401).json({success : false, message : "Can't connect."});
-      }
-      else if(!user) { 
-          res.status(401).json({success : false, message : " Invalid Email or password."});
-      }
-      else {
-          bcrypt.compare(req.body.password, user.passwordHash, function(err, valid) {
-              if (err) {
-                  res.status(401).json({success : false, message : "Error authenticating."});
-              }
-              else if(valid) { 
-
-                  if (!user.verified) return res.status(401).send({success : false, message : 'Verify account' });
-
-        
-                  User.update({email: req.body.email}, {$set:{lastAccess:Date.now()}}, function(err, user) {
-                    if (err){
-                      res.status(400).json(err)
-                    } else if (user){
-                      var authToken = jwt.encode({email: req.body.email}, user_already);
-                      res.status(201).json({success:true, authToken: authToken});
-                    }
-                    else {
-                      res.status(400).json({success : false, message : "LastAccess was not set."})
-                    }
-                  })
-              }
-              else { 
-                  res.status(401).json({success : false, message : "Invalid Email or password "});
-              }
-          });
-      }
-  });
-});
 
 /*Zip COde*/
 

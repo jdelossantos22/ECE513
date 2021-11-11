@@ -132,6 +132,49 @@ router.post('/signin', function(req, res, next) {
   });
 });
 
+/*Zip COde*/
+
+router.get("/status", function(req, res, next){
+  var valid_zip = /^\d{5}$/;
+
+  if (!valid_zip.test(req.query.zip)) {
+          var errormsg = {"error" : "a zip code is required"};
+          res.status(400).send(JSON.stringify(errormsg));
+  }
+  else {
+          var zipID = req.query.zip;
+          var query = {"zip":zipID};
+          Recording.find(query, function(err, allzipcodes){
+                  if(err){
+                          var errormsg = { "message" : err};
+                          res.status(400).send(JSON.stringify(errormsg));
+                  }
+          });
+  }
+});
+
+
+router.post("/register", function(req, res, next) {
+if (!req.body.hasOwnProperty("zip")){
+var errormsg = {"error" : "zip required"};
+res.status(400).send(JSON.stringify(errormsg));
+}
+var newZipcode = new Recording ( {
+zip: req.body.zip,
+});
+newZipcode.save(function(err, newZipcode){
+if (err) {
+var errormessage = {"error" : "zip required."};
+res.status(400).json(errormessage);
+}
+else	{
+var msg = {"response" : "Data recorded."}
+res.status(201).json(msg);
+}
+});
+});
+
+
 
 
 

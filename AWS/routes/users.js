@@ -11,14 +11,8 @@ let bcrypt = require("bcryptjs");
 let jwt = require("jwt-simple");
 
 /*Check user*/
-var user_already = fs.readFileSync(__dirname + '/../../jwtkey').toString();
-
-
-
-
-
-
-
+//const secret = fs.readFileSync(__dirname + '/../keys/jwtkey').toString();
+const secret = "supersecret";
 
 /*Signin*/
 router.post('/signin', function(req, res, next) {
@@ -35,7 +29,7 @@ router.post('/signin', function(req, res, next) {
            res.status(401).json({success : false, message : "Error authenticating."});         
          }
          else if(valid) {
-            var authToken = jwt.encode({email: req.body.email}, user_already);
+            var authToken = jwt.encode({email: req.body.email}, secret);
             res.status(201).json({success:true, authToken: authToken});
          }
          else {
@@ -101,23 +95,23 @@ router.get("/status", function(req, res, next){
 
 
 router.post("/register", function(req, res, next) {
-if (!req.body.hasOwnProperty("zip")){
-var errormsg = {"error" : "zip required"};
-res.status(400).send(JSON.stringify(errormsg));
-}
-var newZipcode = new Recording ( {
-zip: req.body.zip,
-});
-newZipcode.save(function(err, newZipcode){
-if (err) {
-var errormessage = {"error" : "zip required."};
-res.status(400).json(errormessage);
-}
-else	{
-var msg = {"response" : "Data recorded."}
-res.status(201).json(msg);
-}
-});
+   if (!req.body.hasOwnProperty("zip")){
+      var errormsg = {"error" : "zip required"};
+      res.status(400).send(JSON.stringify(errormsg));
+      }
+   var newZipcode = new Recording ( {
+      zip: req.body.zip,
+      });
+   newZipcode.save(function(err, newZipcode){
+   if (err) {
+      var errormessage = {"error" : "zip required."};
+      res.status(400).json(errormessage);
+      }
+   else	{
+      var msg = {"response" : "Data recorded."}
+      res.status(201).json(msg);
+      }
+   });
 });
 
 

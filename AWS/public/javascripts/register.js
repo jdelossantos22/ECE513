@@ -6,8 +6,9 @@ function Register() {
 
 
   var strongRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
-
-  if(!strongRegex.test(password)){
+  let strongPassword = !strongRegex.test(password)
+  strongPassword = false
+  if(strongPassword){
     $('#ServerResponse').html("<span class='red-text text-darken-2'>Password is not strong enough.:"
                               +"<ul> <li>length of 8 or more characters</li>"
                               +"<li>At least one Capital letter</li>"
@@ -26,7 +27,7 @@ function Register() {
   }
 
   else { 
-
+    console.log("Registering")
     var alphanumericTest = /^[a-zA-Z0-9_]{8,}$/;
     if (alphanumericTest.test(password)) {
       authorizationKey = getNewApikey();
@@ -46,19 +47,20 @@ function Register() {
       );
 
 
-  $.ajax({
-   url: '/users/register',
-   type: 'POST',
-   contentType: 'application/json',
-   data: JSON.stringify({email:email, 
-   fullName:fullName, 
-   APIKEY: authorizationKey,
-   password: password
-    }),
-dataType: 'json'
-})
-    .done(registerSuccess)
-    .fail(registerError);
+      $.ajax({
+        url: '/users/register',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({email:email, 
+        fullName:fullName, 
+        APIKEY: authorizationKey,
+        password: password
+        }),
+        dataType: 'json'
+        }).done(registerSuccess)
+          .fail(registerError);
+      }
+  }
 }
 
 function registerSuccess(data, textStatus, jqXHR) {
@@ -82,9 +84,7 @@ function registerError(jqXHR, textStatus, errorThrown) {
   }
 }
 
-$(function () {
-  $('#signup').click(Register);
-});
+
 
 function getNewApikey() {
   let newApikey = "";
@@ -96,3 +96,7 @@ function getNewApikey() {
   }
   return newApikey;
 }
+
+$(function () {
+  $('#signup').click(Register);
+});

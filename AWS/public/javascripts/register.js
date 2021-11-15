@@ -28,38 +28,39 @@ function Register() {
 
   else { 
     console.log("Registering")
+    //what are you testing here?
     var alphanumericTest = /^[a-zA-Z0-9_]{8,}$/;
-    if (alphanumericTest.test(password)) {
-      authorizationKey = getNewApikey();
-      message = "Enter the key to register your account: " + authorizationKey;
-
-      Email.send({
-          SecureToken : "b543ae45-4be8-7871-45ef-9b6ebc4dsa50",
-          // Host : "smtp.elasticemail.com",
-          // Username : "cuevasr@email.arizona.edu",
-          // Password : "PASS",
-          To : email,
-          From : "cuevasr@email.arizona.edu",
-          Subject : "Register your Account",
-          Body : message
-      }).then(
-        message => console.log(message)
-      );
-
-
-      $.ajax({
-        url: '/users/register',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({email:email, 
-        fullName:fullName, 
-        APIKEY: authorizationKey,
-        password: password
-        }),
-        dataType: 'json'
-        }).done(registerSuccess)
-          .fail(registerError);
-      }
+    //if (alphanumericTest.test(password)) {}
+    authorizationKey = getNewApikey();
+    message = "Enter the key to register your account: " + authorizationKey;
+    //I still dont know what email does
+    /*
+    Email.send({
+        SecureToken : "b543ae45-4be8-7871-45ef-9b6ebc4dsa50",
+        // Host : "smtp.elasticemail.com",
+        // Username : "cuevasr@email.arizona.edu",
+        // Password : "PASS",
+        To : email,
+        From : "cuevasr@email.arizona.edu",
+        Subject : "Register your Account",
+        Body : message
+    }).then(
+      message => console.log(message)
+    );*/
+    let txdata = {email:email, 
+      fullName:fullName, 
+      APIKEY: authorizationKey,
+      password: password
+    };
+    console.log(txdata);
+    $.ajax({
+      url: '/users/register',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(txdata),
+      dataType: 'json'
+      }).done(registerSuccess)
+      .fail(registerError);
   }
 }
 

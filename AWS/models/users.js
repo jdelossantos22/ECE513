@@ -7,9 +7,8 @@ var userSchema = new db.Schema({
   lastAccess:   { type: Date, default: Date.now },
   userDevices:  { type:[String], default:[], sparse:true},
   zip:      {type: Number},
-
 });
 
-var User = db.model("User", userSchema);
+const User = db.model("User", userSchema);
 
 module.exports = User;

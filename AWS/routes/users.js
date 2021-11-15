@@ -6,13 +6,48 @@ let Token = require("../models/token");
 
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
-let fs = require('fs');
-let bcrypt = require("bcryptjs");
-let jwt = require("jwt-simple");
+const fs = require('fs');
+const bcrypt = require("bcryptjs");
+const jwt = require("jwt-simple");
 
 /*Check user*/
-//const secret = fs.readFileSync(__dirname + '/../keys/jwtkey').toString();
-const secret = "supersecret";
+const secret = fs.readFileSync(__dirname + '/../keys/jwtkey').toString();
+//const secret = "supersecret";
+
+/* Register */
+router.post('/register', function(req, res) {
+   
+   User.findOne({email: req.body.email}, function(err, user){
+      if(err) res.status(401).json({success:false, err:err});
+      else if(user){
+         res.status(401).json({success: false, msg: "This email already used" });
+      }
+      else{
+         const passwordHash = bcrypt.hashSync(req.body.password,10);
+         const newUser = new User({
+            email: req.body.email,
+            fullName: req.body.fullName,
+            passwordHash: passwordHash,
+            userDevices:[],
+            zip:-1
+         });
+
+         console.log("Got in")
+         newUser.save(function (err,customer){
+            if(err){
+               console.log(err)
+               res.status(400).json({success: false, err: err});
+               
+            }
+            else{
+               res.status(201).json({success : true, message : req.body.fullName + "has been created"});
+               console.log("user created")
+            }
+         });
+      }
+
+   });
+ });
 
 /*Signin*/
 router.post('/signin', function(req, res, next) {
@@ -42,32 +77,7 @@ router.post('/signin', function(req, res, next) {
 });
  
 
-/* Register */
-router.post('/register', function(req, res, next) {
-  bcrypt.hash(req.body.password, 10, function(err, hash) {
-     if (err) {
-        res.status(400).json({success : false, message : err.errmsg, error:"bcryptjs error"});
-     }
-     else {
-       var newUser = new User ({
-        email: req.body.email,
-        fullName: req.body.fullName,
-        passwordHash: hash,
-        userDevices:[],
-        zip:[]
-       });
 
-       newUser.save(function(err, user) {
-         if (err) {
-            res.status(400).json({success : false, message : err.errmsg, error: "Error"});
-         }
-         else {
-            res.status(201).json({success : true, message : user.fullName + "has been created"});
-         }
-       });
-     }
-  });
-});
 
 
 

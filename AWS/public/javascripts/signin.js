@@ -15,7 +15,7 @@ function sendSigninRequest() {
 
 function signinSuccess(data, textSatus, jqXHR) {
   window.localStorage.setItem('authToken', data.authToken);
-  window.location = "account.html";
+  window.location = "controllerAtHome.html";
 }
 
 function signinError(jqXHR, textStatus, errorThrown) {
@@ -24,7 +24,8 @@ function signinError(jqXHR, textStatus, errorThrown) {
     $('#ServerResponse').show();
   }
   else {
-    $('#ServerResponse').html("<span class='red-text text-darken-2'>Error: " + jqXHR.responseJSON.message + "</span>");
+    //what is jqXHR.responseJSON.message
+    $('#ServerResponse').html("<span class='red-text text-darken-2'>Error: " + errorThrown + "</span>");
     $('#ServerResponse').show();
   }
 }

@@ -7,7 +7,7 @@ function Register() {
 
   var strongRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
   let strongPassword = !strongRegex.test(password)
-  strongPassword = false
+  //strongPassword = false
   if(strongPassword){
     $('#ServerResponse').html("<span class='red-text text-darken-2'>Password is not strong enough.:"
                               +"<ul> <li>length of 8 or more characters</li>"

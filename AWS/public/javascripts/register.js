@@ -100,4 +100,8 @@ function getNewApikey() {
 
 $(function () {
   $('#signup').click(Register);
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> cc92c5e88bdc6be3b2a0bee9965f4e0193939570

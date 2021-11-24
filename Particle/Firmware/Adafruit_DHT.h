@@ -42,7 +42,7 @@ class DHT {
 		float getTempFarenheit();
 		float getTempKelvin();
 		float getHeatIndex();
-                float getDewPoint();
+        float getDewPoint();
 
 };
 #endif

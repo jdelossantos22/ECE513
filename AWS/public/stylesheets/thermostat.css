@@ -1,0 +1,109 @@
+
+#thermostatDisplay .rs-range-color  {
+    /*background-color: #33B5E5;*/
+    background: rgb(255,239,0);
+    background: radial-gradient(ellipse at bottom, rgba(255,239,0,1) 0%, rgba(185,9,9,1) 52%, rgba(255,239,0,1) 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+#thermostatDisplay .rs-path-color  {
+    background-color: darkgray;
+
+}
+#thermostatDisplay .rs-handle  {
+    background-color: lightgray;
+    padding: 7px;
+    border: 2px solid lightgray;
+}
+#thermostatDisplay .rs-handle.rs-focus  {
+    border-color: black;
+    background-color: #F88B25;
+}
+#thermostatDisplay .rs-handle:after  {
+    border-color: #FF5733;
+    background-color: #FF5733;
+}
+#thermostatDisplay .rs-border  {
+    border-color: transparent;
+}
+#thermostatDisplay .rs-tooltip-text {
+    font-family: Roboto, sans-serif;
+    font-size: 40px;
+    border-radius: 7px;
+    transition: background 0.02s ease-in-out;
+    color: #d89455;
+  }
+/*
+#thermostatDisplay .rs-tooltip-text:before {
+    position: absolute;
+    left: 15px;
+    top: -18px;
+    content: 'HEATING';
+    font-size: 12px;
+  }
+ 
+#thermostatDisplay .rs-tooltip-text:after {
+    position: absolute;
+    left: 10px;
+    top: 50px;
+    content: '19';
+    font-size: 12px;
+  }
+  */
+ 
+/*
+.container{
+   position: absolute;
+   z-index: 2;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   font-family: Roboto, sans-serif;
+   padding: 20px;
+   border: 1px solid;
+ }*/
+ 
+ /* Solution for inner circle with shadow */
+#thermostatDisplay:after {
+   content: " ";
+   display: block;
+   height: calc(100% - 40px); /* here 40 is the gap between the outer and inner circle */
+   width: calc(100% - 40px);
+   position: absolute;
+   top: 20px;  /* divide the gap value by 2 */
+   left: 20px;
+   z-index: 9; /* tooltip z-index is 10, so we put less than that value */
+   border-radius: 1000px;
+   box-shadow: 0 0 10px -2px;
+ }
+ 
+ /* Solution for bottom triangle out issue */
+#thermostatDisplay .rs-overlay {
+     height: calc(50% + 5px);
+     width: calc(50% + 5px);    
+     top: -13px;
+     left: -5px;
+     border-radius: 1000px 0 0 0;
+ }
+#thermostatMode{
+    font-family: Roboto, sans-serif;
+    font-size: 20px;
+    border-radius: 7px;
+    transition: background 0.02s ease-in-out;
+    color: #d89455;
+}
+#thermostatTemp{
+    font-family: Roboto, sans-serif;
+    font-size: 80px;
+    border-radius: 7px;
+    transition: background 0.02s ease-in-out;
+    color: #d89455;
+}
+
+.thermostatContainer{
+    margin-left:100px;
+    margin-right:30px;
+}
+#setTempLabel{
+    font-size:20px
+}

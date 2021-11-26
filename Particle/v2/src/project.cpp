@@ -51,9 +51,9 @@ void serialCmdProcessing() {
     else if (iter.name() == "led") {
       toggleLed.cmdProcessing(iter.value());
     }
-    else if (iter.name() == "thermostat") {
+    /*else if (iter.name() == "thermostat") {
       thermostat.cmdProcessing(iter.value());
-    }
+    }*/
     /*else if (iter.name() == "door") {
       door.cmdProcessing(iter.value());
     }*/
@@ -65,36 +65,46 @@ void serialCmdProcessing() {
 void setup() {
   // Put initialization like pinMode and begin functions here.
   pinMode(LED, OUTPUT);
-  pinMode(DHTPIN, INPUT);
-	pinSetFast(DHTPIN);
   RGB.control(true);
   RGB.color(255, 255, 255);   // default color white
-  Serial.begin();
+  Serial.begin(9600);
+  pinMode(DHTPIN, INPUT);
+	pinSetFast(DHTPIN);
   counter = 0;
 }
 
 // loop() runs over and over again, as quickly as it can execute.
 void loop() {
   unsigned long t = millis();
-
+  //Serial.println("Starting");
   serialCmdProcessing();
   smartLight.execute();
   toggleLed.execute();
+  //delay(2000);
+  //unsigned long s = millis();
+  //Serial.printf("Thermostat start: %ld\n", s);
   thermostat.execute();
-
+  //unsigned long e = millis();
+  //Serial.printf("Thermostat end: %ld\n", e);
   
   unsigned long period = millis() - t;
-
+  //Serial.println(counter % (SERAIL_COMM_FREQUENCY * LOOP_FREQUENCY));
   if (counter % (SERAIL_COMM_FREQUENCY * LOOP_FREQUENCY) == 0) {
     counter = 0;
-    Serial.printf("{\"t\":%d,\"light\":%s,\"led\":%s,\"ct\":%ld}", 
-      (int)Time.now(), smartLight.getStatusStr().c_str(), toggleLed.getStatusStr().c_str(),
+    Serial.printf("{\"t\":%d,\"light\":%s,\"led\":%s,\"thermostat\":%s,\"ct\":%ld}", 
+      (int)Time.now(), smartLight.getStatusStr().c_str(), toggleLed.getStatusStr().c_str(),thermostat.getStatusStr().c_str(),
       period
     );
     Serial.println();
   }
   counter++;
-  
+  /*
   period = PERIOD - (millis() - t);
-  if (period > 0) delay(period);  
+  Serial.println(millis());
+  Serial.println(t);
+  Serial.println(period);
+  if (period > 1000) delay(period);
+  else delay(1000) ;
+  */
+  delay(150);
 }

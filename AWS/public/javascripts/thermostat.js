@@ -16,10 +16,10 @@ $("#thermostatDisplay").roundSlider({
           var radius = 200;
           let winRadius = this.control.parent().width();
           if (winRadius > 700){
-              radius = 200;
+              radius = 300;
           }
           else if (winRadius < 700){
-              radius=150;
+              radius=250;
           }
           else{
               radius = winRadius/4;

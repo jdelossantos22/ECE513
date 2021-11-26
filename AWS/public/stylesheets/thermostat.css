@@ -101,9 +101,15 @@
 }
 
 .thermostatContainer{
-    margin-left:100px;
-    margin-right:30px;
+    margin-left:50px;
+    margin-right:20px;
 }
 #setTempLabel{
     font-size:20px
+}
+.thermostat-control{
+    height:50%;
+}
+#thermostatControls{
+    align-items:center;
 }

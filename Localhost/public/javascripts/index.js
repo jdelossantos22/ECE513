@@ -48,8 +48,10 @@ function updateGUI(data) {
     if ("light" in data) {
         if ("s" in data.light) $("#sensorVal").html( data.light.s);
         if ("b" in data.light) {
-        $('#curBrightness').css("background-color", `hsl(61, ${data.light.b}%, 50%)`);
-        $('#curBrightness').html(data.light.b);
+            $('#curBrightness').css("background-color", `hsl(61, ${data.light.b}%, 50%)`);
+            $('#curBrightness').html(data.light.b);
+            if (data.light.b <= 50) $("#door").text("Door Open")
+            else  $("#door").text("Door Closed")
         }
     }
     if ("thermostat" in data){

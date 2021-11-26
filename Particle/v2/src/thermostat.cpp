@@ -31,6 +31,9 @@ void CThermostat::execute() {
     float tempHumidity;
     float tempCelsius;
     float tempFarenheit;
+    float tempHeatIndex;
+    float tempDewPoint;
+    float tempKelvin;
     //Serial.println(currentTime);
     //Serial.println(lastRead);
     switch(state){
@@ -52,6 +55,9 @@ void CThermostat::execute() {
             tempCelsius = dht.getTempCelcius();
             // Read temperature as Farenheit
             tempFarenheit = dht.getTempFarenheit();
+            tempHeatIndex = dht.getHeatIndex();
+            tempDewPoint = dht.getDewPoint();
+            tempKelvin = dht.getTempKelvin();
 
             // Check if any reads failed and exit early (to try again).
             //if (isnan(humidity) || isnan(celsius) || isnan(farenheit)) {
@@ -63,10 +69,10 @@ void CThermostat::execute() {
             if (!isnan(tempHumidity)) humidity = tempHumidity;
             if (!isnan(tempCelsius)) celsius = tempCelsius;
             if (!isnan(tempFarenheit)) farenheit = tempFarenheit;
-
-            heatIndex = dht.getHeatIndex();
-            dewPoint = dht.getDewPoint();
-            kelvin = dht.getTempKelvin();
+            if (!isnan(tempHeatIndex)) heatIndex = tempHeatIndex;
+            if (!isnan(tempDewPoint)) dewPoint = tempDewPoint;
+            if (!isnan(tempKelvin)) kelvin = tempKelvin;
+            
             lastRead = currentTime;
             state = CThermostat::S_DELAY;
             break;

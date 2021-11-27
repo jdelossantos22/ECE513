@@ -2,7 +2,6 @@ var myInterval = null;
 var guiUpdated = false;
 $(function (){
     initRangeSliders();
-    publish();
 });
 
 function initRangeSliders() {
@@ -158,6 +157,7 @@ function pingTest() {
   
   function particleSuccess(data, textStatus, jqXHR) {
     $('#cmdStatusData').html(JSON.stringify(data, null, 2));
+    updateGUI(data.data);
     if ("cmd" in data) {
       if (data.cmd === "ping") {
         if ("online" in data.data) {
@@ -169,7 +169,6 @@ function pingTest() {
       }
       else if (data.cmd === "read") {
         if ("simclock" in data.data) $('#curTime').html(data.data.simclock);
-        updateGUI(data.data);
       }
       else if ((data.cmd === "publish") && (data.success)){
         if ($('#btnEnablePublish').html() == 'Enable publish') {

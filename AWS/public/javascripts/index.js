@@ -192,7 +192,7 @@ function pingTest() {
         }
       }          
     }
-    updateGUI(data.data);
+    //updateGUI(data.data);
   }
  
   function particleFailure(jqXHR, textStatus, errorThrown) {

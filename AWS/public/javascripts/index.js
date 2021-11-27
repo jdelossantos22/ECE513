@@ -157,7 +157,7 @@ function pingTest() {
   
   function particleSuccess(data, textStatus, jqXHR) {
     $('#cmdStatusData').html(JSON.stringify(data, null, 2));
-    updateGUI(data.data);
+    
     if ("cmd" in data) {
       if (data.cmd === "ping") {
         if ("online" in data.data) {
@@ -185,6 +185,7 @@ function pingTest() {
         }
       }          
     }
+    updateGUI(data.data);
   }
  
   function particleFailure(jqXHR, textStatus, errorThrown) {

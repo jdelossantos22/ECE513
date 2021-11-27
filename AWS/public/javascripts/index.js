@@ -169,6 +169,7 @@ function pingTest() {
       }
       else if (data.cmd === "read") {
         if ("simclock" in data.data) $('#curTime').html(data.data.simclock);
+        updateGUI(data.data);
       }
       else if ((data.cmd === "publish") && (data.success)){
         if ($('#btnEnablePublish').html() == 'Enable publish') {

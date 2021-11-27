@@ -17,6 +17,7 @@ var rxData = {};
 router.post('/report', function(req, res){
     rxData = JSON.parse(req.body.data);
     simulatedClock(rxData);
+    console.log(rxData);
     res.status(201).json({status: 'ok'});
 });
 

@@ -26,17 +26,19 @@ void DoorSensor::execute() {
     switch (state) {
         case DoorSensor::S_CLOSED:
             //t = 0;      // Reset alert timer
+            statusStr = "{\"d\":\"closed\"}";
             if (!(checkIfClosed())) {
                 state = DoorSensor::S_OPEN;
-                statusStr = "{\"d\":\"open\"}";
+                
                 //delay(1000);
             }
             break;
         case DoorSensor::S_OPEN:
             //t++;      // Increment alert timer
+            statusStr = "{\"d\":\"open\"}";
             if (checkIfClosed()) {
                 state = DoorSensor::S_CLOSED;
-                statusStr = "{\"d\":\"closed\"}";
+                
                 //delay(1000);
             }
             break;

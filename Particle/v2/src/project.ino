@@ -107,5 +107,5 @@ void loop() {
     period = PERIOD - (millis() - t);
   }
   Serial.println(period);
-  delay(period);
+  delay(150);
 }

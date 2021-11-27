@@ -19,23 +19,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   7 .module_info_crc 00000004  000d929c  000d929c  0002929c  2**0
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  8 .debug_info   00193340  00000000  00000000  000292a0  2**0
+  8 .debug_info   00193385  00000000  00000000  000292a0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_abbrev 0001a2a4  00000000  00000000  001bc5e0  2**0
+  9 .debug_abbrev 0001a295  00000000  00000000  001bc625  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    0002bb57  00000000  00000000  001d6884  2**0
+ 10 .debug_loc    0002bb3c  00000000  00000000  001d68ba  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_aranges 000029d0  00000000  00000000  002023db  2**0
+ 11 .debug_aranges 000029d0  00000000  00000000  002023f6  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000075f8  00000000  00000000  00204dab  2**0
+ 12 .debug_ranges 000075f8  00000000  00000000  00204dc6  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_macro  0003d1a1  00000000  00000000  0020c3a3  2**0
+ 13 .debug_macro  0003d1a1  00000000  00000000  0020c3be  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_line   000408e3  00000000  00000000  00249544  2**0
+ 14 .debug_line   000408e2  00000000  00000000  0024955f  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_str    00105ce5  00000000  00000000  00289e27  2**0
+ 15 .debug_str    00105ce5  00000000  00000000  00289e41  2**0
                   CONTENTS, READONLY, DEBUGGING
- 16 .debug_frame  00007788  00000000  00000000  0038fb0c  2**2
+ 16 .debug_frame  00007780  00000000  00000000  0038fb28  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -841,7 +841,7 @@ extern "C" {
 
 inline system_tick_t millis(void) { return HAL_Timer_Get_Milli_Seconds(); }
    d44d2:	f000 ffad 	bl	d5430 <HAL_Timer_Get_Milli_Seconds>
-   d44d6:	4605      	mov	r5, r0
+   d44d6:	4604      	mov	r4, r0
   unsigned long t = millis();
   //Serial.println("Starting");
   serialCmdProcessing();
@@ -854,7 +854,7 @@ inline system_tick_t millis(void) { return HAL_Timer_Get_Milli_Seconds(); }
   unsigned long period = millis() - t;
   //Serial.println(counter % (SERAIL_COMM_FREQUENCY * LOOP_FREQUENCY));
   if (counter % (SERAIL_COMM_FREQUENCY * LOOP_FREQUENCY) == 0) {
-   d44de:	4c3f      	ldr	r4, [pc, #252]	; (d45dc <loop+0x110>)
+   d44de:	4e3f      	ldr	r6, [pc, #252]	; (d45dc <loop+0x110>)
   smartLight.execute();
    d44e0:	f000 fd56 	bl	d4f90 <_ZN11CSmartLight7executeEv>
   toggleLed.execute();
@@ -868,16 +868,16 @@ inline system_tick_t millis(void) { return HAL_Timer_Get_Milli_Seconds(); }
    d44f2:	f000 fe7f 	bl	d51f4 <_ZN11CThermostat7executeEv>
    d44f6:	f000 ff9b 	bl	d5430 <HAL_Timer_Get_Milli_Seconds>
   unsigned long period = millis() - t;
-   d44fa:	6821      	ldr	r1, [r4, #0]
+   d44fa:	6831      	ldr	r1, [r6, #0]
    d44fc:	220a      	movs	r2, #10
    d44fe:	fb91 f3f2 	sdiv	r3, r1, r2
    d4502:	fb02 1313 	mls	r3, r2, r3, r1
-   d4506:	1b46      	subs	r6, r0, r5
+   d4506:	1b05      	subs	r5, r0, r4
   if (counter % (SERAIL_COMM_FREQUENCY * LOOP_FREQUENCY) == 0) {
    d4508:	2b00      	cmp	r3, #0
    d450a:	d138      	bne.n	d457e <loop+0xb2>
     counter = 0;
-   d450c:	6023      	str	r3, [r4, #0]
+   d450c:	6033      	str	r3, [r6, #0]
     Serial.printf("{\"t\":%d,\"light\":%s,\"led\":%s,\"thermostat\":%s,\"door\":%s,\"ct\":%ld}", 
    d450e:	f001 fd93 	bl	d6038 <_Z16_fetch_usbserialv>
    d4512:	4607      	mov	r7, r0
@@ -926,7 +926,7 @@ public:
    d4540:	a812      	add	r0, sp, #72	; 0x48
    d4542:	f001 fa7e 	bl	d5a42 <_ZN6StringC1ERKS_>
    d4546:	9912      	ldr	r1, [sp, #72]	; 0x48
-   d4548:	9603      	str	r6, [sp, #12]
+   d4548:	9503      	str	r5, [sp, #12]
    d454a:	e9dd 3204 	ldrd	r3, r2, [sp, #16]
    d454e:	e9cd 9101 	strd	r9, r1, [sp, #4]
    d4552:	f8cd 8000 	str.w	r8, [sp]
@@ -949,21 +949,21 @@ public:
    d457a:	f001 fb0e 	bl	d5b9a <_ZN5Print7printlnEv>
   }
   counter++;
-   d457e:	6823      	ldr	r3, [r4, #0]
+   d457e:	6833      	ldr	r3, [r6, #0]
   Serial.println(t);
   Serial.println(period);
   if (period > 1000) delay(period);
   else delay(1000) ;
   */
   if (period > PERIOD) {
-   d4580:	2e64      	cmp	r6, #100	; 0x64
+   d4580:	2d64      	cmp	r5, #100	; 0x64
   counter++;
    d4582:	f103 0301 	add.w	r3, r3, #1
-   d4586:	6023      	str	r3, [r4, #0]
+   d4586:	6033      	str	r3, [r6, #0]
   if (period > PERIOD) {
    d4588:	d920      	bls.n	d45cc <loop+0x100>
     int multiplier = (int)(ceil((float)period/PERIOD));
-   d458a:	ee07 6a90 	vmov	s15, r6
+   d458a:	ee07 5a90 	vmov	s15, r5
    d458e:	eeb8 0a67 	vcvt.f32.u32	s0, s15
   using ::ceil;
 
@@ -981,7 +981,7 @@ public:
    d45a4:	ee17 4a90 	vmov	r4, s15
     period = PERIOD*multiplier - (int)period;
    d45a8:	435c      	muls	r4, r3
-   d45aa:	1ba4      	subs	r4, r4, r6
+   d45aa:	1b64      	subs	r4, r4, r5
   }
   else{
     period = PERIOD - (millis() - t);
@@ -1001,17 +1001,16 @@ public:
         n += println();
    d45ba:	4628      	mov	r0, r5
    d45bc:	f001 faed 	bl	d5b9a <_ZN5Print7printlnEv>
-  delay(period);
-   d45c0:	4620      	mov	r0, r4
+  delay(150);
+   d45c0:	2096      	movs	r0, #150	; 0x96
    d45c2:	f001 fb91 	bl	d5ce8 <delay>
    d45c6:	b017      	add	sp, #92	; 0x5c
    d45c8:	e8bd 83f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, pc}
    d45cc:	f000 ff30 	bl	d5430 <HAL_Timer_Get_Milli_Seconds>
     period = PERIOD - (millis() - t);
-   d45d0:	3564      	adds	r5, #100	; 0x64
-   d45d2:	1a2c      	subs	r4, r5, r0
-   d45d4:	e7ea      	b.n	d45ac <loop+0xe0>
-   d45d6:	bf00      	nop
+   d45d0:	f104 0364 	add.w	r3, r4, #100	; 0x64
+   d45d4:	1a1c      	subs	r4, r3, r0
+   d45d6:	e7e9      	b.n	d45ac <loop+0xe0>
    d45d8:	2003e514 	.word	0x2003e514
    d45dc:	2003e4ec 	.word	0x2003e4ec
    d45e0:	2003e574 	.word	0x2003e574
@@ -2828,36 +2827,38 @@ void DoorSensor::execute() {
     switch (state) {
    d5332:	b113      	cbz	r3, d533a <_ZN10DoorSensor7executeEv+0xe>
    d5334:	2b01      	cmp	r3, #1
-   d5336:	d00d      	beq.n	d5354 <_ZN10DoorSensor7executeEv+0x28>
+   d5336:	d00c      	beq.n	d5352 <_ZN10DoorSensor7executeEv+0x26>
 }
    d5338:	bd10      	pop	{r4, pc}
+            statusStr = "{\"d\":\"closed\"}";
+   d533a:	490b      	ldr	r1, [pc, #44]	; (d5368 <_ZN10DoorSensor7executeEv+0x3c>)
+   d533c:	3014      	adds	r0, #20
+   d533e:	f000 fb93 	bl	d5a68 <_ZN6StringaSEPKc>
             if (!(checkIfClosed())) {
-   d533a:	f7ff ffec 	bl	d5316 <_ZN10DoorSensor13checkIfClosedEv>
-   d533e:	2800      	cmp	r0, #0
-   d5340:	d1fa      	bne.n	d5338 <_ZN10DoorSensor7executeEv+0xc>
-                state = DoorSensor::S_OPEN;
    d5342:	4620      	mov	r0, r4
-   d5344:	2301      	movs	r3, #1
-   d5346:	f800 3b14 	strb.w	r3, [r0], #20
-                statusStr = "{\"d\":\"open\"}";
-   d534a:	4907      	ldr	r1, [pc, #28]	; (d5368 <_ZN10DoorSensor7executeEv+0x3c>)
-}
-   d534c:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
-                statusStr = "{\"d\":\"closed\"}";
-   d5350:	f000 bb8a 	b.w	d5a68 <_ZN6StringaSEPKc>
-            if (checkIfClosed()) {
-   d5354:	f7ff ffdf 	bl	d5316 <_ZN10DoorSensor13checkIfClosedEv>
-   d5358:	2800      	cmp	r0, #0
-   d535a:	d0ed      	beq.n	d5338 <_ZN10DoorSensor7executeEv+0xc>
+   d5344:	f7ff ffe7 	bl	d5316 <_ZN10DoorSensor13checkIfClosedEv>
+   d5348:	2800      	cmp	r0, #0
+   d534a:	d1f5      	bne.n	d5338 <_ZN10DoorSensor7executeEv+0xc>
+                state = DoorSensor::S_OPEN;
+   d534c:	2301      	movs	r3, #1
                 state = DoorSensor::S_CLOSED;
-   d535c:	4620      	mov	r0, r4
-   d535e:	2300      	movs	r3, #0
-   d5360:	f800 3b14 	strb.w	r3, [r0], #20
-                statusStr = "{\"d\":\"closed\"}";
-   d5364:	4901      	ldr	r1, [pc, #4]	; (d536c <_ZN10DoorSensor7executeEv+0x40>)
-   d5366:	e7f1      	b.n	d534c <_ZN10DoorSensor7executeEv+0x20>
+   d534e:	7023      	strb	r3, [r4, #0]
+}
+   d5350:	e7f2      	b.n	d5338 <_ZN10DoorSensor7executeEv+0xc>
+            statusStr = "{\"d\":\"open\"}";
+   d5352:	4906      	ldr	r1, [pc, #24]	; (d536c <_ZN10DoorSensor7executeEv+0x40>)
+   d5354:	3014      	adds	r0, #20
+   d5356:	f000 fb87 	bl	d5a68 <_ZN6StringaSEPKc>
+            if (checkIfClosed()) {
+   d535a:	4620      	mov	r0, r4
+   d535c:	f7ff ffdb 	bl	d5316 <_ZN10DoorSensor13checkIfClosedEv>
+   d5360:	2800      	cmp	r0, #0
+   d5362:	d0e9      	beq.n	d5338 <_ZN10DoorSensor7executeEv+0xc>
+                state = DoorSensor::S_CLOSED;
+   d5364:	2300      	movs	r3, #0
+   d5366:	e7f2      	b.n	d534e <_ZN10DoorSensor7executeEv+0x22>
    d5368:	000d8eed 	.word	0x000d8eed
-   d536c:	000d8efa 	.word	0x000d8efa
+   d536c:	000d8efc 	.word	0x000d8efc
 
 000d5370 <netdb_freeaddrinfo>:
 
@@ -10605,8 +10606,8 @@ TwoWire& __fetch_global_Wire()
    d8eb8:	6e69 6d00 7861 7b00 7422 3a22 6625 222c     in.max.{"t":%f,"
    d8ec8:	2263 253a 2c66 6822 3a22 6625 222c 6968     c":%f,"h":%f,"hi
    d8ed8:	3a22 6625 222c 7064 3a22 6625 222c 226b     ":%f,"dp":%f,"k"
-   d8ee8:	253a 7d66 7b00 6422 3a22 6f22 6570 226e     :%f}.{"d":"open"
-   d8ef8:	007d 227b 2264 223a 6c63 736f 6465 7d22     }.{"d":"closed"}
+   d8ee8:	253a 7d66 7b00 6422 3a22 6322 6f6c 6573     :%f}.{"d":"close
+   d8ef8:	2264 007d 227b 2264 223a 706f 6e65 7d22     d"}.{"d":"open"}
    d8f08:	0000 0000                                   ....
 
 000d8f0c <_ZTVN5spark13EthernetClassE>:

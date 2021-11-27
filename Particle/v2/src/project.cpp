@@ -22,17 +22,19 @@
 #include "toggleLed.h"
 #include "thermostat.h"
 #include "Adafruit_DHT.h"
+#include "door.h"
 
 void serialCmdProcessing();
 void setup();
 void loop();
-#line 20 "h:/Documents/Masters/ECE513/Project/ECE513/Particle/v2/src/project.ino"
+#line 21 "h:/Documents/Masters/ECE513/Project/ECE513/Particle/v2/src/project.ino"
 SYSTEM_THREAD(ENABLED); 
 
 // global variables
 CSmartLight smartLight;
 CToggleLed toggleLed;
 CThermostat thermostat;
+DoorSensor doorSensor;
 int counter;
 
 void serialCmdProcessing() {
@@ -80,6 +82,7 @@ void loop() {
   serialCmdProcessing();
   smartLight.execute();
   toggleLed.execute();
+  doorSensor.execute();
   //delay(2000);
   //unsigned long s = millis();
   //Serial.printf("Thermostat start: %ld\n", s);
@@ -91,8 +94,8 @@ void loop() {
   //Serial.println(counter % (SERAIL_COMM_FREQUENCY * LOOP_FREQUENCY));
   if (counter % (SERAIL_COMM_FREQUENCY * LOOP_FREQUENCY) == 0) {
     counter = 0;
-    Serial.printf("{\"t\":%d,\"light\":%s,\"led\":%s,\"thermostat\":%s,\"ct\":%ld}", 
-      (int)Time.now(), smartLight.getStatusStr().c_str(), toggleLed.getStatusStr().c_str(),thermostat.getStatusStr().c_str(),
+    Serial.printf("{\"t\":%d,\"light\":%s,\"led\":%s,\"thermostat\":%s,\"door\":%s,\"ct\":%ld}", 
+      (int)Time.now(), smartLight.getStatusStr().c_str(), toggleLed.getStatusStr().c_str(),thermostat.getStatusStr().c_str(),doorSensor.getStatusStr().c_str(),
       period
     );
     Serial.println();
@@ -106,5 +109,13 @@ void loop() {
   if (period > 1000) delay(period);
   else delay(1000) ;
   */
-  delay(150);
+  if (period > PERIOD) {
+    int multiplier = (int)(ceil((float)period/PERIOD));
+    period = PERIOD*multiplier - (int)period;
+  }
+  else{
+    period = PERIOD - (millis() - t);
+  }
+  Serial.println(period);
+  delay(period);
 }

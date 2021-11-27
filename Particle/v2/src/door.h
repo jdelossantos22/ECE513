@@ -1,5 +1,5 @@
-#ifndef _DOOR_H_
-#define _DOOR_H_
+#ifndef _DOORH
+#define _DOORH
 
 #include "common.h"
 
@@ -8,6 +8,9 @@ public:
     DoorSensor();
     void cmdProcessing(JSONValue cmdJson);
     void execute();
+    int getSensorVal();
+    void readSensorVal();
+    bool checkIfClosed();
     String getStatusStr() {return statusStr;};
 private:
     void createStatusStr();
@@ -18,9 +21,8 @@ private:
     int t;
     int period;
     int sensorVal;
-    int sensorMax;
-    int sensorMin;
-    
+    int limit;
+
     String statusStr;
 };
 

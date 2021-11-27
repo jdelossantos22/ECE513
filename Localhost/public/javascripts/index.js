@@ -50,8 +50,8 @@ function updateGUI(data) {
         if ("b" in data.light) {
             $('#curBrightness').css("background-color", `hsl(61, ${data.light.b}%, 50%)`);
             $('#curBrightness').html(data.light.b);
-            if (data.light.b <= 50) $("#door").text("Door Open")
-            else  $("#door").text("Door Closed")
+            /*if (data.light.b <= 50) $("#door").text("Door Open")
+            else  $("#door").text("Door Closed")*/
         }
     }
     if ("thermostat" in data){
@@ -59,9 +59,15 @@ function updateGUI(data) {
         if ("h" in data.thermostat) $("#humidity").html(data.thermostat.h);
     }
     if("door" in data){
-        if ("o" in data.door) {
-            $('#door').css("background-color", "red");
-            $("#door").html(data.light.h);
+        if ("d" in data.door) {
+            if (data.door.d == 'open'){
+                $('#door').css("background-color", "red");
+                $("#door").text(data.door.d);
+            }
+            else{
+                $('#door').css("background-color", "green");
+                $("#door").text(data.door.d);
+            }
         }
     }
     if ("simclock" in data) $('#curTime').html(data.simclock);

@@ -1,4 +1,5 @@
 #include "door.h"
+#define OPEN_PERIOD 100
 
 DoorSensor::DoorSensor() {
     state = S_CLOSED;
@@ -10,7 +11,7 @@ DoorSensor::DoorSensor() {
 
 void DoorSensor::cmdProcessing(JSONValue cmdJson) {
     JSONObjectIterator iter(cmdJson);
-
+    /*
     while (iter.next()) {
         if (iter.name() == "min") {
             sensorMin = iter.value().toInt();
@@ -18,7 +19,7 @@ void DoorSensor::cmdProcessing(JSONValue cmdJson) {
         else if (iter.name() == "max") {
             sensorMax = iter.value().toInt();
         }
-    }
+    }*/
 }
 
 void DoorSensor::execute() {
@@ -27,16 +28,16 @@ void DoorSensor::execute() {
             //t = 0;      // Reset alert timer
             if (!(checkIfClosed())) {
                 state = DoorSensor::S_OPEN;
-                statusStr = "{Door is Open}";
-                delay(1000);
+                statusStr = "{\"d\":\"open\"}";
+                //delay(1000);
             }
             break;
         case DoorSensor::S_OPEN:
             //t++;      // Increment alert timer
             if (checkIfClosed()) {
                 state = DoorSensor::S_CLOSED;
-                statusStr = "{Door is Closed}";
-                delay(1000);
+                statusStr = "{\"d\":\"closed\"}";
+                //delay(1000);
             }
             break;
         // Implement after CP2 
@@ -72,7 +73,7 @@ void DoorSensor::readSensorVal() {
 int DoorSensor::getSensorVal() {
     return sensorVal;
 }
-
+/*
 void DoorSensor::sendAlert() {
     // Implement after CP2
-}
+}*/

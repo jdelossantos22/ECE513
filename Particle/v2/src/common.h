@@ -18,6 +18,7 @@
 #define LIGHT_SENSOR_MIN    500
 #define LIGHT_SENSOR_MAX    2500
 
+#define DOOR_SENSOR A2
 // command
 #define INVALID_CMD         -99999
 

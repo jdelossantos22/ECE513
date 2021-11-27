@@ -76,26 +76,22 @@ function updateGUI(data) {
 
 function smartLightControl(option, value) {
     let txcmd = {
-        cmd: "write",
-        data: {
-        smartlight: { }
-        }
+      smartlight: { }
     };
-    txcmd.data.smartlight[option] = value;
+    txcmd.smartlight[option] = value;
 
     console.log(JSON.stringify(txcmd));
-    serailCmd(txcmd);
+    //serailCmd(txcmd);
+    cloudCmd(txcmd);
     }
 
 function toggleLedControl(value) {
     let txcmd = {
-        cmd: "write",
-        data: {
-        led: {frequency: value}
-        }
+      led: {frequency: value}
     };
     console.log(JSON.stringify(txcmd));
-    serailCmd(txcmd);
+    //serailCmd(txcmd);
+    cloudCmd(txcmd);
 }
 
 function thermostatControl(value){
@@ -137,6 +133,17 @@ function pingTest() {
       contentType: 'application/json',
       data: JSON.stringify(cmd),
       dataType: 'json'
+    }).done(particleSuccess).fail(particleFailure);
+  }
+
+  function cloudCmd(cmd){
+    console.log(JSON.stringify(cmd));
+      $.ajax({
+        url: '/particle/publish',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(cmd),
+        dataType: 'json'
     }).done(particleSuccess).fail(particleFailure);
   }
 

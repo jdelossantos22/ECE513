@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var particleRouter = require('./routes/particle')
+var deviceRouter = require('./routes/device')
 
 var app = express();
 
@@ -35,6 +36,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/particle', particleRouter)
+app.use('/device', deviceRouter)
 
 
 // This is to enable cross-origin access

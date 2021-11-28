@@ -32,7 +32,7 @@ router.post('/register', function(req, res) {
             zip:-1
          });
 
-         console.log("Got in")
+         //console.log("Got in")
          newUser.save(function (err,customer){
             if(err){
                console.log(err)
@@ -65,7 +65,7 @@ router.post('/signin', function(req, res, next) {
          }
          else if(valid) {
             var authToken = jwt.encode({email: req.body.email}, secret);
-            res.status(201).json({success:true, authToken: authToken});
+            res.status(201).json({success:true, authToken: authToken, email:req.body.email});
          }
          else {
             res.status(401).json({success : false, message : "Invalid Email or password."});         

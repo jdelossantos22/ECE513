@@ -38,6 +38,34 @@ Format: {
   ct: 2
 }
 
+
+Response Codes:
+
+	200 - 	{success: true, msg: "User already has device", dKey: device.apikey, dId:device.deviceId}
+		{cmd: 'publish', success: true}
+		{cmd: 'ping', success: true, data: JSON.parse(response.text)}
+
+	201 - 	{success : true, message : req.body.name + "has been added to " + req.body.email, dKey:device.apikey, dId:device.deviceId}
+		{success: true, msg: "This user has no device"}
+		{cmd: 'publish', success: false}
+		{cmd: 'ping', success: false, data: JSON.parse(err.response.text)}
+		{cmd: 'read', data: retData}
+		{success : true, message : req.body.fullName + "has been created"}
+		{success:true, authToken: authToken, email:req.body.email}
+
+	400 - 	{success: false, err: err}
+		{success : false, message : err.errmsg, error:"bcryptjs error"}
+		{success : false, message : err.errmsg, error: "Error"}
+
+	401 - 	{success:false, err:err}
+		{success: false, msg: "This email already used" }
+		{success : false, message : "Can't connect."}
+		{success : false, message : "Invalid Email or password ."}
+		{success : false, message : "Error authenticating."}
+
+	404 - 	Not Found
+	
+
 System Tutorial:
 	
 	Homepage:      Team and general information page.

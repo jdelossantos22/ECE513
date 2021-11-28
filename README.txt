@@ -38,5 +38,26 @@ Format: {
   ct: 2
 }
 
+System Tutorial:
+	
+	Homepage:      Team and general information page.
+		       To view relevant information and videos for checkpoint 2, select the "Click here to learn more" link on the home page.
+
+	Sign-up:       From the homepage, click on the "Signup" icon in the top right. 
+		       Enter all required information. Click register.
+		       Re-enter your email and password to sign-in.
+		       If you do not have a device currently registered, fill in the provided fields.
+		       You will now be redirected to the controller.
+	
+	Login:         From the homepage, click on the "Login" icon in the top right. 
+		       Enter your email and password.
+		       If you do not have a device currently registered, fill in the provided fields.
+		       You will now be redirected to the controller.
+	
+	Controller:    To view the data, you must have your device properly setup.
+	             	  A0 - Light Sensor
+			  A2 - Door Sensor
+			  D2 - DHT11
+		       Your device must also be registered and have a webhook created (Follow instructions in lecture 11_08).
 
 

@@ -24,20 +24,20 @@
 #include "Adafruit_DHT.h"
 #include "door.h"
 
-//SYSTEM_THREAD(ENABLED); 
-
-// global variables
 int updateRxCmd(String cmdStr);
 void cloudCmdProcessing();
 void setup();
 void loop();
 void myWebhookHandler(const char *event, const char *data);
-#line 24 "h:/Documents/Masters/ECE513/Project/ECE513/Particle/v3/src/project.ino"
+#line 21 "h:/Documents/Masters/ECE513/Project/ECE513/Particle/v3/src/project.ino"
+SYSTEM_THREAD(ENABLED); 
+
+// global variables
 int counter;
 bool bPublish;
+bool ping=true;
 String rxCloudCmdStr;
 String statusStr;
-bool ping=true;
 CSmartLight smartLight;
 CToggleLed toggleLed;
 CThermostat thermostat;
@@ -49,7 +49,6 @@ int updateRxCmd(String cmdStr) {
   rxCloudCmdStr = cmdStr;
   return 0;
 }
-
 
 
 void cloudCmdProcessing() {
@@ -90,10 +89,11 @@ void setup() {
   statusStr = "";
   Serial.begin();
 
-  //remote control
+  // remote control
   Particle.function("cloudcmd", updateRxCmd);
   //ping
   Particle.variable("ping", ping);
+  Particle.variable("read", statusStr);
   // Subscribe to the webhook response event
   Particle.subscribe("hook-response/smarthome", myWebhookHandler);
 }

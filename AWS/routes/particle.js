@@ -7,8 +7,12 @@ var request = require('superagent');
 /* Please use your device id and access token for your testing*/
 /* For your project, device ID and token should be in your database*/
 var deviceInfo = {
-    id: 'e00fce684118b517fd70df3b',
-    token: '1b876e93a09ff60c17322cd98e10abfbae2701ca'
+    // id: 'e00fce684118b517fd70df3b',
+    // token: '1b876e93a09ff60c17322cd98e10abfbae2701ca'
+    
+    //Ian
+    id: 'e00fce681f7adbe6b1865551',
+    token: '10510de9ac9604111c757963916881ddc343664a'
 };
 
 var rxData = {};

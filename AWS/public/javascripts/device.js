@@ -6,7 +6,7 @@ function Register(){
     let txdata = {
         name:deviceName,
         id:deviceId,
-        api,deviceKey,
+        api:deviceKey,
         email: userEmail
     };
     $.ajax({
@@ -41,3 +41,7 @@ function registerError(jqXHR, textStatus, errorThrown) {
       $('#ServerResponse').show();
     }
   }
+
+  $(function () {
+    $('#signup').click(Register);
+  });

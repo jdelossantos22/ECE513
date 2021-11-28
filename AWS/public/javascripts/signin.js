@@ -48,6 +48,8 @@ function checkDeviceExists(){
 function findDeviceSuccess(data, textSatus, jqXHR){
   
   if (data.msg == "User already has device"){
+    window.localStorage.setItem('dKey', data.dKey);
+    window.localStorage.setItem('dId', data.dId);
     window.location = "controllerAtHome.html";
   }
   else{

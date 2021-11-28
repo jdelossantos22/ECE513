@@ -38,7 +38,7 @@ router.post('/register', function(req, res) {
                 
              }
              else{
-                res.status(201).json({success : true, message : req.body.name + "has been added to " + req.body.email});
+                res.status(201).json({success : true, message : req.body.name + "has been added to " + req.body.email, dKey:device.apikey, dId:device.deviceId});
                 console.log("device created")
              }
           });
@@ -50,7 +50,7 @@ router.post('/register', function(req, res) {
 router.post('/find', function(req, res){
     Device.findOne({userEmail: req.body.email}, function(err, device){
         if(device){
-            res.status(200).json({success: true, msg: "User already has device" });
+            res.status(200).json({success: true, msg: "User already has device", dKey: device.apikey, dId:device.deviceId}); //, authToken: authToken, email:req.body.email
         }
         else{
             res.status(201).json({success: true, msg: "This user has no device" });

@@ -1,0 +1,16 @@
+#humidDaily, #tempDaily{
+    border-collapse: collapse;
+}
+#humidDaily td, #humidDaily th, #tempDaily td, #tempDaily th{
+    border: 1px solid black;
+    text-align: center;
+    padding:10px;
+
+    
+}
+#tempDaily, #humidDaily{
+    display:inline-block;
+    margin-left:10px;
+    margin-right:10px;
+}
+

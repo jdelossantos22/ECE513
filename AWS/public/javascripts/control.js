@@ -1,10 +1,12 @@
 var gCtrlVar = {
     baseUrl: 'https://api.openweathermap.org/data/2.5/',
     apiKey: '5399b0dde9cf4901f36860ba0960fc8a',
-    zip: '85710',
+    zip: '85721',
     country: 'us',
     unit:'imperial'            
 };//api.openweathermap.org/data/2.5/weather?zip={zip code},{country code}&appid={API key}
+
+var devices = [];
 
 function httpGet(url){
     var xmlHTTP = new XMLHttpRequest();
@@ -56,10 +58,33 @@ function getUrl(){
     url += "appid=" + gCtrlVar.apiKey;
     return url;
 }
+function getUserInfo(){
+    
+}
+function initDevices(){
+//items.find.sort( [['_id', -1]] ) // get all items desc by created date.
+//sort by first added, first added is the primary device
+}
+
+function initThermostat(){
+
+}
+function get_zip_code(){
+    var userEmail = window.localStorage.getItem("email")
+
+}
 
 $(function(){
+    //review auth token first
+    //get user info first to get zip code
+    //get open weather
+    //if no zip code, set zip code to u of a
     url = getUrl();
     httpGet(url);
+    //from get user info, i can get devices from user email
+    //initDevicees()
+    //initThermostat();
+
     $("#farenheit").click(convertToFarenheit);
     $("#celsius").click(convertToCelsius);
     

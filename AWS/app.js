@@ -10,6 +10,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var particleRouter = require('./routes/particle')
 var deviceRouter = require('./routes/device')
+var tempRouter = require('./routes/temperature')
 
 var app = express();
 
@@ -37,6 +38,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/particle', particleRouter)
 app.use('/device', deviceRouter)
+app.use('/temperature', tempRouter)
 
 
 // This is to enable cross-origin access

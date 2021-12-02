@@ -1,26 +1,14 @@
 var express = require('express');
 var router = express.Router();
-let User = require("../models/users");
 let Device = require("../models/device");
-let Token = require("../models/token");
 
-var crypto = require('crypto');
-var nodemailer = require('nodemailer');
-const fs = require('fs');
-const bcrypt = require("bcryptjs");
-const jwt = require("jwt-simple");
-
-/*Check user*/
-const secret = fs.readFileSync(__dirname + '/../keys/jwtkey').toString();
-//const secret = "supersecret";
-
-/* Register */
-router.post('/register', function(req, res) {
+/* //add */
+router.post('/create', function(req, res) {
    
-    Device.findOne({userEmail: req.body.email}, function(err, user){
+    Device.findOne({deviceId: req.body.id, userEmail:req.body.email}, function(err, user){
        if(err) res.status(401).json({success:false, err:err});
        else if(user){
-          res.status(401).json({success: false, msg: "This email already used" });
+          res.status(401).json({success: false, msg: "This device id already created" });
        }
        else{
           const newDevice = new Device({
@@ -56,6 +44,43 @@ router.post('/find', function(req, res){
             res.status(201).json({success: true, msg: "This user has no device" });
         }
     });
+});
+
+//remove
+router.post('/delete', function(req,res){
+   Device.deleteOne({deviceId:req.body.id}, function(err, result){
+      if(err){
+         let msg = "Delete err";
+         res.status(201).json({msg:msg, err:err});
+      }
+      else{
+         let msg = result;
+         res.status(201).json({msg:msg});
+      }
+   });
+});
+
+
+
+
+//update
+router.post('/update', function(req, res){
+   Device.findOneAndUpdate({deviceId:req.body.id}, req.body, function(err,doc){
+      if(err){
+         let msg = 'Something wrong with update ...'
+         res.status(201).json({msg:msg, err:err});
+      }
+      else{
+         let msg;
+         if(doc == null){
+            msg = `Device (name: ${req.body.name}) info does not exist in DB`;
+         }
+         else{
+            msg = `Device (name: ${req.body.name}) has been updated`;
+         }
+         res.status(201).json({msg:msg});
+      }
+   });
 });
 
 module.exports = router;

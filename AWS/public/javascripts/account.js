@@ -9,15 +9,25 @@ function sendReqForAccountInfo() {
     .fail(accountInfoError);
 }
 
+
+
+
+
+
 function accountInfoSuccess(data, textSatus, jqXHR) {
-  $("#email").html(data.email);
+  $("#email").html(data.email).show();
+  console.log(data.email)
   $("#fullName").html(data.fullName);
+  console.log(data.fullName)
   $("#lastAccess").html(data.lastAccess);
+  console.log(data.lastAccess)
   $("#zip").html(data.zip);
-  $("#main").show();
+  console.log(data.zip)
+  //$("#main").show();
   
   // Add the devices to the list 
   for (let device of data.devices) {
+    console.log(device)
     $("#addDeviceList").before("<li class='collection-item'>ID: " +
       "<span class='ID'> " + device.deviceId + "</span>, APIKEY: <span class='ID'> " + device.apikey + "</span><br>" +
       " </li>");

@@ -16,7 +16,7 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
   $("#zip").html(data.zip);
   $("#main").show();
   
-  // Add the devices to the list before the list item for the add device button
+  // Add the devices to the list 
   for (let device of data.devices) {
     $("#addDeviceList").before("<li class='collection-item'>ID: " +
       "<span class='ID'> " + device.deviceId + "</span>, APIKEY: <span class='ID'> " + device.apikey + "</span><br>" +

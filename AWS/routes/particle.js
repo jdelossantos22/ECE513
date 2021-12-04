@@ -18,6 +18,20 @@ var deviceInfo = {
 
 var rxData = {};
 
+var samplePeriod = 1;
+
+router.post('/sample', function(req, res, next){
+    samplePeriod = req.body.samplePeriod;
+    res.status(201).json({success : true, message : "Sample period updated"});
+});
+
+router.post('/device', function(req,res, next){
+    let device = req.body.device;
+    deviceInfo.id = device.id;
+    deviceInfo.token = deviceInfo.token;
+    res.status(201).json({success : true, message : "Device updated for the particle"});
+});
+
 // 2. defines some routes
 router.post('/report', function(req, res, next){
     rxData = JSON.parse(req.body.data);
@@ -66,7 +80,7 @@ router.get('/read', function (req, res, next) {
 // Simulated clock
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 var referenceTimeInSec = null;
-var clockUnit = 60;     // 1 sec --> 1 minutes
+var clockUnit = 60 * samplePeriod;     // 1 sec --> 1 minutes
 let simulatedTime = null;
 function simulatedClock(data) {
     let str = "";

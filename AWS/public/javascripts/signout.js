@@ -1,6 +1,6 @@
 $(function() {
   $('#signout').click(function() {
-     window.localStorage.removeItem();
+     window.localStorage.clear();
      window.location = "index.html";
   });
 });

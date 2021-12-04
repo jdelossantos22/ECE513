@@ -7,12 +7,17 @@ function Register(){
   let deviceId = $("#deviceId").val();
   let deviceKey = $("#apiKey").val();
   let userEmail = user[0].email;
+  let date = $("#startDate").val() + " " + $("#startTime").val()
+  date = new Date(date);
+  console.log(date)
   let txdata = {
       name:deviceName,
       id:deviceId,
       api:deviceKey,
-      email: userEmail
+      email: userEmail,
+      startDate:date
   };
+  
   $.ajax({
       url: '/device/create',
       type: 'POST',
@@ -21,7 +26,7 @@ function Register(){
       dataType: 'json'
       }).done(registerSuccess)
       .fail(registerError);
-
+  
   
 }
 
@@ -49,8 +54,16 @@ function registerError(jqXHR, textStatus, errorThrown) {
     }
   }
 
+  Date.prototype.toDateInputValue = (function() {
+    var local = new Date(this);
+    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+    return local.toJSON().slice(0,10);
+  });
+
   $(function () {
     $('#signup').click(Register);
+    //$("startDate").val(new Date().toDateInputValue());
+    //$("startTime")
     $.ajax({
       url: '/users/status',
       method: 'GET',
@@ -65,4 +78,5 @@ function registerError(jqXHR, textStatus, errorThrown) {
       window.localStorage.removeItem('authToken');
       window.location = "index.html";
     });
+
   });

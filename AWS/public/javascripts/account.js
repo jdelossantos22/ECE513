@@ -1,15 +1,15 @@
 function sendReqForAccountInfo() {
   $.ajax({
-    url: '/users/account',
+    url: '/users/status',
     type: 'GET',
     headers: { 'x-auth': window.localStorage.getItem("authToken") },
     dataType: 'json'
-  })
-    .done(accountInfoSuccess)
+  }).done(accountInfoSuccess)
     .fail(accountInfoError);
 }
 
 function accountInfoSuccess(data, textSatus, jqXHR) {
+  console.log("JHEY")
   $("#email").html(data.email);
   $("#fullName").html(data.fullName);
   $("#lastAccess").html(data.lastAccess);
@@ -27,6 +27,7 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
 function accountInfoError(jqXHR, textStatus, errorThrown) {
   // If authentication error, delete the authToken 
   // redirect user to sign-in page 
+  console.log("HEY")
   if( jqXHR.status === 401 ) {
     window.localStorage.removeItem("authToken");
     window.location.replace("signin.html");
@@ -41,10 +42,13 @@ function accountInfoError(jqXHR, textStatus, errorThrown) {
 $(function() {
   // If there's no authToekn stored, redirect user to 
   // the sign-in page 
+  //console.log(!window.localStorage.getItem("authToken"))
+  
   if (!window.localStorage.getItem("authToken")) {
     window.location.replace("signin.html");
   }
   else {
     sendReqForAccountInfo();
   }
+  //console.log("account.js")
 });

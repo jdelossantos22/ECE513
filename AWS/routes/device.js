@@ -15,7 +15,8 @@ router.post('/create', function(req, res) {
             apikey:       req.body.api,
             deviceId:     req.body.id,
             userEmail:    req.body.email,
-            deviceName: req.body.name
+            deviceName: req.body.name,
+            startDate: req.body.startDate
           });
  
           //console.log("Got in")

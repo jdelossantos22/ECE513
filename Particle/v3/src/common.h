@@ -23,6 +23,9 @@
 // command
 #define INVALID_CMD         -99999
 
+//thermostat
+#define HALF_HOUR 1000*30
+
 // serial communication
 #define SERAIL_COMM_FREQUENCY   1   // 1 Hz
 

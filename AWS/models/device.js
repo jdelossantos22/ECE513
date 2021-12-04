@@ -5,6 +5,7 @@ var db = require("../db");
       deviceId:     String,
       deviceName: String,
       userEmail:    String,
+      startDate: Date
 
 });
 

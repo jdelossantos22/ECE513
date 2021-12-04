@@ -6,8 +6,7 @@
 
 typedef struct {
     int mode;            // 0: off, 1:cool, 2:heat
-    int fanAuto;             // false: manual, true: auto
-    int fanMode;            //false: off, true:on
+    int fanMode;            //false: auto, true:on
     int setTemp;
 } ThermostatCmdStruct;
 
@@ -15,6 +14,7 @@ class CThermostat {
     enum STATE_MODE { S_OFF, S_HEAT, S_COOL };
     enum STATE_HEAT { S_HEAT_WAIT, S_HEAT_ON };
     enum STATE_COOL { S_COOL_WAIT, S_COOL_ON };
+    enum STATE_FAN_MODE  { F_OFF, F_ON};
 public:
     CThermostat();
     void cmdProcessing(JSONValue cmdJson);
@@ -32,9 +32,12 @@ private:
     STATE_MODE state_mode;
     STATE_HEAT state_heat;
     STATE_COOL state_cool;
+    STATE_FAN_MODE state_fan_mode;
     int counter;
     int lastRead;
     int dT=1;
+    int startTime;
+    int samplingPeriod=1;
     ThermostatCmdStruct cmd;
 };
 

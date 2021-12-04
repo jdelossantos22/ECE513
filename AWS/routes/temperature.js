@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 let Temperature = require("../models/temperature")
 
+
 //create
 router.post('/create', function(req, res){
     console.log(req.body.postDate)
@@ -44,7 +45,7 @@ router.post('/find', function(req,res){
 });
 
 //readAll
-router.post('/readAll',  function(req,res){
+router.post('/readAll', function(req,res,next){
     let day = 1000 * 60 * 60 * 24;
     let today = req.body.date;
     

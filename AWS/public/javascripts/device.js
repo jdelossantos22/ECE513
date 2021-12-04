@@ -1,22 +1,28 @@
+var user;
+
 function Register(){
-    let deviceName = $("#deviceName").val();
-    let deviceId = $("#deviceId").val();
-    let deviceKey = $("#apiKey").val();
-    let userEmail = window.localStorage.getItem("email")
-    let txdata = {
-        name:deviceName,
-        id:deviceId,
-        api:deviceKey,
-        email: userEmail
-    };
-    $.ajax({
-        url: '/device/register',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(txdata),
-        dataType: 'json'
-        }).done(registerSuccess)
-        .fail(registerError);
+  //const user = await response.json();
+  console.log(user)
+  let deviceName = $("#deviceName").val();
+  let deviceId = $("#deviceId").val();
+  let deviceKey = $("#apiKey").val();
+  let userEmail = user[0].email;
+  let txdata = {
+      name:deviceName,
+      id:deviceId,
+      api:deviceKey,
+      email: userEmail
+  };
+  $.ajax({
+      url: '/device/create',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(txdata),
+      dataType: 'json'
+      }).done(registerSuccess)
+      .fail(registerError);
+
+  
 }
 
 function registerSuccess(data, textStatus, jqXHR) {
@@ -32,16 +38,31 @@ function registerSuccess(data, textStatus, jqXHR) {
 }
 
 function registerError(jqXHR, textStatus, errorThrown) {
+    console.log(jqXHR)
     if (jqXHR.statusCode == 404) {
       $('#ServerResponse').html("<span class='red-text text-darken-2'>Server could not be reached.</p>");
       $('#ServerResponse').show();
     }
     else {
-      $('#ServerResponse').html("<span class='red-text text-darken-2'>Error: " + jqXHR.responseJSON.message + "</span>");
+      $('#ServerResponse').html("<span class='red-text text-darken-2'>Error: " + jqXHR.responseJSON + "</span>");
       $('#ServerResponse').show();
     }
   }
 
   $(function () {
     $('#signup').click(Register);
+    $.ajax({
+      url: '/users/status',
+      method: 'GET',
+      headers: { 'x-auth' : window.localStorage.getItem("authToken") },
+      dataType: 'json'
+    })
+    .done(function (data, textStatus, jqXHR) {
+      console.log(data)
+      user = data;
+    })
+    .fail(function (jqXHR, textStatus, errorThrown) {
+      window.localStorage.removeItem('authToken');
+      window.location = "index.html";
+    });
   });

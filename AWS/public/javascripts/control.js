@@ -7,6 +7,8 @@ var gCtrlVar = {
 };//api.openweathermap.org/data/2.5/weather?zip={zip code},{country code}&appid={API key}
 
 var devices = [];
+var user;
+var setTemp = 0;
 
 function httpGet(url){
     var xmlHTTP = new XMLHttpRequest();
@@ -27,7 +29,11 @@ function displayResult(evt){
         $("#weather-description").text(gRxData.weather[0].description);
         let date = new Date(gRxData.dt*1000);
         let dayName = date.toLocaleDateString(undefined,{weekday: 'long'})
-        let dayTime = dayName + " " + date.getHours() + ":" + date.getMinutes();
+        let hour = date.getHours();
+        let minute = date.getMinutes();
+        if (String(hour).length == 1) hour = '0' + hour;
+        if (String(minute).length == 1) minute = '0' + minute;
+        let dayTime = dayName + " " + hour + ":" + minute;
         $("#weather-date").text(dayTime);
         let iconUrl = "http://openweathermap.org/img/wn/" + gRxData.weather[0].icon + "@2x.png"
         $("#weather-icon img").attr("src", iconUrl);
@@ -64,6 +70,33 @@ function getUserInfo(){
 function initDevices(){
 //items.find.sort( [['_id', -1]] ) // get all items desc by created date.
 //sort by first added, first added is the primary device
+    let txdata = {
+        email:user[0].email
+    }
+    $.ajax({
+        url: '/device/findAll',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(txdata),
+        dataType:'json'
+    }).done(deviceSuccess).fail(deviceFailure);     
+}
+
+function deviceSuccess(data, textStatus, jqXHR){
+    console.log(data.devices)
+    window.localStorage.setItem("devices", JSON.stringify(data.devices))
+    let devices = data.devices
+    for(let i = 0; i < devices.length; i++){
+        console.log(devices[i])
+        $("#devicesList").prepend(`<li><a class="dropdown-item devices" href="#"">${devices[i].deviceName}</a></li>`)
+        $(".devices").click(updateGUI)
+    }
+}
+function updateGUI(e){
+    console.log("HEY")
+}
+function deviceFailure(jqXHR, textStatus, errorThrown){
+    console.log(jqXHR.responseText);
 }
 
 function initThermostat(){
@@ -74,18 +107,72 @@ function get_zip_code(){
 
 }
 
+
+
 $(function(){
     //review auth token first
-    //get user info first to get zip code
-    //get open weather
-    //if no zip code, set zip code to u of a
-    url = getUrl();
-    httpGet(url);
-    //from get user info, i can get devices from user email
-    //initDevicees()
-    //initThermostat();
+    $.ajax({
+        url: '/users/status',
+        method: 'GET',
+        headers: { 'x-auth' : window.localStorage.getItem("authToken") },
+        dataType: 'json'
+      })
+      .done(function (data, textStatus, jqXHR) {
+        console.log(data)
+        user = data;
+        
+        //get user info first to get zip code
+        //get open weather
+        //if no zip code, set zip code to u of a
+        gCtrlVar.zip = user[0].zip
+        console.log(gCtrlVar.zip)
+        url = getUrl();
+        httpGet(url);
+        initDevices()
 
+      })
+      .fail(function (jqXHR, textStatus, errorThrown) {
+        window.localStorage.removeItem();
+        window.location = "index.html";
+    });
+    //from get user info, i can get devices from user email
+    function changeMode(e){
+        let mode = e.target.id
+        $(".mode").removeClass("btn-dark")
+        $("#thermostatMode").removeClass()
+        //e.target.parentNode.classList.toggle("btn-light")
+        e.target.parentNode.classList.toggle("btn-dark")
+        switch(mode){
+            case 'off':
+                console.log('OFF');
+                $("#thermostat").css("background","linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(93,93,93,1) 100%)");
+                $("#thermostatMode").text("OFF")
+                $("#thermostatMode").addClass("off")
+                $("#tempVal").addClass("off")
+                break;
+            case 'cold':
+                console.log('COLD');
+                $("#thermostat").css("background","linear-gradient(90deg, #1CB5E0 0%, #000851 100%)");
+                $("#thermostatMode").text("COOLING")
+                $("#thermostatMode").addClass("cold")
+                $("#tempVal").addClass("cold")
+                break;
+            case 'heat':
+                console.log('HEATSS');
+                $("#thermostat").css("background","linear-gradient(90deg, #d53369 0%, #daae51 100%)");
+                $("#thermostatMode").text("HEATING")
+                $("#thermostatMode").addClass("heat")
+                $("#tempVal").addClass("heat")
+                break;
+            default:
+                break;
+        }
+    }
+    //initThermostat();
+    $(".devices").click(updateGUI)
     $("#farenheit").click(convertToFarenheit);
     $("#celsius").click(convertToCelsius);
+    $("input[name='mode']").change(changeMode)
+    
     
 });

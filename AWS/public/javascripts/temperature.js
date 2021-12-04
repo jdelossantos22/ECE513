@@ -8,10 +8,6 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
 
-
-
-
-
 function initGUI(){
     var today = new Date();
     today = today.setHours(0,0,0,0);
@@ -19,6 +15,13 @@ function initGUI(){
 }
 
 function updateGUI(date){
+  /*
+    const token = localStorage.getItem("authToken");
+    const respons = await fetch("/users/status",{
+      headers: {"X-Auth": token }
+    });
+
+    if (respons.status.ok){}  */
     let jsonStr = JSON.stringify({date:date})
     console.log(jsonStr)
     let jsonData = JSON.parse(jsonStr)
@@ -119,6 +122,9 @@ function tempSuccess(data, textStatus, jqXHR){
           }]
         },
         options: {
+          responsive: true,
+          aspectRatio: 2,
+          maintainAsepctRatio: true,
           scales: {
             yAxes: [{
               ticks: {
@@ -151,6 +157,9 @@ function tempSuccess(data, textStatus, jqXHR){
           }]
         },
         options: {
+          responsive: true,
+          aspectRatio: 2,
+          maintainAsepctRatio: true,
           scales: {
             yAxes: [{
               ticks: {
@@ -203,6 +212,20 @@ function generateTemp(){
 }
 $(function() {
     //generateTemp();
+    $.ajax({
+      url: '/users/status',
+      method: 'GET',
+      headers: { 'x-auth' : window.localStorage.getItem("authToken") },
+      dataType: 'json'
+    })
+    .done(function (data, textStatus, jqXHR) {
+      console.log(data)
+      user = data;
+    })
+    .fail(function (jqXHR, textStatus, errorThrown) {
+      window.localStorage.removeItem('authToken');
+      window.location = "index.html";
+    });
     initGUI();
     
 });

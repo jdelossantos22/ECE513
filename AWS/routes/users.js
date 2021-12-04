@@ -29,7 +29,7 @@ router.post('/register', function(req, res) {
             fullName: req.body.fullName,
             passwordHash: passwordHash,
             userDevices:[],
-            zip:-1
+            zip:req.body.zip
          });
 
          //console.log("Got in")
@@ -82,50 +82,32 @@ router.post('/signin', function(req, res, next) {
 
 
 
-/*Zip COde*/
-
+/*Auth token status*/
 router.get("/status", function(req, res, next){
-  var valid_zip = /^\d{5}$/;
-
-  if (!valid_zip.test(req.query.zip)) {
-          var errormsg = {"error" : "a zip code is required"};
-          res.status(400).send(JSON.stringify(errormsg));
-  }
-  else {
-          var zipID = req.query.zip;
-          var query = {"zip":zipID};
-          Recording.find(query, function(err, allzipcodes){
-                  if(err){
-                          var errormsg = { "message" : err};
-                          res.status(400).send(JSON.stringify(errormsg));
-                  }
-          });
-  }
-});
-
-
-router.post("/register", function(req, res, next) {
-   if (!req.body.hasOwnProperty("zip")){
-      var errormsg = {"error" : "zip required"};
-      res.status(400).send(JSON.stringify(errormsg));
-      }
-   var newZipcode = new Recording ( {
-      zip: req.body.zip,
+   //console.log(req.headers)
+   //header should have X-Auth set
+   if(!req.headers["x-auth"]){
+      return res.status(401).json({error:"Missing X-Auth header"});
+   }
+   //X-auth should contain the token
+   const token = req.headers["x-auth"];
+   try{
+      const decode = jwt.decode(token, secret);
+      console.log(decode.email)
+      User.find({email:decode.email}, function(err, users){
+         if(err){
+            res.status(400).json({ success: false, message: "Error contacting DB. Please contact support." });
+         }
+         else {
+            res.status(200).json(users);
+         }
       });
-   newZipcode.save(function(err, newZipcode){
-   if (err) {
-      var errormessage = {"error" : "zip required."};
-      res.status(400).json(errormessage);
-      }
-   else	{
-      var msg = {"response" : "Data recorded."}
-      res.status(201).json(msg);
-      }
-   });
+
+   }
+   catch(ex){
+      res.status(401).json({error:"Invalid JWT"});
+   }
 });
-
-
-
 
 
 

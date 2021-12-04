@@ -1,6 +1,6 @@
 $(function() {
   $('#signout').click(function() {
-     window.localStorage.removeItem('authToken');
+     window.localStorage.removeItem();
      window.location = "index.html";
   });
 });

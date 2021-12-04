@@ -1,6 +1,17 @@
-
 input[type="radio"] {
     display:none;
+}
+#sampleInfo{
+    color: white;
+}
+#ping_status{
+    background-color: inherit;
+    color: #f8f9fa;
+    border:0;
+}
+#samplingPeriod{
+    background-color: inherit;
+    color: #f8f9fa;
 }
 #weather{
     background-color: #2a5f9a;
@@ -17,11 +28,22 @@ input[type="radio"] {
 #set-temp-num{
     font-size:15vw;
     /*font-family: Arial, Helvetica, sans-serif;*/
-    font-family: "Barlow", sans-serif
+    font-family: "Barlow", sans-serif;
+    background:inherit;
+    color:white;
+    display: inline-block;
+    width:50%;
+    border:0;
+    text-align:right;
+    padding:0;
+}
+#set-temp-num + span{
+    font-size:8vw;
 }
 body{
     margin-right:0;
-    background-color: #124d88;
+    /*background-color: #124d88;*/
+    background: linear-gradient(90deg, #FDBB2D 0%, #22C1C3 100%);
 }
 #humidity{
     font-size:3vw;
@@ -60,15 +82,54 @@ body{
     margin-right:1rem;
 }
 
+#thermostat{
+    background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
+    /*background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%);*/
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+#thermostatMode{
+    color: white;
+    font-size: 1.5rem;
+}
+#tempVal{
+    color:white;
+    font-size:5rem;
+}
+
+.cold{
+    color:#1756bd;
+}
+.heat{
+    color:#d89455;
+}
+.off{
+    color:#dbdbdb;
+}
+
+
+
 /*h1 {
     background-color:rgb(0, 0, 0); 
 }*/
-@media screen and (max-width:500){
+@media screen and (max-width:500px){
     #thermostatMode{
         font-size:1px;
     }
+    #humidity{
+        font-size:2rem;
+    }
     #set-temp-num {
-        font-size: 10px;
+        width:30%
      }
 }
 @media screen and (min-width: 1200px) {

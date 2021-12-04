@@ -3,13 +3,11 @@
 DHT dht(DHTPIN, DHTTYPE);
 
 CThermostat::CThermostat() {
-    celsius = 0.0;
     farenheit = 0.0;
     humidity = 0.0;
-    heatIndex = 0.0;
-    dewPoint = 0.0;
-    kelvin = 0.0;
-    state = CThermostat::S_READ;
+    state_mode = CThermostat::S_OFF;
+    state_heat = CThermostat::S_HEAT_WAIT;
+    state_cool = CThermostat::S_COOL_WAIT;
     statusStr = "{}";
     lastRead = 0;
     
@@ -19,7 +17,18 @@ CThermostat::CThermostat() {
 void CThermostat::cmdProcessing(JSONValue cmdJson) {
     JSONObjectIterator iter(cmdJson);
     while (iter.next()) {
-        continue;
+        if(iter.name() == "mode"){
+            cmd.mode = iter.value().toInt();;
+        }
+        else if(iter.name() == "fanAuto"){
+            cmd.fanAuto = (int)iter.value().toBool();
+        }
+        else if(iter.name() == "fanOn"){
+            cmd.fanMode = (int)iter.value().toBool();
+        }
+        else if(iter.name() == "setTemp"){
+            cmd.setTemp = iter.value().toInt();
+        }
     }
 }
 
@@ -29,27 +38,108 @@ void CThermostat::execute() {
     
     int currentTime = millis();
     float tempHumidity;
-    float tempCelsius;
     float tempFarenheit;
-    float tempHeatIndex;
-    float tempDewPoint;
-    float tempKelvin;
     //Serial.println(currentTime);
     //Serial.println(lastRead);
-    switch(state){
-        case CThermostat::S_DELAY:
-            //Serial.println("DELAY");
-            if (currentTime >= lastRead + 2000){
-                state = CThermostat::S_READ;
+    
+    tempHumidity = dht.getHumidity();
+    tempFarenheit = dht.getTempFarenheit();
+    if (!isnan(tempHumidity)) humidity = tempHumidity;
+    if (!isnan(tempFarenheit)) farenheit = tempFarenheit;
+
+    switch(state_mode){
+        case CThermostat::S_OFF:
+            if(cmd.mode != INVALID_CMD){
+                checkMode();
             }
             break;
-        // Reading temperature or humidity takes about 250 milliseconds!
-        // Sensor readings may also be up to 2 seconds 'old' (its a 
-        // very slow sensor)
-        //dht.begin();
-        //delay(2000);
-        case CThermostat::S_READ:
-            //Serial.println("READ");
+        case CThermostat::S_COOL:
+            switch(state_cool){
+                case CThermostat::S_COOL_WAIT:
+                    if(farenheit > cmd.setTemp + dT){
+                        counter = 0;
+                        state_cool = CThermostat::S_COOL_ON;
+                    }
+                    farenheit += counter;
+                    counter++;
+                    break;
+                case CThermostat::S_COOL_ON:
+                    if(farenheit < cmd.setTemp - dT){
+                        counter = 0;
+                        state_cool = CThermostat::S_COOL_WAIT;
+                    }
+                    farenheit -= counter;
+                    counter++;
+                    break;
+                default:
+                    break;
+            }
+            checkMode();
+            break;
+        case CThermostat::S_HEAT:
+            switch(state_heat){
+                case CThermostat::S_HEAT_WAIT:
+                    if(farenheit < cmd.setTemp-dT){
+                        counter = 0;
+                        state_heat = CThermostat::S_HEAT_ON;
+                    }
+                    farenheit -= counter;
+                    counter++;
+                    break;
+                case CThermostat::S_HEAT_ON:
+                    if(farenheit > cmd.setTemp+dT){
+                        counter = 0;
+                        state_heat = CThermostat::S_HEAT_WAIT;
+                    }
+                    farenheit += counter;
+                    counter++;
+                    break;
+                default:
+                    break;
+            }
+            checkMode();
+            break;
+        default:
+            break;
+
+    }
+    resetCmd();
+    createStatusStr();
+    
+}
+
+void CThermostat::checkMode(){
+    switch(cmd.mode){
+        case 0://off
+            state_mode = CThermostat::S_OFF;
+            break;
+        case 1://cool
+            counter = 0;
+            state_mode = CThermostat::S_COOL;
+            break;
+        case 2://heat
+            counter = 0;
+            state_mode = CThermostat::S_HEAT;
+            break;
+        default:
+            break;
+    }   
+}
+
+void CThermostat::resetCmd() {
+    cmd.mode = INVALID_CMD;
+    cmd.fanAuto = INVALID_CMD;
+    cmd.fanMode = INVALID_CMD;
+    cmd.setTemp = INVALID_CMD;
+}
+
+void CThermostat::createStatusStr() {
+    statusStr = String::format("{\"M\":%d,\"H\":%d,\"C\":%d,\"t\":%f,\"h\":%f}",state_mode, state_heat, state_cool, farenheit, humidity);
+}
+
+
+/*
+    //Serial.println("READ");
             tempHumidity = dht.getHumidity();
             // Read temperature as Celsius
             tempCelsius = dht.getTempCelcius();
@@ -72,17 +162,4 @@ void CThermostat::execute() {
             if (!isnan(tempHeatIndex)) heatIndex = tempHeatIndex;
             if (!isnan(tempDewPoint)) dewPoint = tempDewPoint;
             if (!isnan(tempKelvin)) kelvin = tempKelvin;
-            
-            lastRead = currentTime;
-            state = CThermostat::S_DELAY;
-            break;
-        default:
-            break;
-    }
-    createStatusStr();
-    
-}
-
-void CThermostat::createStatusStr() {
-    statusStr = String::format("{\"t\":%f,\"c\":%f,\"h\":%f,\"hi\":%f,\"dp\":%f,\"k\":%f}", farenheit, celsius, humidity, heatIndex, dewPoint, kelvin);
-}
+    */

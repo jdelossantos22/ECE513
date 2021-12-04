@@ -3,6 +3,7 @@ function Register() {
   let password = $('#password').val();
   let fullName = $('#fullName').val();
   let passwordConfirm = $('#passwordConfirm').val();
+  let zip = $('#zip').val();
 
 
   var strongRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
@@ -50,7 +51,8 @@ function Register() {
     let txdata = {email:email, 
       fullName:fullName, 
       APIKEY: authorizationKey,
-      password: password
+      password: password,
+      zip: zip
     };
     console.log(txdata);
     $.ajax({

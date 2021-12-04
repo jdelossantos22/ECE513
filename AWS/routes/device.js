@@ -35,10 +35,22 @@ router.post('/create', function(req, res) {
     });
   });
 
+
 router.post('/find', function(req, res){
     Device.findOne({userEmail: req.body.email}, function(err, device){
         if(device){
             res.status(200).json({success: true, msg: "User already has device", dKey: device.apikey, dId:device.deviceId}); //, authToken: authToken, email:req.body.email
+        }
+        else{
+            res.status(201).json({success: true, msg: "This user has no device" });
+        }
+    });
+});
+//findAll
+router.post('/findAll', function(req, res){
+    Device.find({userEmail: req.body.email}, function(err, devices){
+        if(devices){
+            res.status(200).json({success: true, msg: "User already has device", devices:devices}); //, authToken: authToken, email:req.body.email
         }
         else{
             res.status(201).json({success: true, msg: "This user has no device" });

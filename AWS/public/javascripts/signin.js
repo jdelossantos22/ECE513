@@ -70,8 +70,8 @@ function findDeviceFailure(jqXHR, textStatus, errorThrown) {
 
 // Handle authentication on page load
 $(function() {  
-  if( window.localStorage.getItem('authToken')) {
-    window.location.replace('account.html');
+  if(window.localStorage.getItem('authToken')) {
+    window.location.replace('controllerAtHome.html');
   }
   else {
     $('#signin').click(sendSigninRequest);

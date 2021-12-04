@@ -92,7 +92,7 @@
     transition: background 0.02s ease-in-out;
     color: #d89455;
 }
-#thermostatTemp{
+#tempVal{
     font-family: Roboto, sans-serif;
     font-size: 80px;
     border-radius: 7px;

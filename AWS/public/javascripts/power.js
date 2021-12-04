@@ -1,6 +1,20 @@
 /* globals Chart:false, feather:false */
 
-(function () {
+$(function () {
+  $.ajax({
+    url: '/users/status',
+    method: 'GET',
+    headers: { 'x-auth' : window.localStorage.getItem("authToken") },
+    dataType: 'json'
+  })
+  .done(function (data, textStatus, jqXHR) {
+    console.log(data)
+    user = data;
+  })
+  .fail(function (jqXHR, textStatus, errorThrown) {
+    window.localStorage.removeItem('authToken');
+    window.location = "index.html";
+  });
     'use strict'
   
     feather.replace({ 'aria-hidden': 'true' })

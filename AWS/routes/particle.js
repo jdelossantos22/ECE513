@@ -4,6 +4,7 @@ var router = express.Router();
 var request = require('superagent');
 
 
+
 /* Please use your device id and access token for your testing*/
 /* For your project, device ID and token should be in your database*/
 var deviceInfo = {
@@ -18,14 +19,14 @@ var deviceInfo = {
 var rxData = {};
 
 // 2. defines some routes
-router.post('/report', function(req, res){
+router.post('/report', function(req, res, next){
     rxData = JSON.parse(req.body.data);
     simulatedClock(rxData);
     console.log(rxData);
     res.status(201).json({status: 'ok'});
 });
 
-router.post('/publish', function(req, res){
+router.post('/publish', function(req, res, next){
     //console.log(req.body);
     request
     .post("https://api.particle.io/v1/devices/" + deviceInfo.id + "/cloudcmd")
@@ -41,7 +42,7 @@ router.post('/publish', function(req, res){
     });
 });
 
-router.get('/ping', function (req,res) {
+router.get('/ping', function (req,res, next) {
     request
         .put("https://api.particle.io/v1/devices/" + deviceInfo.id + "/ping")
         .set('Authorization', 'Bearer ' + deviceInfo.token)
@@ -55,7 +56,7 @@ router.get('/ping', function (req,res) {
         });
 });
 
-router.get('/read', function (req, res) {
+router.get('/read', function (req, res, next) {
     let retData = rxData;
     if (simulatedTime) retData["simclock"] = simulatedTime.toString();
     res.status(201).json({ cmd: 'read', data: retData });

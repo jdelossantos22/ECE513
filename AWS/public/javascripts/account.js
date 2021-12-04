@@ -1,6 +1,6 @@
 function sendReqForAccountInfo() {
   $.ajax({
-    url: '/users/account',
+    url: '/users/status',
     type: 'GET',
     headers: { 'x-auth': window.localStorage.getItem("authToken") },
     dataType: 'json'

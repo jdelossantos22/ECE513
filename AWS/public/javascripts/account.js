@@ -42,7 +42,10 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
 function deviceDelete(ctl) {
 
   console.log(window.localStorage.getItem("devices"))
-  $(ctl).localStorage.removeItem("devices");
+  $(ctl).localStorage.removeItem(deviceName);
+  $(ctl).localStorage.removeItem("deviceName");
+  $(ctl).localStorage.removeItem(deviceId);
+  $(ctl).localStorage.removeItem(apikey);
   console.log(window.localStorage.getItem("devices"))
 }
 

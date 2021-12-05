@@ -32,7 +32,7 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
    console.log(data[0].devices)
    let devices = window.localStorage.getItem("devices")
    devices = JSON.parse(devices)
-   let devices = data.devices
+   //let devices = data.devices
    for(let i = 0; i < devices.length; i++){
        console.log(devices[i])
        $("#addDeviceList").prepend(`<li><a class="dropdown-item devices" href="#"">${devices[i].deviceName}</a></li>`)

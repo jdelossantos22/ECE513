@@ -34,12 +34,7 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
        
    }
 }
-/*
-"&nbsp &nbsp &nbsp <button type='button' 
-          onclick='deviceDelete();' 
-          class='btn btn-default'>" +
-          "<span class='glyphicon glyphicon-remove' />" +
-          "</button>"*/
+
 
 function deviceDelete() {
 
@@ -68,7 +63,7 @@ function deviceDelete() {
   
   }
 
-  window.localStorage.setItem("devices", JSON.stringify(devices))
+  //window.localStorage.setItem("devices", JSON.stringify(devices))
   initDevices();
   console.log("After Removing"+window.localStorage.getItem("devices"))
 
@@ -78,14 +73,14 @@ function deviceDelete() {
 function initDevices(){
   //items.find.sort( [['_id', -1]] ) // get all items desc by created date.
   //sort by first added, first added is the primary device
-      let txdata = {
-          email:user[0].email
-      }
+    //  let txdata = {
+     //     email:user.email
+    //  }
       $.ajax({
           url: '/device/findAll',
           method: 'POST',
           contentType: 'application/json',
-          data: JSON.stringify(txdata),
+        //  data: JSON.stringify(txdata),
           dataType:'json'
       }).done(deviceSuccess).fail(deviceFailure);     
   }

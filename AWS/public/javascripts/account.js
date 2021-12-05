@@ -10,7 +10,7 @@ function sendReqForAccountInfo() {
 
 
 
-
+var devices = [];
 
 
 function accountInfoSuccess(data, textSatus, jqXHR) {
@@ -29,8 +29,9 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
      //   " </li>");
    // }
   
-   console.log(data.devices)
+   console.log(data[0].devices)
    window.localStorage.setItem("devices", JSON.stringify(data.devices))
+   data
    let devices = data.devices
    for(let i = 0; i < devices.length; i++){
        console.log(devices[i])

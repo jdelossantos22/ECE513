@@ -25,7 +25,7 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
    //let devices = data.devices
    for(let i = 0; i < devices.length; i++){
        console.log(devices[i])
-       $("#addDeviceList").prepend(`<li><a class="dropdown-item devices" href="#"">${"Device Name: "+ devices[i].deviceName + "     Devide ID: "+ devices[i].deviceId + "     Apikey: "+ devices[i].apikey}</a></li>`)
+       $("#addDeviceList").prepend(`<li><a class="dropdown-item devices" href="#"">${"Device #"+i <br> + "Device Name: "+ devices[i].deviceName<br> + "     Devide ID: "+ devices[i].deviceId<br> + "     Apikey: "+ devices[i].apikey}</a></li>`)
        $("#main").show();
        
    }
@@ -87,5 +87,7 @@ $(function() {
   else {
     sendReqForAccountInfo();
   }
+
+  $('#updateAccount').click(Register);
   //console.log("account.js")
 });

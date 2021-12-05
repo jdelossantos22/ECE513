@@ -57,7 +57,7 @@
             <span class="card-title">Update Account Information</span>
             
             <div class="collection-item">Email: <span id="email"></span></div>
-            
+            <div>
             <div class="input-field">
               <label for="fullName">Update Full Name</label>
               <input type="text" id="fullName" name="fullName" required>
@@ -78,13 +78,14 @@
               <input type="password" id="passwordConfirm" name="passwordConfirm" required>
             </div>
 
-            <div><a id="update" class="waves-effect waves-light btn">Make Updates</a></div>
+            <button id="btnUpdate">Update</button>
+            <!--<div><a id="update" class="waves-effect waves-light btn">Make Updates</a></div>-->
             <div class='red-text text-darken-2' id="error"></div>
             <!--<div class="card-action">
               <div><a id="signup" class="waves-effect waves-light btn">Register</a></div>
               <div id="account">Already have an account? <a href="signin.html">Sign in</a></div>
             </div>-->
-
+            </div>
           </div>
           <div class="card-panel blue-text" id="ServerResponse" style="display: none"></div>
         </div>

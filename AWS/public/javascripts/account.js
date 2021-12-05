@@ -30,7 +30,7 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
          + "&nbsp &nbsp &nbsp &nbsp &nbsp Devide ID: "+ devices[i].deviceId
           + "&nbsp &nbsp &nbsp &nbsp &nbsp Apikey: "+ devices[i].apikey}</a> 
           "&nbsp &nbsp &nbsp <button type='button' 
-          onclick='deviceDelete(this);' 
+          onclick='deviceDelete();' 
           class='btn btn-default'>" +
           "<span class='glyphicon glyphicon-remove' />" +
           "</button>" </li>`)
@@ -39,12 +39,12 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
    }
 }
 
-function deviceDelete(ctl) {
+function deviceDelete() {
 
   console.log(window.localStorage.getItem("devices"))
-  $(ctl).localStorage.removeItem("deviceName");
-  $(ctl).localStorage.removeItem("deviceId");
-  $(ctl).localStorage.removeItem("apikey");
+  window.localStorage.removeItem("deviceName");
+  window.localStorage.removeItem("deviceId");
+  window.localStorage.removeItem("apikey");
   console.log(window.localStorage.getItem("devices"))
 }
 

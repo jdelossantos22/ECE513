@@ -66,7 +66,7 @@ function deviceDelete() {
     //devices[i].removeItem('apikey');
     //window.localStorage.removeItem('deviceName');
     //window.localStorage.removeItem('deviceId');
-    console.log("device name"+devices[i].deviceName);
+    //console.log("device name"+devices[i].deviceName);
     window.localStorage.setItem("devices", JSON.stringify(devices))
   }
   

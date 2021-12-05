@@ -14,14 +14,13 @@ function sendReqForAccountInfo() {
 
 
 function accountInfoSuccess(data, textSatus, jqXHR) {
-    console.log(data);
+    
     $("#email").html(JSON.stringify(data[0].email, null, 2));
     $("#fullName").html(JSON.stringify(data[0].fullName, null, 2));
     $("#lastAccess").html(JSON.stringify(data[0].lastAccess, null, 2));
     $("#zip").html(JSON.stringify(data[0].zip, null, 2));
     $("#main").show();
-    
-    //console.log(Device)
+        //console.log(Device)
     // Add the devices to the list 
     //for (let device of data.devices) {
     //  console.log(device)
@@ -30,16 +29,25 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
      //   " </li>");
    // }
   
-  
+   console.log(data.devices)
+   window.localStorage.setItem("devices", JSON.stringify(data.devices))
+   let devices = data.devices
+   for(let i = 0; i < devices.length; i++){
+       console.log(devices[i])
+       $("#addDeviceList").prepend(`<li><a class="dropdown-item devices" href="#"">${devices[i].deviceName}</a></li>`)
+       $("#main").show();
+       //$(".devices").click(updateGUI)
+   }
+}
   
   // Add the devices to the list 
-  for (let device of data.devices) {
-    console.log(device)
-    $("#addDeviceList").before("<li class='collection-item'>ID: " +
-      "<span class='ID'> " + device.deviceId + "</span>, APIKEY: <span class='ID'> " + device.apikey + "</span><br>" +
-      " </li>");
-  }
-}
+ // for (let device of data.devices) {
+   // console.log(device)
+    //$("#addDeviceList").before("<li class='collection-item'>ID: " +
+      //"<span class='ID'> " + device.deviceId + "</span>, APIKEY: <span class='ID'> " + device.apikey + "</span><br>" +
+      //" </li>");
+ // }
+//}
 
 function accountInfoError(jqXHR, textStatus, errorThrown) {
   // If authentication error, delete the authToken 

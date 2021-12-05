@@ -43,9 +43,9 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
 
 function deviceDelete() {
 
-  let deviceNum = $('#deviceNum').val();
+  let devNum = $('#deviceNum').val();
   console.log(deviceNum)
-  let deviceNum = parseInt(deviceNum);
+  let deviceNum = parseInt(devNum);
   let devices = window.localStorage.getItem("devices")
   devices = JSON.parse(devices)
   console.log(devices[deviceNum])

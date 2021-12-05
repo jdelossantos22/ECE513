@@ -45,6 +45,7 @@ function deviceDelete() {
 
   let deviceNum = $('#deviceNum').val();
   console.log(deviceNum)
+  let deviceNum = parseInt(deviceNum);
   let devices = window.localStorage.getItem("devices")
   devices = JSON.parse(devices)
   console.log(devices[deviceNum])
@@ -52,7 +53,7 @@ function deviceDelete() {
   {
   
   console.log(devices[i])
-  if (deviceNum === i) {
+  if (deviceNum == i) {
     console.log("inside if statement")
     console.log("deviceNumuber")
     console.log(devices[i])

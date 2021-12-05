@@ -25,7 +25,10 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
    //let devices = data.devices
    for(let i = 0; i < devices.length; i++){
        console.log(devices[i])
-       $("#addDeviceList").prepend(`<li><a class="dropdown-item devices" href="#"">${"Device #"+i/n + "Device Name: "+ devices[i].deviceName/n + "     Devide ID: "+ devices[i].deviceId/n + "     Apikey: "+ devices[i].apikey}</a></li>`)
+       $("#addDeviceList").prepend(`<li><a class="dropdown-item devices" href="#"">${"Device #"+i
+        + "Device Name: "+ devices[i].deviceName
+         + "     Devide ID: "+ devices[i].deviceId
+          + "     Apikey: "+ devices[i].apikey}</a></li>`)
        $("#main").show();
        
    }
@@ -115,6 +118,6 @@ $(function() {
     sendReqForAccountInfo();
   }
 
-  $('#remove').click(RemoveDevice);
+  //$('#remove').click(RemoveDevice);
   //console.log("account.js")
 });

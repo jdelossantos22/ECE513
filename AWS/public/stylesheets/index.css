@@ -25,3 +25,9 @@ body {
   th {
     background-color: lightskyblue;
   }
+
+  @media screen and (max-width:500px){
+    video{
+      width:100%;
+    }
+}

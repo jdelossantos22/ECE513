@@ -35,7 +35,7 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
    //let devices = data.devices
    for(let i = 0; i < devices.length; i++){
        console.log(devices[i])
-       $("#addDeviceList").prepend(`<li><a class="dropdown-item devices" href="#"">${devices[i].deviceName}</a></li>`)
+       $("#addDeviceList").prepend(`<li><a class="dropdown-item devices" href="#"">${"Device Name:"+ devices[i].deviceName + "  Devide ID: "+ devices[i].deviceId + "   APIKEY: "+ devices[i].apikey}</a></li>`)
        $("#main").show();
        //$(".devices").click(updateGUI)
    }

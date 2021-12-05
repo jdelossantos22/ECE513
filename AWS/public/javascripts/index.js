@@ -84,7 +84,16 @@ function smartLightControl(option, value) {
     //serailCmd(txcmd);
     cloudCmd(txcmd);
     }
+function thermostatControl(option, value) {
+    let txcmd = {
+      thermostat: { }
+    };
+    txcmd.thermostat[option] = value;
 
+    console.log(JSON.stringify(txcmd));
+    //serailCmd(txcmd);
+    cloudCmd(txcmd);
+  }
 function toggleLedControl(value) {
     let txcmd = {
       led: {frequency: value}
@@ -92,15 +101,6 @@ function toggleLedControl(value) {
     console.log(JSON.stringify(txcmd));
     //serailCmd(txcmd);
     cloudCmd(txcmd);
-}
-
-function thermostatControl(value){
-    let txcmd = {
-        cmd: "write",
-        data: {
-        thermostat: {frequency: value}
-        }
-    };
 }
 
 function pingTest() {

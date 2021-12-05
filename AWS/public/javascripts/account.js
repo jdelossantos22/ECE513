@@ -29,7 +29,7 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
         + "&nbsp &nbsp &nbsp &nbsp &nbsp  Device Name: "+ devices[i].deviceName
          + "&nbsp &nbsp &nbsp &nbsp &nbsp Devide ID: "+ devices[i].deviceId
           + "&nbsp &nbsp &nbsp &nbsp &nbsp Apikey: "+ devices[i].apikey}</a> 
-          "<button type='button' 
+          "&nbsp &nbsp &nbsp <button type='button' 
           onclick='deviceDelete(this);' 
           class='btn btn-default'>" +
           "<span class='glyphicon glyphicon-remove' />" +
@@ -40,7 +40,7 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
 }
 
 function deviceDelete(ctl) {
-  $(ctl).closest(li).remove();
+  $(ctl).localStorage.removeItem();
 }
 
 function accountInfoError(jqXHR, textStatus, errorThrown) {

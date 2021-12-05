@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Smart Home - Register</title>
+    <link href="images/smart_home_icon.png" rel="icon">
+    
+   <!-- Import jQuery -->
+   <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+   <!-- Import Google Icon Font -->
+
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+   <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script src="/javascripts/register.js"></script>
+    <link href="/stylesheets/style_Account.css" rel="stylesheet">
+    
+    
+  
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  </head>
+
+  <body>
+  <header>
+    <!-- Dropdown Structure -->
+    <ul id='dropdown1' class='dropdown-content'>
+       <li><a href="index.html">Home</a></li>
+    </ul>
+      
+    <nav>
+      <div class="nav-wrapper blue-grey darken-2">
+        <a href="index.html" class="brand-logo left" style="padding-bottom:10px"><img id="logo" src="images/iot_logo.png" width=65px height=65px><span id="name"> Smart Home</span></a>
+        <ul class="right ">
+            <!-- Dropdown Trigger -->
+           <li><a class='dropdown-trigger btn' href='#' data-target='dropdown1'><i class="material-icons">more_vert</i></a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <div class="sss">
+    <div class="row">
+      <div class="col s12 m6">
+        <div class="card blue-grey ">
+          <div class="card-content white-text">
+            <span class="card-title">Update Account Information</span>
+
+            
+            <div class="input-field">
+              <label for="fullName">Update Full Name</label>
+              <input type="text" id="fullName" name="fullName" required>
+            </div>
+
+            <div class="input-field">
+              <label for="device">Update Zip Code</label>
+              <input type="text" id="zip" name="zip" required>
+            </div>
+
+            <div class="input-field">
+              <label for="password">Update Password</label>
+              <input type="password" id="password" name="password" required>
+            </div>
+
+            <div class="input-field">
+              <label for="passwordConfirm">Confirm Password</label>
+              <input type="password" id="passwordConfirm" name="passwordConfirm" required>
+            </div>
+
+            <!--<div class="card-action">
+              <div><a id="signup" class="waves-effect waves-light btn">Register</a></div>
+              <div id="account">Already have an account? <a href="signin.html">Sign in</a></div>
+            </div>-->
+
+          </div>
+          <div class="card-panel blue-text" id="ServerResponse" style="display: none"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+      <footer class="page-footer bg-az-red darken-2">
+        <div class="footer-copyright">
+            <div class="container">
+                &copy; 2021, Ian Louis Bell, Reydesel Alejandro Cuevas, and Jero Delos Santos
+                <span style="float:right;"class="grey-text text-lighten-4 right">Electrical and Computer Engineering, University of Arizona</a>
+            </div>
+        </div>
+     </footer>
+  </body>
+  <script>
+    $('.dropdown-trigger').dropdown();
+  </script>
+</html>

@@ -59,7 +59,7 @@ function deviceDelete() {
     console.log("inside if statement")
     console.log("deviceNumuber")
     console.log(devices[i])
-    delete devices[i].deviceName;
+    //delete devices[i].deviceName;
     delete devices[i];
     
     //devices[i].removeItem('deviceId');

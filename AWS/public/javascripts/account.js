@@ -25,7 +25,7 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
    //let devices = data.devices
    for(let i = 0; i < devices.length; i++){
        console.log(devices[i])
-       $("#addDeviceList").prepend(`<li><a class="dropdown-item devices" href="#"">${"Device #"+i <br> + "Device Name: "+ devices[i].deviceName<br> + "     Devide ID: "+ devices[i].deviceId<br> + "     Apikey: "+ devices[i].apikey}</a></li>`)
+       $("#addDeviceList").prepend(`<li><a class="dropdown-item devices" href="#"">${"Device #"+i/n + "Device Name: "+ devices[i].deviceName/n + "     Devide ID: "+ devices[i].deviceId/n + "     Apikey: "+ devices[i].apikey}</a></li>`)
        $("#main").show();
        
    }
@@ -75,6 +75,33 @@ function updateFailure(jqXHR, textStatus, errorThrown) {
   console.log(errorThrown)
 }
 
+
+$("#remove"+deviceId).click(function(event) {
+  removeDevice(deviceId);
+});
+
+function removeDevice(deviceId){
+  $.ajax({
+       url: '/device/delete/'+ deviceId,
+       type: 'DELETE',
+       headers: { 'x-auth':  window.localStorage.getItem("authToken") },
+       data: {},
+       contentType: 'application/json',
+       responseType: 'text',
+       success: function (data, textStatus, jqXHR) {
+           console.log("Device removed from account:" + deviceId);
+           removeDeviceListing(deviceId);
+       },
+       error: function(jqXHR, textStatus, errorThrown) {
+           $("#error").html("Error: " + jqXHR.responseText);
+           $("#error").show();
+       }
+   });
+}
+
+
+
+
 // Handle authentication on page load
 $(function() {
   // If there's no authToekn stored, redirect user to 
@@ -88,6 +115,6 @@ $(function() {
     sendReqForAccountInfo();
   }
 
-  $('#updateAccount').click(Register);
+  $('#remove').click(RemoveDevice);
   //console.log("account.js")
 });

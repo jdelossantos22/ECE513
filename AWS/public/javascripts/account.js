@@ -40,7 +40,10 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
 }
 
 function deviceDelete(ctl) {
-  $(ctl).localStorage.removeItem();
+  
+  console.log(ctl.localStorage.getItem("devices"))
+  $(ctl).localStorage.removeItem("devices");
+  console.log(window.localStorage.getItem("devices"))
 }
 
 function accountInfoError(jqXHR, textStatus, errorThrown) {
@@ -91,9 +94,9 @@ $("#remove").click(function(event) {
   removeDevice(deviceId);
 });
 
-function removeDevice(deviceId){
+function removeDevice(data, textSatus, jqXHR){
   $.ajax({
-       url: '/device/delete/'+ deviceId,
+       url: '/device/delete/',
        type: 'DELETE',
        headers: { 'x-auth':  window.localStorage.getItem("authToken") },
        data: {},
@@ -125,7 +128,7 @@ $(function() {
   else {
     sendReqForAccountInfo();
   }
-
+  $('#update').click(Register);
   //$('#remove').click(RemoveDevice);
   //console.log("account.js")
 });

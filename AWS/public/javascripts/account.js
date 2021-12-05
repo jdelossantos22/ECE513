@@ -14,7 +14,6 @@ function sendReqForAccountInfo() {
 
 
 function accountInfoSuccess(data, textSatus, jqXHR) {
-  function accountInfoSuccess(data, textSatus, jqXHR) {
     console.log(data);
     $("#email").html(JSON.stringify(data[0].email, null, 2));
     $("#fullName").html(JSON.stringify(data[0].fullName, null, 2));
@@ -30,7 +29,7 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
      //   "<span class='ID'> " + device.deviceId + "</span>, APIKEY: <span class='ID'> " + device.apikey + "</span><br>" +
      //   " </li>");
    // }
-  }
+  
   
   
   // Add the devices to the list 

@@ -11,8 +11,6 @@ function sendReqForAccountInfo() {
 
 
 var devices = [];
-
-
 function accountInfoSuccess(data, textSatus, jqXHR) {
     
     $("#email").html(JSON.stringify(data[0].email, null, 2));
@@ -20,35 +18,19 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
     $("#lastAccess").html(JSON.stringify(data[0].lastAccess, null, 2));
     $("#zip").html(JSON.stringify(data[0].zip, null, 2));
     $("#main").show();
-        //console.log(Device)
-    // Add the devices to the list 
-    //for (let device of data.devices) {
-    //  console.log(device)
-     // $("#addDeviceList").before("<li class='collection-item'>ID: " +
-     //   "<span class='ID'> " + device.deviceId + "</span>, APIKEY: <span class='ID'> " + device.apikey + "</span><br>" +
-     //   " </li>");
-   // }
-  
-   console.log(data[0].devices)
+    console.log(data)
+   
    let devices = window.localStorage.getItem("devices")
    devices = JSON.parse(devices)
    //let devices = data.devices
    for(let i = 0; i < devices.length; i++){
        console.log(devices[i])
-       $("#addDeviceList").prepend(`<li><a class="dropdown-item devices" href="#"">${"Device Name:"+ devices[i].deviceName + "  Devide ID: "+ devices[i].deviceId + "   APIKEY: "+ devices[i].apikey}</a></li>`)
+       $("#addDeviceList").prepend(`<li><a class="dropdown-item devices" href="#"">${"Device Name: "+ devices[i].deviceName + "     Devide ID: "+ devices[i].deviceId + "     Apikey: "+ devices[i].apikey}</a></li>`)
        $("#main").show();
-       //$(".devices").click(updateGUI)
+       
    }
 }
   
-  // Add the devices to the list 
- // for (let device of data.devices) {
-   // console.log(device)
-    //$("#addDeviceList").before("<li class='collection-item'>ID: " +
-      //"<span class='ID'> " + device.deviceId + "</span>, APIKEY: <span class='ID'> " + device.apikey + "</span><br>" +
-      //" </li>");
- // }
-//}
 
 function accountInfoError(jqXHR, textStatus, errorThrown) {
   // If authentication error, delete the authToken 
@@ -62,6 +44,35 @@ function accountInfoError(jqXHR, textStatus, errorThrown) {
     $("#error").html("Error: " + status.message);
     $("#error").show();
   } 
+}
+
+
+
+function updateAccInfo(){
+  var fullName = $("#fullName").val();
+  var zip = $("#zip").val();
+  $.ajax({
+    url: '/users/updateAccount',
+    type: 'PUT',
+    headers: { 'x-auth': window.localStorage.getItem("authToken") },
+    contentType: 'application/json',
+    data: JSON.stringify({fullName:fullName, zip:zip}),
+    dataType: 'json'
+  })
+  .done(updateSuccess)
+  .fail(updateFailure);
+}
+
+function updateSuccess(data, textStatus, jqXHR) {
+  window.localStorage.setItem('authToken', data.authToken);
+  window.location.reload(false)
+}
+
+function updateFailure(jqXHR, textStatus, errorThrown) {
+  console.log("Update Failed")
+  console.log(jqXHR)
+  console.log(textStatus)
+  console.log(errorThrown)
 }
 
 // Handle authentication on page load

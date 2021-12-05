@@ -110,5 +110,51 @@ router.get("/status", function(req, res, next){
 });
 
 
+//router to updated account info
+router.put("/updateAccount", function(req, res, next){
+   //console.log(req.headers)
+   //header should have X-Auth set
+   if(!req.headers["x-auth"]){
+      return res.status(401).json({error:"Missing X-Auth header"});
+   }
+   //X-auth should contain the token
+   const token = req.headers["x-auth"];
+
+   try{
+      const decode = jwt.decode(token, secret);
+      console.log(decode.email)
+
+      User.find({email:decode.email}, function(err, users){
+         if(err){
+            res.status(400).json({ success: false, message: "Error contacting DB. Please contact support." });
+         }
+         else {
+            user.findOneAndUpdate({email:decode.email},{$set:{email: req.body.email, fullName: req.body.fullName, zip: req.body.zip}}, function(err,user){
+               if (err) {
+                  return res.status(400).json(err);
+               }
+         else if (user){
+            Device.update({userEmail:decode.email }, {$set:{deviceId:req.body.id}} ,{ multi: true }, function(err, status) {
+               console.log("Device ID");
+             });
+
+
+         } 
+         
+         else {
+            res.status(200).json(users);
+         }
+      });
+
+   }
+});
+   }
+   catch(ex){
+      res.status(401).json({error:"Invalid JWT"});
+   }
+});
+
+
+
 
 module.exports = router;

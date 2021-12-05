@@ -110,8 +110,11 @@ router.get("/status", function(req, res, next){
 });
 
 
+
+
+
 //router to updated account info
-router.put("/updateAccount", function(req, res, next){
+router.post("/updateAccount", function(req, res, next){
    //console.log(req.headers)
    //header should have X-Auth set
    if(!req.headers["x-auth"]){
@@ -126,10 +129,10 @@ router.put("/updateAccount", function(req, res, next){
 
       User.find({email:decode.email}, function(err, users){
          if(err){
-            res.status(400).json({ success: false, message: "Error contacting DB. Please contact support." });
+            res.status(201).json({ success: false, message: "Error contacting DB. Please contact support." });
          }
          else {
-            user.findOneAndUpdate({email:decode.email},{$set:{email: req.body.email, fullName: req.body.fullName, zip: req.body.zip}}, function(err,user){
+            users.findOneAndUpdate({email:decode.email},{$set:{email: req.body.email, fullName: req.body.fullName, zip: req.body.zip}}, function(err,user){
                if (err) {
                   return res.status(400).json(err);
                }

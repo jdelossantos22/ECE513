@@ -42,7 +42,7 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
 function deviceDelete(ctl) {
 
   console.log(window.localStorage.getItem("devices"))
-  $(ctl).localStorage.removeItem("devices[0]");
+  $(ctl).localStorage.removeItem("devices");
   console.log(window.localStorage.getItem("devices"))
 }
 
@@ -71,7 +71,7 @@ function updateAccInfo(){
 
   $.ajax({
     url: '/users/updateAccount',
-    type: 'PUT',
+    type: 'POST',
     headers: { 'x-auth': window.localStorage.getItem("authToken") },
     contentType: 'application/json',
     data: JSON.stringify({fullName:fullName, password:password, passwordConfirm:passwordConfirm, zip:zip}),

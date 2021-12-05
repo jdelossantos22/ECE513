@@ -73,14 +73,14 @@ function deviceDelete() {
 function initDevices(){
   //items.find.sort( [['_id', -1]] ) // get all items desc by created date.
   //sort by first added, first added is the primary device
-    //  let txdata = {
-     //     email:user.email
-    //  }
+      let txdata = {
+          email:user.email
+      }
       $.ajax({
           url: '/device/findAll',
           method: 'POST',
           contentType: 'application/json',
-        //  data: JSON.stringify(txdata),
+          data: JSON.stringify(txdata),
           dataType:'json'
       }).done(deviceSuccess).fail(deviceFailure);     
   }

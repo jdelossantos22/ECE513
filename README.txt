@@ -3,41 +3,72 @@ ECE 513
 Ian Louis Bell - ilbell@email.arizona.edu
 Reydesel Alejandro Cuevas - cuevasr@email.arizona.edu
 Jero Delos Santos - jdelossantos22@email.arizona.edu
+
 AWS Address: http://ec2-18-216-179-189.us-east-2.compute.amazonaws.com:3000/
 Checkpoint 2 Demos: http://ec2-18-216-179-189.us-east-2.compute.amazonaws.com:3000/checkpoint2.html
+Video Demo: http://ec2-18-216-179-189.us-east-2.compute.amazonaws.com:3000/checkpoint2.html
+
+Test Account:
+username admin@email.arizona.edu
+password: ece513Fall2021!
+
 Particle Device: Particle Argon
+Particle ID: e00fce684118b517fd70df3b
+Particled Token: 1b876e93a09ff60c17322cd98e10abfbae2701ca
 
 Registration:
-users/register
-users/signin
-users/status
+users/register - registers user
+users/signin - sign in user
+users/status - check token status
+users/update - update user info
 
-Device Registration:
-device/register
+Device Registration: 
+device/create - register device
+device/find - check if user already has a device registered
+device/findaAll - return all devices
+device/delete - delete device
+device/update - modify device info
 
 Particle Cloud:
-particle/report
-particle/publish
-particle/ping
-particle/read
+particle/report - webhook route
+particle/publish - publish commands and enable webhook
+particle/ping - ping if device is online
+particle/read - read rxData
 
 Data Sent from Particle Device: JSON
 Format: {
-  t: 1638049195,
-  light: { L0: 1, L1: 1, b: 34, s: 1797, m: 500, M: 2500 },
-  led: { t: 0, p: 0, s: 1, h: 0 },
-  thermostat: {
-    t: 82.400002,
-    c: 28,
-    h: 27,
-    hi: 26.966972,
-    dp: 7.243196,
-    k: 301.149994
-  },
-  door: { d: 'open' },
-  ct: 2
+  "cmd": "read",
+  "data": {
+    "t": 1638676579,
+    "light": {
+      "L0": 1,
+      "L1": 1,
+      "b": 58,
+      "s": 1336,
+      "m": 500,
+      "M": 2500
+    },
+    "led": {
+      "t": 3,
+      "p": 10,
+      "s": 1,
+      "h": 1
+    },
+    "thermostat": {
+      "M": 0, //thermostat mode
+      "H": 0, //heat state
+      "C": 0, //cool state
+      "F": 0, //fan state
+      "t": 80.599998, //temp in farenheit
+      "h": 28 //humidity
+    },
+    "door": {
+      "d": "open"
+    },
+    "ct": 1,
+    "simclock": "Sun Dec 05 2021 10:26:42 GMT+0000 (Coordinated Universal Time)"
+  }
 }
-
 
 Response Codes:
 

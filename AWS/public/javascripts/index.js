@@ -54,8 +54,8 @@ function updateGUI(data) {
         }
     }
     if ("thermostat" in data){
-        if ("t" in data.thermostat) $("#tempVal").html(data.thermostat.t.toFixed(2));
-        if ("h" in data.thermostat) $("#humidity").html(data.thermostat.h.toFixed(2));
+        if ("t" in data.thermostat) $("#tempVal").html(data.thermostat.t.toFixed(2) + " °F");
+        if ("h" in data.thermostat) $("#humidity").html(data.thermostat.h.toFixed(2) + " %");
     }
     if("door" in data){
         if ("d" in data.door) {

@@ -30,8 +30,8 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
    // }
   
    console.log(data[0].devices)
-   window.localStorage.setItem("devices", JSON.stringify(data.devices))
-   data
+   let devices = window.localStorage.getItem("devices")
+   device = JSON.parse(devices)
    let devices = data.devices
    for(let i = 0; i < devices.length; i++){
        console.log(devices[i])

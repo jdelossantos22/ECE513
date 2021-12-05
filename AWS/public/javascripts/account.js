@@ -40,12 +40,22 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
 }
 
 function deviceDelete() {
-
+  console.log(devices)
+  let devices = window.localStorage.getItem("devices")
+  devices = JSON.parse(devices)
+  console.log(devices)
+  for(let i = 0; i < devices.length; i++)
+  {
+  
+  console.log(devices[i])
+  window.localStorage.removeItem("deviceName");
+  
+  }
   console.log(window.localStorage.getItem("devices"))
-  $window.localStorage.removeItem("deviceName");
-  $window.localStorage.removeItem("deviceId");
-  $window.localStorage.removeItem("apikey");
-  console.log(window.localStorage.getItem("devices"))
+  //window.localStorage.removeItem("deviceName");
+  //window.localStorage.removeItem("deviceId");
+  //window.localStorage.removeItem("apikey");
+  //console.log(window.localStorage.getItem("devices"))
 }
 
 function accountInfoError(jqXHR, textStatus, errorThrown) {
@@ -167,7 +177,7 @@ function updateFailure(jqXHR, textStatus, errorThrown) {
 }
 
 */
-
+/*
 function removeDevice(data, textSatus, jqXHR){
   $.ajax({
        url: '/device/delete/',
@@ -187,7 +197,7 @@ function removeDevice(data, textSatus, jqXHR){
    });
 }
 
-
+*/
 
 
 // Handle authentication on page load

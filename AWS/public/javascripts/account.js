@@ -52,12 +52,13 @@ function deviceDelete() {
   {
   
   console.log(devices[i])
-  if (deviceNum == i) {
+  if (deviceNum === i) {
     console.log("inside if statement")
-    console.log("deviceNumuber"+devices[i])
-    window.localStorage.removeItem("deviceName");
-    window.localStorage.removeItem("deviceId");
-    console.log("removing apikey"+window.localStorage.removeItem("apikey"));
+    console.log("deviceNumuber")
+    console.log(devices[i])
+    window.localStorage.removeItem(devices[i].deviceName);
+    window.localStorage.removeItem(devices[i].deviceId);
+    console.log(devices[i].deviceId);
   }
   
   

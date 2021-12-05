@@ -76,7 +76,7 @@ function updateFailure(jqXHR, textStatus, errorThrown) {
 }
 
 
-$("#remove"+deviceId).click(function(event) {
+$("#remove").click(function(event) {
   removeDevice(deviceId);
 });
 

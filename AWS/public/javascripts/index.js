@@ -104,6 +104,7 @@ function thermostatControl(value){
 }
 
 function pingTest() {
+  console.log("PING")
     $.ajax({
       url: '/particle/ping',
       method: 'GET',

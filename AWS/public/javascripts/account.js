@@ -8,7 +8,7 @@ function sendReqForAccountInfo() {
     .fail(accountInfoError);
 }
 
-
+var user;
 
 var devices = [];
 function accountInfoSuccess(data, textSatus, jqXHR) {
@@ -69,6 +69,7 @@ function deviceDelete() {
   }
 
   window.localStorage.setItem("devices", JSON.stringify(devices))
+  initDevices();
   console.log("After Removing"+window.localStorage.getItem("devices"))
 
 }
@@ -254,7 +255,7 @@ $(function() {
   }
   else {
     sendReqForAccountInfo();
-    initDevices()
+  //  initDevices()
   }
  // $('#update').click(updateAccInfo);
   $('#btnUpdate').click(updateUser);

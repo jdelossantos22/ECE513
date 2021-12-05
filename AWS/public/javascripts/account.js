@@ -30,17 +30,17 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
          + "&nbsp &nbsp &nbsp &nbsp &nbsp Devide ID: "+ devices[i].deviceId
           + "&nbsp &nbsp &nbsp &nbsp &nbsp Apikey: "+ devices[i].apikey}</a> 
           "<button type='button' 
-          onclick='deviceDelete(devices[i]);' 
+          onclick='deviceDelete(this);' 
           class='btn btn-default'>" +
           "<span class='glyphicon glyphicon-remove' />" +
           "</button>" </li>`)
-       $("#main").show();
+       //$("#main").show();
        
    }
 }
 
 function deviceDelete(ctl) {
-  $(ctl).parents("li").remove();
+  $(ctl).closest(li).remove();
 }
 
 function accountInfoError(jqXHR, textStatus, errorThrown) {

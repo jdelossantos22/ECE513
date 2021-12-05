@@ -110,6 +110,25 @@ router.get("/status", function(req, res, next){
 });
 
 
+router.post("/update", function(req, res){
+   Student.findOneAndUpdate({email: req.body.email}, req.body, function (err, doc){
+      if (err){
+         let msgStr = `Something wrong....`;
+         res.status(201).json({message: msgStr, err: err});
+      }
+      else {
+         let msgStr;
+         if (doc == null) {
+            msgStr = `Student (name: ${req.body.name}) info does not exist in DB.`;      
+         }
+         else {
+            msgStr = `Student (name: ${req.body.name}) info has been updated.`;
+         }
+         
+         res.status(201).json({message: msgStr});
+      }
+   })
+});
 
 
 

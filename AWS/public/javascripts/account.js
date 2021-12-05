@@ -42,10 +42,9 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
 function deviceDelete(ctl) {
 
   console.log(window.localStorage.getItem("devices"))
-  $(ctl).localStorage.removeItem(deviceName);
   $(ctl).localStorage.removeItem("deviceName");
-  $(ctl).localStorage.removeItem(deviceId);
-  $(ctl).localStorage.removeItem(apikey);
+  $(ctl).localStorage.removeItem("deviceId");
+  $(ctl).localStorage.removeItem("apikey");
   console.log(window.localStorage.getItem("devices"))
 }
 
@@ -64,7 +63,77 @@ function accountInfoError(jqXHR, textStatus, errorThrown) {
 }
 
 
+function updateUser() {
+  // data validation
+  if ($('#email').val() === "") {
+      window.alert("invalid email!");
+      return;
+  }
+  if ($('#password').val() === "") {
+      window.alert("invalid password!");
+      return;
+  }
+  if ($('#fullname').val() === "") {
+      window.alert("invalid fullname!");
+      return;
+  }
 
+  if ($('#passwordConfirm').val() === "") {
+    window.alert("invalid passwordConfirm!");
+    return;
+}
+
+if ($('#zip').val() === "") {
+  window.alert("invalid zip!");
+  return;
+}
+
+var strongRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+  let strongPassword = !strongRegex.test(password)
+  //strongPassword = false
+  if(strongPassword){
+    $('#ServerResponse').html("<span class='red-text text-darken-2'>Password is not strong enough.:"
+                              +"<ul> <li>length of 8 or more characters</li>"
+                              +"<li>At least one Capital letter</li>"
+                              +"<li>At least one lower case letter</li>"
+                              +"<li>At least one number</li>"
+                              +"<li>At least one lower Special Character</li>"
+                              +"</ul></span>");
+    $('#ServerResponse').show();
+    return;
+  }
+  
+  if (password != passwordConfirm) {
+    $('#ServerResponse').html("<span class='red-text text-darken-2'>Passwords don't match.</span>");
+    $('#ServerResponse').show();
+    return;
+  }
+
+let txdata = {email:email, 
+  fullName:fullName, 
+  //APIKEY: authorizationKey,
+  password: password,
+  zip: zip
+};
+console.log(txdata);
+
+  $.ajax({
+      url: '/students/update',
+      method: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(txdata),
+      dataType: 'json'
+  })
+  .done(function (data, textStatus, jqXHR) {
+      $('#rxData').html(JSON.stringify(data, null, 2));
+  })
+  .fail(function (jqXHR, textStatus, errorThrown) {
+      $('#rxData').html(JSON.stringify(jqXHR, null, 2));
+  });
+}
+
+
+/*
 function updateAccInfo(){
   let email = $('#email').val();
   let password = $('#password').val();
@@ -96,7 +165,7 @@ function updateFailure(jqXHR, textStatus, errorThrown) {
   console.log(errorThrown)
 }
 
-
+*/
 
 function removeDevice(data, textSatus, jqXHR){
   $.ajax({
@@ -132,7 +201,8 @@ $(function() {
   else {
     sendReqForAccountInfo();
   }
-  $('#update').click(updateAccInfo);
+ // $('#update').click(updateAccInfo);
+  $('#btnUpdate').click(updateUser);
   //$('#remove').click(RemoveDevice);
   //console.log("account.js")
 });

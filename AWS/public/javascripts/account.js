@@ -62,11 +62,6 @@ function deviceDelete() {
     //delete devices[i].deviceName;
     delete devices[i];
     
-    //devices[i].removeItem('deviceId');
-    //devices[i].removeItem('apikey');
-    //window.localStorage.removeItem('deviceName');
-    //window.localStorage.removeItem('deviceId');
-    //console.log("device name"+devices[i].deviceName);
     window.localStorage.setItem("devices", JSON.stringify(devices))
   }
   
@@ -75,11 +70,36 @@ function deviceDelete() {
 
   window.localStorage.setItem("devices", JSON.stringify(devices))
   console.log("After Removing"+window.localStorage.getItem("devices"))
-  //window.localStorage.removeItem("deviceName");
-  //window.localStorage.removeItem("deviceId");
-  //window.localStorage.removeItem("apikey");
-  //console.log(window.localStorage.getItem("devices"))
+
 }
+
+
+function initDevices(){
+  //items.find.sort( [['_id', -1]] ) // get all items desc by created date.
+  //sort by first added, first added is the primary device
+      let txdata = {
+          email:user[0].email
+      }
+      $.ajax({
+          url: '/device/findAll',
+          method: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify(txdata),
+          dataType:'json'
+      }).done(deviceSuccess).fail(deviceFailure);     
+  }
+
+
+function deviceSuccess(data, textStatus, jqXHR){
+    console.log(data.devices)
+    window.localStorage.setItem("devices", JSON.stringify(data.devices))
+    
+}
+
+function deviceFailure(jqXHR, textStatus, errorThrown){
+  console.log(jqXHR.responseText);
+}
+
 
 function accountInfoError(jqXHR, textStatus, errorThrown) {
   // If authentication error, delete the authToken 
@@ -234,6 +254,7 @@ $(function() {
   }
   else {
     sendReqForAccountInfo();
+    initDevices()
   }
  // $('#update').click(updateAccInfo);
   $('#btnUpdate').click(updateUser);

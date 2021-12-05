@@ -14,20 +14,24 @@ function sendReqForAccountInfo() {
 
 
 function accountInfoSuccess(data, textSatus, jqXHR) {
-<<<<<<< HEAD
-  console.log("JHEY")
-  $("#email").html(data.email);
-=======
-  $("#email").html(data.email).show();
-  console.log(data.email)
->>>>>>> 187afb7c04271f6a52b1da1732ceb91ba8cfdfb3
-  $("#fullName").html(data.fullName);
-  console.log(data.fullName)
-  $("#lastAccess").html(data.lastAccess);
-  console.log(data.lastAccess)
-  $("#zip").html(data.zip);
-  console.log(data.zip)
-  //$("#main").show();
+  function accountInfoSuccess(data, textSatus, jqXHR) {
+    console.log(data);
+    $("#email").html(JSON.stringify(data[0].email, null, 2));
+    $("#fullName").html(JSON.stringify(data[0].fullName, null, 2));
+    $("#lastAccess").html(JSON.stringify(data[0].lastAccess, null, 2));
+    $("#zip").html(JSON.stringify(data[0].zip, null, 2));
+    $("#main").show();
+    
+    //console.log(Device)
+    // Add the devices to the list 
+    //for (let device of data.devices) {
+    //  console.log(device)
+     // $("#addDeviceList").before("<li class='collection-item'>ID: " +
+     //   "<span class='ID'> " + device.deviceId + "</span>, APIKEY: <span class='ID'> " + device.apikey + "</span><br>" +
+     //   " </li>");
+   // }
+  }
+  
   
   // Add the devices to the list 
   for (let device of data.devices) {

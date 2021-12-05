@@ -30,7 +30,7 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
          + "&nbsp &nbsp &nbsp &nbsp &nbsp Devide ID: "+ devices[i].deviceId
           + "&nbsp &nbsp &nbsp &nbsp &nbsp Apikey: "+ devices[i].apikey}</a> 
           "&nbsp &nbsp &nbsp <button type='button' 
-          onclick='deviceDelete();' 
+          onclick='deviceDelete(this);' 
           class='btn btn-default'>" +
           "<span class='glyphicon glyphicon-remove' />" +
           "</button>" </li>`)
@@ -39,10 +39,10 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
    }
 }
 
-function deviceDelete() {
-  
+function deviceDelete(ctl) {
+
   console.log(window.localStorage.getItem("devices"))
-  $windowm.localStorage.removeItem("devices");
+  $(ctl).localStorage.removeItem("devices[0]");
   console.log(window.localStorage.getItem("devices"))
 }
 
@@ -63,14 +63,18 @@ function accountInfoError(jqXHR, textStatus, errorThrown) {
 
 
 function updateAccInfo(){
-  var fullName = $("#fullName").val();
-  var zip = $("#zip").val();
+  let email = $('#email').val();
+  let password = $('#password').val();
+  let fullName = $('#fullName').val();
+  let passwordConfirm = $('#passwordConfirm').val();
+  let zip = $('#zip').val();
+
   $.ajax({
     url: '/users/updateAccount',
     type: 'PUT',
     headers: { 'x-auth': window.localStorage.getItem("authToken") },
     contentType: 'application/json',
-    data: JSON.stringify({fullName:fullName, zip:zip}),
+    data: JSON.stringify({fullName:fullName, password:password, passwordConfirm:passwordConfirm, zip:zip}),
     dataType: 'json'
   })
   .done(updateSuccess)
@@ -90,9 +94,6 @@ function updateFailure(jqXHR, textStatus, errorThrown) {
 }
 
 
-$("#remove").click(function(event) {
-  removeDevice(deviceId);
-});
 
 function removeDevice(data, textSatus, jqXHR){
   $.ajax({

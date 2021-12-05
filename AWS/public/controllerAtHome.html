@@ -213,93 +213,99 @@
             
                 <!--Thermostat Display End-->
                 <!--Light Bulb Start-->
-            <div style="background: linear-gradient(to top, #ffffff 0%, #6600ff 100%);" class="row rounded m-3 shadow py-2" id="bulb-display">
-                <p style="font-weight: bolder; font-size: 3vw;">Smart Light</p>
-                <div id="smart-bulb" class="col-md-5">
-                    <table>
-                        <tr>
-                            <td>
-                                <div class="toggleswitch">
-                                    <span>On</span>
-                                    <input type="checkbox" name="toggleswitch" class="toggleswitch-checkbox" id="smartlightonoff" onchange="smartLightControl('on', this.checked)">
-                                    <label class="toggleswitch-label" for="smartlightonoff">
-                                        <span class="toggleswitch-inner onoffSwitchText"></span>
-                                        <span class="toggleswitch-switch"></span>
-                                    </label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="toggleswitch">
-                                    <span>Auto</span>
-                                    <input type="checkbox" name="toggleswitch" class="toggleswitch-checkbox" id="smartlightMode" onchange="smartLightControl('auto', this.checked)">
-                                    <label class="toggleswitch-label" for="smartlightMode">
-                                        <span class="toggleswitch-inner manualAutoSwitchText"></span>
-                                        <span class="toggleswitch-switch"></span>
-                                    </label>
-                                </div>
-                            </td>
-                            <td>Brightness:</td>
-                            <td colspan="4">
-                                <input id="birghtnessSlider" type="range" min="0" max="100" step="1" value="0" onchange="smartLightControl('brightness', this.value)">
-                            </td>
-                        </tr>
-                        <tr><td colspan="5" style="background: linear-gradient(to bottom, #00ffff 0%, #009900 100%); color: #000; font-weight: bolder;">Sensor Settings</td></tr>
-                        <tr>
-                            <td>Sensor min:</td>
-                            <td>
-                                <input id="sensorMinSlider" type="range" min="0" max="4095" step="1" value="500" onchange="smartLightControl('min', this.value)">
-                            </td>
-                            <td>Sensor max:</td>
-                            <td>
-                                <input id="sensorMaxSlider" type="range" min="0" max="4095" step="1" value="2500" onchange="smartLightControl('max', this.value)">
-                            </td>
-                        </tr>
-                        <tr><td colspan="5" style="background: linear-gradient(to bottom, #00ffff 0%, #009900 100%); color: #000; font-weight: bolder;">Color Selector</td></tr>
-                        <tr>
-                            <td>
-                                <input type="color" id="color" name="color" value="#ff0000">
-                            </td>
-                        </tr>
-                        <tr><td colspan="5" style="background: linear-gradient(to bottom, #00ffff 0%, #009900 100%); color: #000; font-weight: bolder;">Bedtime/ Wake-up Time Settings</td></tr>
-                        <tr>
-                            <td>
-                                <label for="bedtime">Bedtime (8pm-2am):</label>
-                                <input type="time" id="bedtime" name="bedtime" value="20:00" min="20:00" max="02:00">
-                            </td>
-                            <td>
-                                <label for="wakeUpTime">Wake-up Time (6am-12pm):</label>
-                                <input type="time" id="wakeUpTime" name="wakeUpTime" value="06:00" min="06:00" max="12:00">
-                            </td>
-                        </tr>
-                        <tr><td colspan="5" style="background: linear-gradient(to bottom, #00ffff 0%, #009900 100%); color: #000; font-weight: bolder;">Display</td></tr>
-                        <tr>
-                            <td>Sensor Val:</td>
-                            <td><span id="sensorVal"></span></td>
-                            <td>Present brightness:</td>
-                            <td><div id="curBrightness" style="width: 100%; height:100%;"></div></td>
-                        </tr>
-                    </table>
+                <div style="background: linear-gradient(to top, #ffffff 0%, #6600ff 100%);" class="row rounded m-3 shadow py-2" id="bulb-display">
+                    <p style="font-weight: bolder; font-size: 3vw;">Smart Light</p>
+                    <div id="smart-bulb" class="col-md-5">
+                        <table>
+                            <tr>
+                                <td>
+                                    <div class="toggleswitch">
+                                        <span>On</span>
+                                        <input type="checkbox" name="toggleswitch" class="toggleswitch-checkbox" id="smartlightonoff" onchange="smartLightControl('on', this.checked)">
+                                        <label class="toggleswitch-label" for="smartlightonoff">
+                                            <span class="toggleswitch-inner onoffSwitchText"></span>
+                                            <span class="toggleswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="toggleswitch">
+                                        <span>Auto</span>
+                                        <input type="checkbox" name="toggleswitch" class="toggleswitch-checkbox" id="smartlightMode" onchange="smartLightControl('auto', this.checked)">
+                                        <label class="toggleswitch-label" for="smartlightMode">
+                                            <span class="toggleswitch-inner manualAutoSwitchText"></span>
+                                            <span class="toggleswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>Brightness:</td>
+                                <td colspan="4">
+                                    <input id="birghtnessSlider" type="range" min="0" max="100" step="1" value="0" onchange="smartLightControl('brightness', this.value)">
+                                </td>
+                            </tr>
+                            <tr><td colspan="5" style="background: linear-gradient(to bottom, #00ffff 0%, #009900 100%); color: #000; font-weight: bolder;">Sensor Settings</td></tr>
+                            <tr>
+                                <td>Sensor min:</td>
+                                <td>
+                                    <input id="sensorMinSlider" type="range" min="0" max="4095" step="1" value="500" onchange="smartLightControl('min', this.value)">
+                                </td>
+                                <td>Sensor max:</td>
+                                <td>
+                                    <input id="sensorMaxSlider" type="range" min="0" max="4095" step="1" value="2500" onchange="smartLightControl('max', this.value)">
+                                </td>
+                            </tr>
+                            <tr><td colspan="5" style="background: linear-gradient(to bottom, #00ffff 0%, #009900 100%); color: #000; font-weight: bolder;">Color Selector</td></tr>
+                            <tr>
+                                <td>
+                                    <input type="color" id="color" name="color" value="#ff0000">
+                                </td>
+                            </tr>
+                            <tr><td colspan="5" style="background: linear-gradient(to bottom, #00ffff 0%, #009900 100%); color: #000; font-weight: bolder;">Bedtime/ Wake-up Time Settings</td></tr>
+                            <tr>
+                                <td>
+                                    <label for="bedtime">Bedtime (8pm-2am):</label>
+                                    <input type="time" id="bedtime" name="bedtime" value="20:00" min="20:00" max="02:00">
+                                </td>
+                                <td>
+                                    <label for="wakeUpTime">Wake-up Time (6am-12pm):</label>
+                                    <input type="time" id="wakeUpTime" name="wakeUpTime" value="06:00" min="06:00" max="12:00">
+                                </td>
+                            </tr>
+                            <tr><td colspan="5" style="background: linear-gradient(to bottom, #00ffff 0%, #009900 100%); color: #000; font-weight: bolder;">Display</td></tr>
+                            <tr>
+                                <td>Sensor Val:</td>
+                                <td><span id="sensorVal"></span></td>
+                                <td>Present brightness:</td>
+                                <td><div id="curBrightness" style="width: 100%; height:100%;"></div></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-            </div>
-            <!--Light Bulb End-->
-            <!--Door Sensor Start-->
-            <div class="row rounded m-3 shadow bg-dark text-light py-2" id="door-display" style="border: 20px solid #212529;">
-                <div style="background-color: darkgray;">
-                    <p style="font-weight: bolder; font-size: 3vw; color: #000;">Door Alarm</p>
-                    <div id="door-sensor" class="col-md-4" style="width: 500px; border-bottom: 20px solid darkgray;">
-                        <div style="width: 500px; display: inline-block; color: #000;">
+                <!--Light Bulb End-->
+                <!--Door Sensor Start-->
+                <div class="row rounded m-3 shadow bg-dark text-light py-2" id="door-display" style="border: 20px solid #212529;">
+                    <div style="background-color: darkgray;">
+                        <p style="font-weight: bolder; font-size: 3vw; color: #000;">Door Alarm</p>
+                        <div id="door-sensor" class="col-md-4" style="width: 500px; border-bottom: 20px solid darkgray;">
+                            <div style="width: 500px; display: inline-block; color: #000;">
 
-                            <span style="font-weight: bolder; font-size:2vw;">Open</span>
-                            <span id="openIcon" style="font-size: 3vw;">&#9898</span>
+                                <span style="font-weight: bolder; font-size:2vw;">Open</span>
+                                <span id="openIcon" style="font-size: 3vw;">&#9898</span>
 
-                            <span style="font-weight: bolder; font-size:2vw;">Closed</span>
-                            <span id="closedIcon" style="font-size: 3vw;">&#128994</span>
+                                <span style="font-weight: bolder; font-size:2vw;">Closed</span>
+                                <span id="closedIcon" style="font-size: 3vw;">&#128994</span>
 
-                            <div class="bg-dark row rounded m-3 shadow-lg py-2 justify-content-end" id="jsonDisplay">
-                                <textarea id="cmdStatusData" style="width:100%; height:200px; font-weight: bolder; font-size:1.5vw;">No Alert to Report.</textarea>
+                                <div style="width: 100%; height:100%;">
+                                    <input type="text" id="door" style="width:100%; height:4rem; font-weight: bolder; font-size:1.5vw; border:5px solid black" value="No Alert to Report." readonly>
+                                </div>
+
+                                
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="bg-dark row rounded m-3 shadow-lg py-2 justify-content-end" id="jsonDisplay">
+                    <textarea id="cmdStatusData" style="width:100%; height:200px; font-weight: bolder; font-size:1.5vw;"></textarea>
                 </div>
             </div>
             <!--Door Sensor End-->

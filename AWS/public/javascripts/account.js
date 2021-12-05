@@ -42,9 +42,9 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
 function deviceDelete() {
 
   console.log(window.localStorage.getItem("devices"))
-  window.localStorage.removeItem("deviceName");
-  window.localStorage.removeItem("deviceId");
-  window.localStorage.removeItem("apikey");
+  $window.localStorage.removeItem("deviceName");
+  $window.localStorage.removeItem("deviceId");
+  $window.localStorage.removeItem("apikey");
   console.log(window.localStorage.getItem("devices"))
 }
 
@@ -65,10 +65,11 @@ function accountInfoError(jqXHR, textStatus, errorThrown) {
 
 function updateUser() {
   // data validation
-  if ($('#email').val() === "") {
+  /*if ($('#email').val() === "") {
       window.alert("invalid email!");
       return;
-  }
+  }*/
+
   if ($('#password').val() === "") {
       window.alert("invalid password!");
       return;

@@ -59,9 +59,10 @@ function deviceDelete() {
     console.log("inside if statement")
     console.log("deviceNumuber")
     console.log(devices[i])
-    window.localStorage.removeItem(devices[i].deviceName);
-    window.localStorage.removeItem(devices[i].deviceId);
+    window.localStorage.removeItem("deviceName");
+    window.localStorage.removeItem("deviceId");
     console.log(devices[i].deviceId);
+    window.localStorage.setItem("devices", JSON.stringify(devices))
   }
   
   

@@ -225,6 +225,7 @@ $(function() {
   }
  // $('#update').click(updateAccInfo);
   $('#btnUpdate').click(updateUser);
+  $('#remove').click(deviceDelete);
   //$('#remove').click(RemoveDevice);
   //console.log("account.js")
 });

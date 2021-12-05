@@ -29,18 +29,22 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
         + "&nbsp &nbsp &nbsp &nbsp &nbsp  Device Name: "+ devices[i].deviceName
          + "&nbsp &nbsp &nbsp &nbsp &nbsp Devide ID: "+ devices[i].deviceId
           + "&nbsp &nbsp &nbsp &nbsp &nbsp Apikey: "+ devices[i].apikey}</a> 
-          "&nbsp &nbsp &nbsp <button type='button' 
-          onclick='deviceDelete();' 
-          class='btn btn-default'>" +
-          "<span class='glyphicon glyphicon-remove' />" +
-          "</button>" </li>`)
+          </li>`)
        //$("#main").show();
        
    }
 }
+/*
+"&nbsp &nbsp &nbsp <button type='button' 
+          onclick='deviceDelete();' 
+          class='btn btn-default'>" +
+          "<span class='glyphicon glyphicon-remove' />" +
+          "</button>"*/
 
 function deviceDelete() {
-  console.log(devices)
+
+  let deviceNum = $('#deviceNum').val();
+  console.log(deviceNum)
   let devices = window.localStorage.getItem("devices")
   devices = JSON.parse(devices)
   console.log(devices)
@@ -48,7 +52,14 @@ function deviceDelete() {
   {
   
   console.log(devices[i])
-  window.localStorage.removeItem("deviceName");
+  if (deviceNum = i) {
+    console.log("inside if statement")
+    console.log(devices[i])
+    window.localStorage.removeItem("deviceName");
+    window.localStorage.removeItem("deviceId");
+    window.localStorage.removeItem("apikey");
+  }
+  
   
   }
   console.log(window.localStorage.getItem("devices"))

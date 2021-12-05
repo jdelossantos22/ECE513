@@ -26,14 +26,22 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
    for(let i = 0; i < devices.length; i++){
        console.log(devices[i])
        $("#addDeviceList").prepend(`<li><a class="dropdown-item devices" href="#"">${"Device #"+i
-        + "Device Name: "+ devices[i].deviceName
-         + "     Devide ID: "+ devices[i].deviceId
-          + "     Apikey: "+ devices[i].apikey}</a></li>`)
+        + "&nbsp &nbsp &nbsp &nbsp &nbsp  Device Name: "+ devices[i].deviceName
+         + "&nbsp &nbsp &nbsp &nbsp &nbsp  Devide ID: "+ devices[i].deviceId
+          + "&nbsp &nbsp &nbsp &nbsp &nbsp  Apikey: "+ devices[i].apikey}</a> 
+          "<button type='button' 
+          onclick='deviceDelete(this);' 
+          class='btn btn-default'>" +
+          "<span class='glyphicon glyphicon-remove' />" +
+          "</button>" </li>`)
        $("#main").show();
        
    }
 }
-  
+
+function deviceDelete(ctl) {
+  $(ctl).parents("li").remove();
+}
 
 function accountInfoError(jqXHR, textStatus, errorThrown) {
   // If authentication error, delete the authToken 

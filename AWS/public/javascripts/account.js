@@ -27,10 +27,10 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
        console.log(devices[i])
        $("#addDeviceList").prepend(`<li><a class="dropdown-item devices" href="#"">${"Device #"+i
         + "&nbsp &nbsp &nbsp &nbsp &nbsp  Device Name: "+ devices[i].deviceName
-         + "&nbsp &nbsp &nbsp &nbsp &nbsp  Devide ID: "+ devices[i].deviceId
-          + "&nbsp &nbsp &nbsp &nbsp &nbsp  Apikey: "+ devices[i].apikey}</a> 
+         + "&nbsp &nbsp &nbsp &nbsp &nbsp Devide ID: "+ devices[i].deviceId
+          + "&nbsp &nbsp &nbsp &nbsp &nbsp Apikey: "+ devices[i].apikey}</a> 
           "<button type='button' 
-          onclick='deviceDelete(this);' 
+          onclick='deviceDelete(devices[i]);' 
           class='btn btn-default'>" +
           "<span class='glyphicon glyphicon-remove' />" +
           "</button>" </li>`)

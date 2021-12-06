@@ -37,7 +37,7 @@ function displayResult(evt){
         $("#weather-date").text(dayTime);
         let iconUrl = "http://openweathermap.org/img/wn/" + gRxData.weather[0].icon + "@2x.png"
         $("#weather-icon img").attr("src", iconUrl);
-        console.log(JSON.stringify(gRxData));
+        //console.log(JSON.stringify(gRxData));
     }
 }
 
@@ -87,10 +87,17 @@ function deviceSuccess(data, textStatus, jqXHR){
     window.localStorage.setItem("devices", JSON.stringify(data.devices))
     let devices = data.devices
     for(let i = devices.length-1; i >=0; i--){
-        console.log(devices[i])
-        $("#devicesList").prepend(`<li><a class="dropdown-item devices" id="${devices[i].deviceId}"href="#"">${devices[i].deviceName}</a></li>`)
-        $(".devices").click(updateGUI)
+        console.log(devices.length)
+        //javascript:updateDevice()
+        if(i == 0){
+            $("#devicesList").prepend(`<li><a class="dropdown-item devices" id="${devices[i].deviceId}" href="#" onclick="updateDevice(event)"><i class="bi bi-check"></i>${devices[i].deviceName}</a></li>`)
+        }
+        else{
+            $("#devicesList").prepend(`<li><a class="dropdown-item devices" id="${devices[i].deviceId}" href="#" onclick="updateDevice(event)">${devices[i].deviceName}</a></li>`)
+        }
+        //$(".devices").click(updateGUI)
     }
+    $("#deviceHeader").text(devices[0].deviceName)
     let txdata = {
         device:{
             id:devices[0].deviceId,
@@ -104,24 +111,40 @@ function deviceSuccess(data, textStatus, jqXHR){
         contentType: 'application/json',
         data: JSON.stringify(txdata),
         dataType:'json'
-    })
+    }).done(function(data,textStatus,jqXHR){
+        console.log(data);
+    }).fail(deviceFailure)
 
 }
-function updateGUI(e){
-    console.log("UPDATE GUI")
+function updateDevice(e){
+    console.log("UPDATE DEVICES");
     let id = e.target.id;
+    console.log(id)
     let devices = window.localStorage.getItem("devices");
     let index;
+    
     devices = JSON.parse(devices)
+    let apikey;
+    $(".devices i").remove()
+    //console.log(devices)
     for(let i = 0; i < devices.length; i++){
         if(devices[i].deviceId == id){
             index=i;
+            console.log(devices[i].deviceName)
+            $("#deviceHeader").text(devices[i].deviceName)
+            apikey = devices[i].apikey
         }
     }
+    $(".devices").each((i) =>{
+        if(i == index){
+            $(e.target).prepend('<i class="bi bi-check"></i>')
+        }
+    })
+    
     let txdata = {
         device:{
             id:id,
-            token:devices[index].apikey
+            token:apikey
         }
     }
     $.ajax({
@@ -132,7 +155,9 @@ function updateGUI(e){
         dataType:'json'
     })
 
-    $("#deviceHeader").text(devices[index].deviceName)
+    
+    
+    
 }
 function deviceFailure(jqXHR, textStatus, errorThrown){
     console.log(jqXHR.responseText);
@@ -157,14 +182,14 @@ $(function(){
         dataType: 'json'
       })
       .done(function (data, textStatus, jqXHR) {
-        console.log(data)
+        //console.log(data)
         user = data;
         
         //get user info first to get zip code
         //get open weather
         //if no zip code, set zip code to u of a
         gCtrlVar.zip = user[0].zip
-        console.log(gCtrlVar.zip)
+        //console.log(gCtrlVar.zip)
         url = getUrl();
         httpGet(url);
         initDevices()
@@ -208,7 +233,7 @@ $(function(){
         }
     }
     //initThermostat();
-    $(".devices").click(updateGUI)
+    //$("#devicesList").on("click", ".devices", updateGUI)//.click(updateGUI)
     $("#farenheit").click(convertToFarenheit);
     $("#celsius").click(convertToCelsius);
     $("input[name='mode']").change(changeMode)

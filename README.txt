@@ -119,4 +119,17 @@ System Tutorial:
 			  D2 - DHT11
 		       Your device must also be registered and have a webhook created (Follow instructions in lecture 11_08).
 
+Power Consumption:
+When the Thermostat is in idle, it is consuming 1 watt
+When the Thermostat is in Heat, it is consuming 1500 watts
+When the Thermostat is in Cold it is consuming 3000 watts
+
+The Power State Machine has 3 states P_OFF(POWER OFF), P_COOL, (POWER ON COOL), P_HEAT (POWER ON HEAT)
+if (thermostat mode is off OR (thermostat mode is COOL AND thermostat cool is on COOL_WAIT) OR (thermostat mode is HEAT AND thermostat heat is on HEAT WAIT)
+	the power state is P_OFF
+else if (thermostat mode is COOL and thermostat cool is on COOL ON)
+	the power state is P_COOL
+else if (thermostat mode is HEAT and thermostat heat is on HEAT ON)
+	the power state is P_HEAT
+
 

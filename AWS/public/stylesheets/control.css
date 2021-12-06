@@ -83,7 +83,7 @@ body{
 }
 
 #thermostat{
-    background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
+    background:linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(93,93,93,1) 100%);
     /*background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%);*/
 }
 /* Chrome, Safari, Edge, Opera */
@@ -115,6 +115,7 @@ input[type=number] {
 .off{
     color:#dbdbdb;
 }
+
 
 
 

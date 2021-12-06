@@ -26,6 +26,7 @@
 
 int updateRxCmd(String cmdStr);
 void cloudCmdProcessing();
+void serialCmdProcessing();
 void setup();
 void loop();
 void myWebhookHandler(const char *event, const char *data);
@@ -49,8 +50,6 @@ int updateRxCmd(String cmdStr) {
   rxCloudCmdStr = cmdStr;
   return 0;
 }
-
-
 void cloudCmdProcessing() {
   if (rxCloudCmdStr == "") return;
   JSONValue cmdJson = JSONValue::parseCopy(rxCloudCmdStr);
@@ -65,9 +64,35 @@ void cloudCmdProcessing() {
     else if (iter.name() == "led") {
       toggleLed.cmdProcessing(iter.value());
     }
-    /*else if (iter.name() == "thermostat") {
+    else if (iter.name() == "thermostat") {
       thermostat.cmdProcessing(iter.value());
+    }
+    /*else if (iter.name() == "door") {
+      door.cmdProcessing(iter.value());
     }*/
+
+  }
+}
+
+void serialCmdProcessing() {
+  if (Serial.available() <= 0) return;
+  String cmdStr = "";
+  while (Serial.available()) {
+      char c = Serial.read();
+      cmdStr += String(c);
+  }
+  JSONValue cmdJson = JSONValue::parseCopy(cmdStr.c_str());
+  JSONObjectIterator iter(cmdJson);
+  while (iter.next()) {
+    if (iter.name() == "smartlight") {
+      smartLight.cmdProcessing(iter.value());
+    }
+    else if (iter.name() == "led") {
+      toggleLed.cmdProcessing(iter.value());
+    }
+    else if (iter.name() == "thermostat") {
+      thermostat.cmdProcessing(iter.value());
+    }
     /*else if (iter.name() == "door") {
       door.cmdProcessing(iter.value());
     }*/
@@ -103,6 +128,7 @@ void loop() {
   unsigned long t = millis();
   //Serial.println("Starting");
   cloudCmdProcessing();
+  serialCmdProcessing();
   smartLight.execute();
   toggleLed.execute();
   doorSensor.execute();
@@ -118,13 +144,15 @@ void loop() {
   if (counter % (PUBLISH_FREQUENCY * LOOP_FREQUENCY) == 0) {
     counter = 0;
     statusStr = String::format("{\"t\":%d}", (int)Time.now());
-    if(bPublish){
-      statusStr = String::format("{\"t\":%d,\"light\":%s,\"led\":%s,\"thermostat\":%s,\"door\":%s,\"ct\":%ld}", 
+    statusStr = String::format("{\"t\":%d,\"light\":%s,\"led\":%s,\"thermostat\":%s,\"door\":%s,\"ct\":%ld}", 
         (int)Time.now(), smartLight.getStatusStr().c_str(), toggleLed.getStatusStr().c_str(),thermostat.getStatusStr().c_str(),doorSensor.getStatusStr().c_str(),
         period
-      );
+    );
+    if(bPublish){
       Particle.publish("smarthome", statusStr, PRIVATE);
     }
+    Serial.printf(statusStr);
+    Serial.println();
   }
 
   counter++;
@@ -135,8 +163,8 @@ void loop() {
   else{
     period = PERIOD - (millis() - t);
   }
-  Serial.println(period);
-  delay(period);
+  //Serial.println(period);
+  delay(150);
 }
 
 // When obtain response from the publish
@@ -144,5 +172,5 @@ void myWebhookHandler(const char *event, const char *data) {
   // Formatting output
   String output = String::format("Response:  %s", data);
   // Log to serial console
-  Serial.println(output);
+  //Serial.println(output);
 }

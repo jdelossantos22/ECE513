@@ -8,23 +8,27 @@ CThermostat::CThermostat() {
     state_mode = CThermostat::S_OFF;
     state_heat = CThermostat::S_HEAT_WAIT;
     state_cool = CThermostat::S_COOL_WAIT;
+    state_fan_mode = CThermostat::F_OFF;
+    state_power = CThermostat::P_OFF;
     statusStr = "{}";
     lastRead = 0;
-    
-    
+    setTemp = 77;
+    fanOn = 0;
+    power = POWER_OFF;
+
 }
 
 void CThermostat::cmdProcessing(JSONValue cmdJson) {
     JSONObjectIterator iter(cmdJson);
     while (iter.next()) {
         if(iter.name() == "mode"){
-            cmd.mode = iter.value().toInt();;
+            cmd.mode = iter.value().toInt();
         }
         else if(iter.name() == "fanOn"){
-            cmd.fanMode = (int)iter.value().toBool();
+            fanOn = (int)iter.value().toBool();
         }
         else if(iter.name() == "setTemp"){
-            cmd.setTemp = iter.value().toInt();
+            setTemp = iter.value().toInt();
         }
         else if(iter.name()=="sample"){
             samplingPeriod = iter.value().toInt();
@@ -56,25 +60,24 @@ void CThermostat::execute() {
         case CThermostat::S_COOL:
             switch(state_cool){
                 case CThermostat::S_COOL_WAIT:
-                    if(farenheit > cmd.setTemp + dT){
+                    //farenheit += counter;
+                    farenheit += float(((int)millis()-startTime)/(1000*samplingPeriod*30.0));
+                    counter++;
+                    if(farenheit > setTemp + dT){
                         counter = 0;
                         startTime = millis();
                         state_cool = CThermostat::S_COOL_ON;
                     }
-                    //farenheit += counter;
-                    farenheit += float(((int)millis()-startTime)/(1000*samplingPeriod*30.0));
-                    counter++;
-
                     break;
                 case CThermostat::S_COOL_ON:
-                    if(farenheit < cmd.setTemp - dT){
-                        counter = 0;
-                        startTime = millis();
-                        state_cool = CThermostat::S_COOL_WAIT;
-                    }
                     //farenheit -= counter;
                     farenheit -= float(((int)millis()-startTime)/(1000*samplingPeriod*30.0));
                     counter++;
+                    if(farenheit <= setTemp){
+                        counter = 0;
+                        startTime = millis();
+                        state_cool = CThermostat::S_COOL_WAIT;
+                    } 
                     break;
                 default:
                     break;
@@ -84,24 +87,26 @@ void CThermostat::execute() {
         case CThermostat::S_HEAT:
             switch(state_heat){
                 case CThermostat::S_HEAT_WAIT:
-                    if(farenheit < cmd.setTemp-dT){
+                    //farenheit -= counter;
+                    farenheit -= float(((int)millis()-startTime)/(1000*samplingPeriod*30.0));
+                    counter++;
+                    if(farenheit < setTemp-dT){
                         counter = 0;
                         startTime = millis();
                         state_heat = CThermostat::S_HEAT_ON;
                     }
-                    //farenheit -= counter;
-                    farenheit -= float(((int)millis()-startTime)/(1000*samplingPeriod*30.0));
-                    counter++;
+                    
                     break;
                 case CThermostat::S_HEAT_ON:
-                    if(farenheit > cmd.setTemp+dT){
+                    //farenheit += counter;
+                    farenheit += float(((int)millis()-startTime)/(1000*samplingPeriod*30.0));
+                    counter++;
+                    if(farenheit >= setTemp){
                         counter = 0;
                         startTime = millis();
                         state_heat = CThermostat::S_HEAT_WAIT;
                     }
-                    //farenheit += counter;
-                    farenheit += float(((int)millis()-startTime)/(1000*samplingPeriod*30.0));
-                    counter++;
+                    
                     break;
                 default:
                     break;
@@ -115,18 +120,17 @@ void CThermostat::execute() {
     
     switch(state_fan_mode){
         case F_OFF:
-            if(cmd.fanMode != INVALID_CMD){
-                if(cmd.fanMode || 
-                (state_mode == CThermostat::S_COOL && state_cool == CThermostat::S_COOL_ON) ||
-                (state_mode == CThermostat::S_HEAT && state_heat == CThermostat::S_HEAT_ON)){
-                    state_fan_mode = CThermostat::F_ON;
-                }
+            if(fanOn || 
+            (state_mode == CThermostat::S_COOL && state_cool == CThermostat::S_COOL_ON) ||
+            (state_mode == CThermostat::S_HEAT && state_heat == CThermostat::S_HEAT_ON)){
+                state_fan_mode = CThermostat::F_ON;
             }
+            
             break;
         case F_ON:
             if(state_mode == CThermostat::S_OFF ||
-                (state_mode == CThermostat::S_COOL && state_cool == CThermostat::S_COOL_WAIT) ||
-                (state_mode == CThermostat::S_HEAT && state_heat == CThermostat::S_HEAT_WAIT)
+            (state_mode == CThermostat::S_COOL && state_cool == CThermostat::S_COOL_WAIT) ||
+            (state_mode == CThermostat::S_HEAT && state_heat == CThermostat::S_HEAT_WAIT)
             ){state_fan_mode = CThermostat::F_OFF;}
             break;
     }
@@ -154,7 +158,7 @@ void CThermostat::execute() {
             else if(state_mode == CThermostat::S_OFF || 
             (state_mode == CThermostat::S_HEAT && state_heat == CThermostat::S_HEAT_WAIT)||
             (state_mode == CThermostat::S_COOL && state_cool == CThermostat::S_COOL_WAIT)){
-                state_power == CThermostat::P_OFF;
+                state_power = CThermostat::P_OFF;
             }
             break;
         case CThermostat::P_HEAT:
@@ -168,7 +172,7 @@ void CThermostat::execute() {
             else if(state_mode == CThermostat::S_OFF || 
             (state_mode == CThermostat::S_HEAT && state_heat == CThermostat::S_HEAT_WAIT)||
             (state_mode == CThermostat::S_COOL && state_cool == CThermostat::S_COOL_WAIT)){
-                state_power == CThermostat::P_OFF;
+                state_power = CThermostat::P_OFF;
             }
             break;
         default:
@@ -188,12 +192,12 @@ void CThermostat::checkMode(){
         case 1://cool
             counter = 0;
             startTime = millis();
-            state_mode = CThermostat::S_COOL;
+            state_mode = CThermostat::S_HEAT;
             break;
         case 2://heat
             counter = 0;
             startTime = millis();
-            state_mode = CThermostat::S_HEAT;
+            state_mode = CThermostat::S_COOL;
             break;
         default:
             break;
@@ -207,8 +211,8 @@ void CThermostat::resetCmd() {
 }
 
 void CThermostat::createStatusStr() {
-    statusStr = String::format("{\"M\":%d,\"H\":%d,\"C\":%d,\"F\":%d,\"P\":%d,\"t\":%f,\"h\":%f,\"w\":%f}"
-    ,state_mode, state_heat, state_cool,state_fan_mode,state_power, farenheit, humidity, power);
+    statusStr = String::format("{\"M\":%d,\"H\":%d,\"C\":%d,\"F\":%d,\"P\":%d,\"t\":%f,\"h\":%f,\"sT\":%d,\"w\":%f,\"fM\":%d}"
+    ,state_mode, state_heat, state_cool,state_fan_mode,state_power, farenheit, humidity, setTemp, power, fanOn);
 }
 
 

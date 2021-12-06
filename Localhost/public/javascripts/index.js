@@ -174,11 +174,18 @@ function toggleLedControl(value) {
     serailCmd(txcmd);
 }
 
-function thermostatControl(value){
+function thermostatControl(option, value) {
+    console.log(option);
+    console.log(value);
     let txcmd = {
         cmd: "write",
         data: {
-        thermostat: {frequency: value}
+            thermostat: { }
         }
     };
-}
+    txcmd.data.thermostat[option] = value;
+
+    console.log(JSON.stringify(txcmd));
+    serailCmd(txcmd);
+    //cloudCmd(txcmd);
+  }

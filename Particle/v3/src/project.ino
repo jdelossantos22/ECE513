@@ -51,9 +51,9 @@ void cloudCmdProcessing() {
     else if (iter.name() == "led") {
       toggleLed.cmdProcessing(iter.value());
     }
-    /*else if (iter.name() == "thermostat") {
+    else if (iter.name() == "thermostat") {
       thermostat.cmdProcessing(iter.value());
-    }*/
+    }
     /*else if (iter.name() == "door") {
       door.cmdProcessing(iter.value());
     }*/
@@ -151,7 +151,7 @@ void loop() {
     period = PERIOD - (millis() - t);
   }
   //Serial.println(period);
-  delay(period);
+  delay(150);
 }
 
 // When obtain response from the publish

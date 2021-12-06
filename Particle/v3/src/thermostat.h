@@ -37,10 +37,12 @@ private:
     STATE_POWER state_power;
     int counter;
     int lastRead;
-    int dT=1;
+    int dT=2;
     int startTime;
     int samplingPeriod=1;
+    int setTemp;
     float power;
+    int fanOn;
     ThermostatCmdStruct cmd;
 };
 

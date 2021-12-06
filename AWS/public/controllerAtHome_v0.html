@@ -100,13 +100,13 @@
           <td>Thermostat Mode</td>
           <td>
             <div class="switch-toggle switch-2 switch-candy">
-              <input id="off" name="state-d" type="radio" checked/>
+              <input id="off" name="state-d" type="radio" onchange="thermostatControl('mode', this.value)" checked/>
               <label for="off" onclick="">OFF</label>
             
-              <input id="heat" name="state-d" type="radio"/>
+              <input id="heat" name="state-d" type="radio" onchange="thermostatControl('mode', this.value)"/>
               <label for="heat" onclick="">HEAT</label>
             
-              <input id="cold" name="state-d" type="radio"/>
+              <input id="cold" name="state-d" type="radio" onchange="thermostatControl('mode', this.value)"/>
               <label for="cold" onclick="">COLD</label>
             
               <a></a>
@@ -115,7 +115,7 @@
           <td>Fan Mode</td>
           <td>
             <div class="toggleswitch">
-              <input type="checkbox" name="toggleswitch" class="toggleswitch-checkbox" id="fanMode" onchange="">
+              <input type="checkbox" name="toggleswitch" class="toggleswitch-checkbox" id="fanMode" onchange="thermostatControl('fanOn', this.value)">
               <label class="toggleswitch-label" for="fanMode">
                   <span class="toggleswitch-inner manualAutoSwitchText"></span>
                   <span class="toggleswitch-switch"></span>

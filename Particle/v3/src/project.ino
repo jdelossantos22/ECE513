@@ -77,9 +77,9 @@ void serialCmdProcessing() {
     else if (iter.name() == "led") {
       toggleLed.cmdProcessing(iter.value());
     }
-    /*else if (iter.name() == "thermostat") {
+    else if (iter.name() == "thermostat") {
       thermostat.cmdProcessing(iter.value());
-    }*/
+    }
     /*else if (iter.name() == "door") {
       door.cmdProcessing(iter.value());
     }*/

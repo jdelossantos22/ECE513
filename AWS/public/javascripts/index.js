@@ -199,3 +199,4 @@ function pingTest() {
   function particleFailure(jqXHR, textStatus, errorThrown) {
     $('#cmdStatusData').html(JSON.stringify(jqXHR, null, 2));
   }
+//to do get device checked and send it with every ajax call

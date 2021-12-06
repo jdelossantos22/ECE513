@@ -15,6 +15,7 @@ class CThermostat {
     enum STATE_HEAT { S_HEAT_WAIT, S_HEAT_ON };
     enum STATE_COOL { S_COOL_WAIT, S_COOL_ON };
     enum STATE_FAN_MODE  { F_OFF, F_ON};
+    enum STATE_POWER {P_OFF, P_COOL, P_HEAT};
 public:
     CThermostat();
     void cmdProcessing(JSONValue cmdJson);
@@ -33,11 +34,13 @@ private:
     STATE_HEAT state_heat;
     STATE_COOL state_cool;
     STATE_FAN_MODE state_fan_mode;
+    STATE_POWER state_power;
     int counter;
     int lastRead;
     int dT=1;
     int startTime;
     int samplingPeriod=1;
+    float power;
     ThermostatCmdStruct cmd;
 };
 

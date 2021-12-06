@@ -130,6 +130,50 @@ void CThermostat::execute() {
             ){state_fan_mode = CThermostat::F_OFF;}
             break;
     }
+    switch(state_power){
+        case CThermostat::P_OFF:
+            power = POWER_OFF;
+            if(state_fan_mode == CThermostat::F_ON){
+                power += 100;
+            }
+            if (state_mode == CThermostat::S_HEAT && state_heat == CThermostat::S_HEAT_ON){
+                state_power = CThermostat::P_HEAT;
+            }
+            else if(state_mode == CThermostat::S_COOL && state_cool == CThermostat::S_COOL_ON){
+                state_power = CThermostat::P_COOL;
+            }
+            break;
+        case CThermostat::P_COOL:
+            power = POWER_COOL;
+            if(state_fan_mode == CThermostat::F_ON){
+                power += 100;
+            }
+            if(state_mode == CThermostat::S_HEAT && state_heat == CThermostat::S_HEAT_ON){
+                state_power = CThermostat::P_HEAT;
+            }
+            else if(state_mode == CThermostat::S_OFF || 
+            (state_mode == CThermostat::S_HEAT && state_heat == CThermostat::S_HEAT_WAIT)||
+            (state_mode == CThermostat::S_COOL && state_cool == CThermostat::S_COOL_WAIT)){
+                state_power == CThermostat::P_OFF;
+            }
+            break;
+        case CThermostat::P_HEAT:
+            power = POWER_HEAT;
+            if(state_fan_mode == CThermostat::F_ON){
+                power += 100;
+            }
+            if(state_mode == CThermostat::S_COOL && state_cool == CThermostat::S_COOL_ON){
+                state_power = CThermostat::P_COOL;
+            }
+            else if(state_mode == CThermostat::S_OFF || 
+            (state_mode == CThermostat::S_HEAT && state_heat == CThermostat::S_HEAT_WAIT)||
+            (state_mode == CThermostat::S_COOL && state_cool == CThermostat::S_COOL_WAIT)){
+                state_power == CThermostat::P_OFF;
+            }
+            break;
+        default:
+            break;
+    }
     resetCmd();
     createStatusStr();
     
@@ -163,7 +207,8 @@ void CThermostat::resetCmd() {
 }
 
 void CThermostat::createStatusStr() {
-    statusStr = String::format("{\"M\":%d,\"H\":%d,\"C\":%d,\"F\":%d,\"t\":%f,\"h\":%f}",state_mode, state_heat, state_cool,state_fan_mode, farenheit, humidity);
+    statusStr = String::format("{\"M\":%d,\"H\":%d,\"C\":%d,\"F\":%d,\"P\":%d,\"t\":%f,\"h\":%f,\"w\":%f}"
+    ,state_mode, state_heat, state_cool,state_fan_mode,state_power, farenheit, humidity, power);
 }
 
 

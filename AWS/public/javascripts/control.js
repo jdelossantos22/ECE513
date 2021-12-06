@@ -86,14 +86,53 @@ function deviceSuccess(data, textStatus, jqXHR){
     console.log(data.devices)
     window.localStorage.setItem("devices", JSON.stringify(data.devices))
     let devices = data.devices
-    for(let i = 0; i < devices.length; i++){
+    for(let i = devices.length-1; i >=0; i--){
         console.log(devices[i])
-        $("#devicesList").prepend(`<li><a class="dropdown-item devices" href="#"">${devices[i].deviceName}</a></li>`)
+        $("#devicesList").prepend(`<li><a class="dropdown-item devices" id="${devices[i].deviceId}"href="#"">${devices[i].deviceName}</a></li>`)
         $(".devices").click(updateGUI)
     }
+    let txdata = {
+        device:{
+            id:devices[0].deviceId,
+            token:devices[0].apikey
+        }
+    }
+
+    $.ajax({
+        url: '/particle/device',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(txdata),
+        dataType:'json'
+    })
+
 }
 function updateGUI(e){
-    console.log("HEY")
+    console.log("UPDATE GUI")
+    let id = e.target.id;
+    let devices = window.localStorage.getItem("devices");
+    let index;
+    devices = JSON.parse(devices)
+    for(let i = 0; i < devices.length; i++){
+        if(devices[i].deviceId == id){
+            index=i;
+        }
+    }
+    let txdata = {
+        device:{
+            id:id,
+            token:devices[index].apikey
+        }
+    }
+    $.ajax({
+        url: '/particle/device',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(txdata),
+        dataType:'json'
+    })
+
+    $("#deviceHeader").text(devices[index].deviceName)
 }
 function deviceFailure(jqXHR, textStatus, errorThrown){
     console.log(jqXHR.responseText);
@@ -173,6 +212,8 @@ $(function(){
     $("#farenheit").click(convertToFarenheit);
     $("#celsius").click(convertToCelsius);
     $("input[name='mode']").change(changeMode)
+
+
     
     
 });

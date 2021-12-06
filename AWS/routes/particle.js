@@ -28,7 +28,7 @@ router.post('/sample', function(req, res, next){
 router.post('/device', function(req,res, next){
     let device = req.body.device;
     deviceInfo.id = device.id;
-    deviceInfo.token = deviceInfo.token;
+    deviceInfo.token = device.token;
     res.status(201).json({success : true, message : "Device updated for the particle"});
 });
 

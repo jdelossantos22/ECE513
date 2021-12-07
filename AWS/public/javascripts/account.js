@@ -75,7 +75,7 @@ function deviceDelete() {
 function updateDeviceList()
 {
   let txdata = {
-    email:User.email
+    email: $('#email').val()
 }
 $.ajax({
   url: '/device/findAll',

@@ -72,12 +72,9 @@ function deviceDelete() {
 
 function updateDeviceList()
 {
-
-
   let txdata = {
     email:user[0].email
 }
-
 $.ajax({
   url: '/device/findAll',
   method: 'POST',
@@ -135,7 +132,7 @@ function deleteDevices(){
       window.localStorage.setItem("devices", JSON.stringify(devices.filter((a)=>a)));
       console.log(devices[i])
     }
-
+/*
    let devices1 = window.localStorage.getItem("devices")
    devices1 = JSON.parse(devices1)
    //devices1=devices11.filter((a)=>a);
@@ -149,7 +146,7 @@ function deleteDevices(){
           </li>`)
        //$("#main").show();
        
-   }
+   }*/
   //}
       let txdata = {
         device:devices
@@ -339,7 +336,7 @@ $(function() {
  // $('#update').click(updateAccInfo);
   $('#btnUpdate').click(updateUser);
   $('#btnDelete').click(deleteDevices);
-  $('#btnUpdate').click(deleteDevices);
+  $('#btnUpdate').click(updateDeviceList);
   //$('#remove').click(RemoveDevice);
   //console.log("account.js")
 });

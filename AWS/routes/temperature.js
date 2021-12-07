@@ -14,6 +14,7 @@ router.post('/create', function(req, res){
         }
         else{
             const newTemp = new Temperature({
+                deviceId:req.body.id,
                 postDate:date,
                 temperature: req.body.temperature,
                 humidity:req.body.humidity

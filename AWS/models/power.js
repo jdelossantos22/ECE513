@@ -1,6 +1,7 @@
 var db = require("../db");
 
   var powerSchema = new db.Schema({
+      deviceId:String,
       postDate: Date,
       power: Number
 

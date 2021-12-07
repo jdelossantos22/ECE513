@@ -1,5 +1,6 @@
 var myInterval = null;
 var guiUpdated = false;
+var samplingPeriod = 1;
 $(function (){
     initRangeSliders();
 });
@@ -28,6 +29,10 @@ function initRangeSliders() {
 
 function updateHandle(el, val) {
     el.textContent = val;
+}
+
+function changeSamplingPeriod(val){
+  samplingPeriod = val
 }
 
 function updateGUI(data) {
@@ -60,6 +65,7 @@ function updateGUI(data) {
     if("door" in data){
         if ("d" in data.door) {
             if (data.door.d == 'open'){
+              /*add code for alert - setInterval*/
                 $('#door').css("background-color", "red");
                 $("#door").text(data.door.d);
             }
@@ -72,7 +78,13 @@ function updateGUI(data) {
     if ("simclock" in data) $('#curTime').html(data.simclock);
 }
 
+function changeColor(value){
+  
+  var value = value.match(/[A-Za-z0-9]{2}/g);
+  value = value.map(function(v) { return parseInt(v, 16) });
+  console.log(value)
 
+}
 
 function smartLightControl(option, value) {
     let txcmd = {
@@ -178,11 +190,14 @@ function pingTest() {
       else if (data.cmd === "read") {
         if ("simclock" in data.data) $('#curTime').html(data.data.simclock);
         updateGUI(data.data);
+        //update dbs
+        saveTemperature(data.data);
+        
       }
       else if ((data.cmd === "publish") && (data.success)){
         if ($('#btnEnablePublish').html() == 'Enable publish') {
           $('#btnEnablePublish').html('Disable publish'); 
-          myInterval = setInterval(readData, 1000);
+          myInterval = setInterval(readData, 1000*samplingPeriod);
         }
         else {
           $('#btnEnablePublish').html('Enable publish');
@@ -194,6 +209,44 @@ function pingTest() {
       }          
     }
     //updateGUI(data.data);
+  }
+
+  function saveTemperature(data){
+    let deviceId = $(".devices:has(i)").id;
+    let thermostatData = data.thermostat;
+    let temperature = thermostatData.t;
+    let humidity = thermostatData.h;
+    let simTime = data.simclock;
+    let txdata = {
+      id:deviceId,
+      postDate:simTime,
+      temperature:temperature,
+      humidity:humidity
+    }
+    $.ajax({
+      url: '/temperature/create',
+      method: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(txdata),
+      dataType: 'json'
+    }).done((data, textStatus, jqXHR) => {console.log(data)})
+    .fail(particleFailure);
+
+    let power = thermostatData.w
+    let txdata = {
+      id:deviceId,
+      postDate:simTime,
+      power:power
+    }
+
+    $.ajax({
+      url: '/power/create',
+      method: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(txdata),
+      dataType: 'json'
+    }).done((data, textStatus, jqXHR) => {console.log(data)})
+    .fail(particleFailure);
   }
  
   function particleFailure(jqXHR, textStatus, errorThrown) {

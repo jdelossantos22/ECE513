@@ -1,6 +1,7 @@
 var db = require("../db");
 
   var temperatureSchema = new db.Schema({
+      deviceId: String,
       postDate: Date,
       temperature: Number,
       humidity: Number

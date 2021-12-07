@@ -109,16 +109,16 @@ function deleteDevices(){
       console.log(devices[i])
     }
 
-   let devices11 = window.localStorage.getItem("devices")
-   devices11 = JSON.parse(devices)
-   devices1=devices11.filter((a)=>a);
+   let devices1 = window.localStorage.getItem("devices")
+   devices1 = JSON.parse(devices1)
+   //devices1=devices11.filter((a)=>a);
    //let devices = data.devices
    for(let i = 0; i < devices1.length; i++){
        console.log(devices1[i])
        $("#addDeviceList").prepend(`<li><a class="dropdown-item devices" href="#"">${"Device #"+i
-        + "&nbsp &nbsp &nbsp &nbsp &nbsp  Device Name: "+ devices[i].deviceName
-         + "&nbsp &nbsp &nbsp &nbsp &nbsp Devide ID: "+ devices[i].deviceId
-          + "&nbsp &nbsp &nbsp &nbsp &nbsp Apikey: "+ devices[i].apikey}</a> 
+        + "&nbsp &nbsp &nbsp &nbsp &nbsp  Device Name: "+ devices1[i].deviceName
+         + "&nbsp &nbsp &nbsp &nbsp &nbsp Devide ID: "+ devices1[i].deviceId
+          + "&nbsp &nbsp &nbsp &nbsp &nbsp Apikey: "+ devices1[i].apikey}</a> 
           </li>`)
        //$("#main").show();
        

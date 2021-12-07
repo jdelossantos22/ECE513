@@ -213,6 +213,7 @@ function pingTest() {
 
   function saveTemperature(data){
     let deviceId = $(".devices:has(i)").id;
+    console.log($(".devices:has(i)"))
     let thermostatData = data.thermostat;
     let temperature = thermostatData.t;
     let humidity = thermostatData.h;
@@ -224,7 +225,7 @@ function pingTest() {
       humidity:humidity
     }
     console.log(txdata)
-    
+    /*
     $.ajax({
       url: '/temperature/create',
       method: 'POST',
@@ -241,7 +242,7 @@ function pingTest() {
       power:power
     }
     console.log(txdata)
-    /*
+    
     $.ajax({
       url: '/power/create',
       method: 'POST',

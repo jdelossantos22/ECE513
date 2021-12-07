@@ -35,7 +35,7 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
    }
 }
 
-
+/*
 function deviceDelete() {
 
   let devNum = $('#deviceNum').val();
@@ -68,21 +68,27 @@ function deviceDelete() {
   console.log("After Removing"+window.localStorage.getItem("devices"))
 
 }
+*/
 
-
-function initDevices(){
+function deleteDevices(){
   //items.find.sort( [['_id', -1]] ) // get all items desc by created date.
   //sort by first added, first added is the primary device
       let txdata = {
-          email:user.email
-      }
+        deviceId:$('#deviceId').val()
+      };
       $.ajax({
-          url: '/device/findAll',
+          url: '/device/delete',
           method: 'POST',
           contentType: 'application/json',
           data: JSON.stringify(txdata),
           dataType:'json'
-      }).done(deviceSuccess).fail(deviceFailure);     
+      })//.done(deviceSuccess).fail(deviceFailure);
+      .done(function (data, textStatus, jqXHR) {
+        $('#rxData').html(JSON.stringify(data, null, 2));
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+        $('#rxData').html(JSON.stringify(jqXHR, null, 2));
+        });     
   }
 
 
@@ -254,7 +260,7 @@ $(function() {
   }
  // $('#update').click(updateAccInfo);
   $('#btnUpdate').click(updateUser);
-  $('#remove').click(deviceDelete);
+  $('#remove').click(deleteDevices);
   //$('#remove').click(RemoveDevice);
   //console.log("account.js")
 });

@@ -70,6 +70,46 @@ function deviceDelete() {
 }
 */
 
+function updateDeviceList()
+{
+
+
+  let txdata = {
+    email:user[0].email
+}
+
+$.ajax({
+  url: '/device/findAll',
+  method: 'POST',
+  contentType: 'application/json',
+  data: JSON.stringify(txdata),
+  dataType:'json'
+}).done(deviceSuccess).fail(deviceFailure);     
+}
+
+function deviceSuccess(data, textStatus, jqXHR){
+  console.log(data.devices)
+  window.localStorage.setItem("devices", JSON.stringify(data.devices))
+  let devices = data.devices
+    //devices1=devices11.filter((a)=>a);
+  //let devices = data.devices
+  for(let i = 0; i < devices.length; i++){
+      console.log(devices[i])
+      $("#addDeviceList").prepend(`<li><a class="dropdown-item devices" href="#"">${"Device #"+i
+       + "&nbsp &nbsp &nbsp &nbsp &nbsp  Device Name: "+ devices1[i].deviceName
+        + "&nbsp &nbsp &nbsp &nbsp &nbsp Devide ID: "+ devices1[i].deviceId
+         + "&nbsp &nbsp &nbsp &nbsp &nbsp Apikey: "+ devices1[i].apikey}</a> 
+         </li>`)
+      //$("#main").show();
+      
+  }
+   
+}
+
+function deviceFailure(jqXHR, textStatus, errorThrown){
+  console.log(jqXHR.responseText);
+}
+
 function deleteDevices(){
   //items.find.sort( [['_id', -1]] ) // get all items desc by created date.
   //sort by first added, first added is the primary device
@@ -81,20 +121,7 @@ function deleteDevices(){
   devices = JSON.parse(devices)
   console.log("checkDevice with Id")
   //console.log(devices[deviceNum])
-  /*
-  for(let i = 0; i < devices.length; i++)
-  {
-  console.log(devices[i])
-  if (deviceNum == i) {
-    console.log("inside if statement")
-    console.log("deviceNumuber")
-    console.log(devices[i])
-    //delete devices[i].deviceName;
-    delete devices[i];
-    
-    window.localStorage.setItem("devices", JSON.stringify(devices))
-  }
-*/
+  
   for(let i = 0; i < devices.length; i++){
     if(devices[i].deviceId == deviceId){
       delete devices[i];
@@ -312,6 +339,7 @@ $(function() {
  // $('#update').click(updateAccInfo);
   $('#btnUpdate').click(updateUser);
   $('#btnDelete').click(deleteDevices);
+  $('#btnUpdate').click(deleteDevices);
   //$('#remove').click(RemoveDevice);
   //console.log("account.js")
 });

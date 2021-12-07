@@ -122,7 +122,7 @@ function pingTest() {
       method: 'GET',
       dataType: 'json'
     }).done(particleSuccess).fail(particleFailure);
-  }
+}
   
   function readData() {
     $.ajax({

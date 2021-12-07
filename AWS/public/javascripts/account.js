@@ -75,7 +75,7 @@ function deleteDevices(){
   //sort by first added, first added is the primary device
   let devId = $('#deviceId').val();
   
-  let deviceId = string(devId);
+  let deviceId = String(devId);
   
   let devices = window.localStorage.getItem("devices")
   devices = JSON.parse(devices)

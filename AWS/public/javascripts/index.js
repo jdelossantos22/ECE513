@@ -212,8 +212,8 @@ function pingTest() {
   }
 
   function saveTemperature(data){
-    let deviceId = $(".devices:has(i)").id;
-    console.log($(".devices:has(i)"))
+    let deviceId = $(".devices:has(i)")[0].id;
+    console.log($(".devices:has(i)")[0].id)
     let thermostatData = data.thermostat;
     let temperature = thermostatData.t;
     let humidity = thermostatData.h;

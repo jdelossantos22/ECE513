@@ -102,12 +102,25 @@ function deleteDevices(){
       console.log("deviceNumuber")
       console.log(devices[i])
       delete devices[i];
-      window.localStorage.setItem("devices", JSON.stringify(devices))
+      
         }
       window.localStorage.setItem("devices", JSON.stringify(devices))
       console.log(devices[i])
     }
 
+   let devices1 = window.localStorage.getItem("devices")
+   devices1 = JSON.parse(devices)
+   //let devices = data.devices
+   for(let i = 0; i < devices1.length; i++){
+       console.log(devices1[i])
+       $("#addDeviceList").prepend(`<li><a class="dropdown-item devices" href="#"">${"Device #"+i
+        + "&nbsp &nbsp &nbsp &nbsp &nbsp  Device Name: "+ devices[i].deviceName
+         + "&nbsp &nbsp &nbsp &nbsp &nbsp Devide ID: "+ devices[i].deviceId
+          + "&nbsp &nbsp &nbsp &nbsp &nbsp Apikey: "+ devices[i].apikey}</a> 
+          </li>`)
+       //$("#main").show();
+       
+   }
   //}
       let txdata = {
         device:devices

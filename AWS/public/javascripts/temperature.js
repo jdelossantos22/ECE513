@@ -11,9 +11,16 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
 function initGUI(){
     var today = new Date();
     today = today.setHours(0,0,0,0);
+    var date = new Date()
+    let year = date.getFullYear();
+    let month = date.getMonth()+1;
+    let day = date.getDate();
+    if (String(day).length == 1) day = "0" + day;
+    if (String(month).length == 1) month = "0" + month;
+    console.log(`${year}-${month}-${day}`)
+    $("#datePicker").val(`${year}-${month}-${day}`)
     updateGUI(today);
 }
-
 function updateGUI(date){
   /*
     const token = localStorage.getItem("authToken");
@@ -180,6 +187,7 @@ function tempSuccess(data, textStatus, jqXHR){
 
 function tempFailure(jqXHR, textStatus, errorThrown){
     console.log(jqXHR.responseText);
+    $("#data").text(JSON.stringify(jqXHR, null, 2))
 }
 function generateTemp(){
     let today = new Date();

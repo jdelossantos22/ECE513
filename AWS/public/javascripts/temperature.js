@@ -21,6 +21,13 @@ function initGUI(){
     $("#datePicker").val(`${year}-${month}-${day}`)
     updateGUI(today);
 }
+function dateChange(){
+  let selectedDate = $("#datePicker").val();
+  var date = new Date(selectedDate);
+  date = date.setHours(0,0,0,0);
+  console.log(date)
+  updateGUI(date);
+}
 function updateGUI(date){
   /*
     const token = localStorage.getItem("authToken");

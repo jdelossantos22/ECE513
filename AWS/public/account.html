@@ -71,19 +71,22 @@
           </li>
         </ul>
         <div><a class="dropdown-item" href="deviceRegister.html">Add Device</a></div>
-
+        
         <div><p>Remove Device</p></div>
         <div class="input-field">
-          <label for="deviceNum">Remove Device Number</label>
-          <input type="number" id="deviceNum" name="deviceNum" required>
+          <label for="deviceId">Remove Device ID</label>
+          <input type="text" id="deviceId" name="deviceId" required>
         </div>
-        
+        <button id="btnDelete">Remove Device</button>
+        <button id="btnUpdate">Update Device List</button>
         <div class='red-text text-darken-2' id="error"></div>
-
-        <div class="card-action">
+        
+        <!--<div class="card-action">
           <div><a id="remove" class="waves-effect waves-light btn">Remove</a></div>
+        </div>-->
+        <div style="display:inline-block; width:45vw; height: 60vh; margin: 2vh 20vw; ">
+          <textarea id="rxData" style="width:100%; height:100%"></textarea>
         </div>
-
       </div>
     </div>
     

@@ -109,8 +109,9 @@ function deleteDevices(){
       console.log(devices[i])
     }
 
-   let devices1 = window.localStorage.getItem("devices")
-   devices1 = JSON.parse(devices)
+   let devices11 = window.localStorage.getItem("devices")
+   devices11 = JSON.parse(devices)
+   devices1=devices11.filter((a)=>a);
    //let devices = data.devices
    for(let i = 0; i < devices1.length; i++){
        console.log(devices1[i])

@@ -40,22 +40,22 @@ void CThermostat::cmdProcessing(JSONValue cmdJson) {
 void CThermostat::execute() {
     //humidity = dht.getHumidity();
     //createStatusStr();
+    int currentTime = millis();
+    float tempHumidity;
+    float tempFarenheit;
+    //Serial.println(currentTime);
+    //Serial.println(lastRead);
     
+    tempHumidity = dht.getHumidity();
+    tempFarenheit = dht.getTempFarenheit();
+    if (!isnan(tempHumidity)) humidity = tempHumidity;
+    if (!isnan(tempFarenheit)) farenheit = tempFarenheit;
     
 
     switch(state_mode){
         case CThermostat::S_OFF:
             if(cmd.mode != INVALID_CMD){
-                int currentTime = millis();
-                float tempHumidity;
-                float tempFarenheit;
-                //Serial.println(currentTime);
-                //Serial.println(lastRead);
                 
-                tempHumidity = dht.getHumidity();
-                tempFarenheit = dht.getTempFarenheit();
-                if (!isnan(tempHumidity)) humidity = tempHumidity;
-                if (!isnan(tempFarenheit)) farenheit = tempFarenheit;
                 checkMode();
             }
             break;
@@ -63,7 +63,7 @@ void CThermostat::execute() {
             switch(state_cool){
                 case CThermostat::S_COOL_WAIT:
                     //farenheit += counter;
-                    farenheit += float(((int)millis()-startTime)/(1000/samplingPeriod*30.0));
+                    //farenheit += float(((int)millis()-startTime)/(1000/samplingPeriod*30.0));
                     counter++;
                     if(farenheit > setTemp + dT){
                         counter = 0;
@@ -73,7 +73,7 @@ void CThermostat::execute() {
                     break;
                 case CThermostat::S_COOL_ON:
                     //farenheit -= counter;
-                    farenheit -= float(((int)millis()-startTime)/(1000/samplingPeriod*30.0));
+                    //farenheit -= float(((int)millis()-startTime)/(1000/samplingPeriod*30.0));
                     counter++;
                     if(farenheit <= setTemp){
                         counter = 0;
@@ -90,7 +90,7 @@ void CThermostat::execute() {
             switch(state_heat){
                 case CThermostat::S_HEAT_WAIT:
                     //farenheit -= counter;
-                    farenheit -= float(((int)millis()-startTime)/(1000/samplingPeriod*30.0));
+                    //farenheit -= float(((int)millis()-startTime)/(1000/samplingPeriod*30.0));
                     counter++;
                     if(farenheit < setTemp-dT){
                         counter = 0;
@@ -101,7 +101,7 @@ void CThermostat::execute() {
                     break;
                 case CThermostat::S_HEAT_ON:
                     //farenheit += counter;
-                    farenheit += float(((int)millis()-startTime)/(1000/samplingPeriod*30.0));
+                    //farenheit += float(((int)millis()-startTime)/(1000/samplingPeriod*30.0));
                     counter++;
                     if(farenheit >= setTemp){
                         counter = 0;

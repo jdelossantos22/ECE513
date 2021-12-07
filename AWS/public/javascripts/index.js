@@ -233,7 +233,7 @@ function pingTest() {
     .fail(particleFailure);
 
     let power = thermostatData.w
-    let txdata = {
+    txdata = {
       id:deviceId,
       postDate:simTime,
       power:power

@@ -1,3 +1,5 @@
+const User = require("../../models/users");
+
 function sendReqForAccountInfo() {
   $.ajax({
     url: '/users/status',
@@ -73,7 +75,7 @@ function deviceDelete() {
 function updateDeviceList()
 {
   let txdata = {
-    email:user[0].email
+    email:User.email
 }
 $.ajax({
   url: '/device/findAll',

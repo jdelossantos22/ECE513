@@ -104,7 +104,8 @@ function deleteDevices(){
       delete devices[i];
       
         }
-      window.localStorage.setItem("devices", JSON.stringify(devices))
+      
+      window.localStorage.setItem("devices", JSON.stringify(devices.filter((a)=>a)));
       console.log(devices[i])
     }
 

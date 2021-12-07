@@ -7,7 +7,7 @@ let Temperature = require("../models/temperature")
 router.post('/create', function(req, res){
     console.log(req.body.postDate)
     let date = new Date(req.body.postDate)
-    Temperature.findOne({date: date, deviceId:req.body.id}, function(err, temp){
+    Temperature.findOne({postDate: date, deviceId:req.body.id}, function(err, temp){
         if(err) res.status(401).json({success:false, err:err});
         else if(temp){
             res.status(401).json({success:false, msg:"The data for this date already saved"});

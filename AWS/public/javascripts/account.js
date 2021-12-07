@@ -73,8 +73,37 @@ function deviceDelete() {
 function deleteDevices(){
   //items.find.sort( [['_id', -1]] ) // get all items desc by created date.
   //sort by first added, first added is the primary device
+  let deviceId = $('#deviceId').val();
+  
+  //let deviceId = parseInt(devId);
+  
+  let devices = window.localStorage.getItem("devices")
+  devices = JSON.parse(devices)
+  console.log("checkDevice with Id")
+  //console.log(devices[deviceNum])
+  /*
+  for(let i = 0; i < devices.length; i++)
+  {
+  console.log(devices[i])
+  if (deviceNum == i) {
+    console.log("inside if statement")
+    console.log("deviceNumuber")
+    console.log(devices[i])
+    //delete devices[i].deviceName;
+    delete devices[i];
+    
+    window.localStorage.setItem("devices", JSON.stringify(devices))
+  }
+*/
+  for(let i = 0; i < devices.length; i++){
+    if(devices[i].deviceId === deviceId){
+      delete devices[i];
+        }
+    }
+
+  //}
       let txdata = {
-        deviceId:$('#deviceId').val()
+        device:devices
       };
       $.ajax({
           url: '/device/delete',

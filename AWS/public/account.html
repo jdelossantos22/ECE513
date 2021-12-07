@@ -75,15 +75,17 @@
         <div><p>Remove Device</p></div>
         <div class="input-field">
           <label for="deviceId">Remove Device ID</label>
-          <input type="number" id="deviceId" name="deviceId" required>
+          <input type="text" id="deviceId" name="deviceId" required>
         </div>
-        
+        <button id="btnDelete">Delete (using deviceId)</button>
         <div class='red-text text-darken-2' id="error"></div>
-
-        <div class="card-action">
+        
+        <!--<div class="card-action">
           <div><a id="remove" class="waves-effect waves-light btn">Remove</a></div>
+        </div>-->
+        <div style="display:inline-block; width:45vw; height: 60vh; margin: 2vh 20vw; ">
+          <textarea id="rxData" style="width:100%; height:100%"></textarea>
         </div>
-
       </div>
     </div>
     

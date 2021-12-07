@@ -224,7 +224,7 @@ function pingTest() {
       humidity:humidity
     }
     console.log(txdata)
-    /*
+    
     $.ajax({
       url: '/temperature/create',
       method: 'POST',
@@ -232,7 +232,7 @@ function pingTest() {
       data: JSON.stringify(txdata),
       dataType: 'json'
     }).done((data, textStatus, jqXHR) => {console.log(data)})
-    .fail(particleFailure);*/
+    .fail(particleFailure);
 
     let power = thermostatData.w
     txdata = {

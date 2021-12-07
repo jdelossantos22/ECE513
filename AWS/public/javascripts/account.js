@@ -289,7 +289,7 @@ $(function() {
   }
  // $('#update').click(updateAccInfo);
   $('#btnUpdate').click(updateUser);
-  $('#remove').click(deleteDevices);
+  $('#btnDelete').click(deleteDevices);
   //$('#remove').click(RemoveDevice);
   //console.log("account.js")
 });

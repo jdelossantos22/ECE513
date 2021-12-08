@@ -17,7 +17,8 @@ router.post('/create', function(req, res){
                 deviceId:req.body.id,
                 postDate:date,
                 temperature: req.body.temperature,
-                humidity:req.body.humidity
+                humidity:req.body.humidity,
+                power:req.body.power
             })
             newTemp.save(function(err, temp){
                 if(err){

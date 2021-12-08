@@ -218,11 +218,13 @@ function pingTest() {
     let temperature = thermostatData.t;
     let humidity = thermostatData.h;
     let simTime = data.simclock;
+    let power = thermostatData.w
     let txdata = {
       id:deviceId,
       postDate:simTime,
       temperature:temperature,
-      humidity:humidity
+      humidity:humidity,
+      power:power
     }
     console.log(txdata)
     
@@ -235,7 +237,7 @@ function pingTest() {
     }).done((data, textStatus, jqXHR) => {console.log(data)})
     .fail(particleFailure);
     
-    let power = thermostatData.w
+    /*
     txdata = {
       id:deviceId,
       postDate:simTime,
@@ -250,7 +252,7 @@ function pingTest() {
       data: JSON.stringify(txdata),
       dataType: 'json'
     }).done((data, textStatus, jqXHR) => {console.log(data)})
-    .fail(particleFailure);
+    .fail(particleFailure);*/
   }
  
   function particleFailure(jqXHR, textStatus, errorThrown) {

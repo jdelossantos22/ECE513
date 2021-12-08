@@ -94,6 +94,7 @@ function deviceSuccess(data, textStatus, jqXHR){
       //$(".devices").click(updateGUI)
   }
   $("#deviceHeader").text(devices[0].deviceName)
+  initGUI();
 
 }
 
@@ -317,7 +318,7 @@ $(function() {
       window.location = "index.html";
     });
     initDevices();
-    initGUI();
+    
     
     
 });

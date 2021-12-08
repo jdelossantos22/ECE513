@@ -45,17 +45,17 @@ router.post('/find', function(req,res){
 
 //readAll
 router.post('/readAll', function(req,res,next){
-    let day = 1000 * 60 * 60 * 24 * 7;
+    let week = 1000 * 60 * 60 * 24 * 7;
     let today = req.body.date;
     
     //today = today.setHours(0,0,0,0);
     
-    let nextWeek = today + day
-    //console.log(today)
-    //console.log(tomorrow)
+    let nextWeek = today + week
+    console.log(today)
+    console.log(nextWeek)
     //{date:{$gt: Date(today), $lt:Date(tomorrow)}}
     //{postDate:{$gte: today, $lt:nextWeek}}
-    Power.find({postDate:{$gte: today, $lte:nextWeek}}, function(err, docs){
+    Power.find({postDate:{$gte: today, $lte:nextWeek}, deviceId:req.body.id}, function(err, docs){
         if(err){
             let msg = `Something wrong with power readAll ...`;
             res.status(201).json({msg:msg});

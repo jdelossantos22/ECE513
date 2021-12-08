@@ -131,6 +131,9 @@ function deviceSuccess(data, textStatus, jqXHR){
   $("#deviceHeader").text(devices[0].deviceName)
   initGUI();
 }
+function deviceFailure(jqXHR, textStatus, errorThrown){
+  console.log(jqXHR.responseText);
+}
 
 function initGUI(){
   var today = new Date();
@@ -142,10 +145,14 @@ function initGUI(){
   if (String(day).length == 1) day = "0" + day;
   if (String(month).length == 1) month = "0" + month;
   console.log(`${year}-${month}-${day}`)
-  $("#datePicker").val(`${year}-${month}-${day}`)
+  //$("#weekPicker").val(`${year}-${month}-${day}`)
+  //today = new Date($("#weekPicker").val())
+  //today = today.setHours(0,0,0,0);
   console.log($(".devices:has(i)"))
   let device = $(".devices:has(i)")[0].id;
-  updateGUI(today, device);
+  //console.log(date)
+  //updateGUI(today, device);
+  weekChange();
 }
 
 function weekChange(){
@@ -160,6 +167,8 @@ function weekChange(){
   let startDate = getDateOfWeek(week, year)
   console.log(startDate)
   let device = $(".devices:has(i)")[0].id;
+  startDate = startDate.setHours(0,0,0,0);
+  console.log(`weekChange ${startDate}`)
   updateGUI(startDate, device);
 }
 
@@ -171,6 +180,7 @@ function getDateOfWeek(w, y) {
 
 function updateGUI(date, id){
   let jsonStr = JSON.stringify({date:date,id:id})
+  
   $.ajax({
     url: '/power/readAll',
     method: 'POST',
@@ -180,11 +190,58 @@ function updateGUI(date, id){
   }).done(powSuccess).fail(powFailure);
 }
 function powSuccess(data, textStatus, jqXHR){
-  let week = []
+  let week = [0,0,0,0,0,0,0]
+  let weekSum = 0;
   console.log(data)
-  /*for(let i = 0; i < 7; i++){
-
-  }*/
+  for (let i = 0; i < data.length; i++){
+    //[0-6]0 - Sunday 1 - M 2 - T6 - Saturday
+    let dayOfWeek = new Date(data[i].postDate).getDay() - 1;
+    if(dayOfWeek == -1){
+      dayOfWeek = 6
+    }
+    weekSum += parseInt(data[i].power)
+    week[dayOfWeek] += parseInt(data[i].power)
+    console.log(data[i])
+  }
+  $("#powerWeekVal").text(weekSum)
+  var dailyChart = new Chart(daily, {
+    type: 'line',
+    data: {
+      labels: [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday'
+      ],
+      datasets: [{
+        data: week,
+        lineTension: 0,
+        backgroundColor: 'transparent',
+        borderColor: '#007bff',
+        borderWidth: 4,
+        pointBackgroundColor: '#007bff'
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: false
+          }
+        }]
+      },
+      legend: {
+        display: false
+      },
+      title: {
+        display: true,
+        text: "Daily Power Usage"
+    }
+    }
+  });
   
 }
 function powFailure(jqXHR, textStatus, errorThrown){

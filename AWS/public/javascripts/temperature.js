@@ -16,7 +16,10 @@ let humidTitle = `Humidty for December 12, 2021`;
 
 function initGUI(){
     var today = new Date();
-    //today = today.setHours(0,0,0,0);
+    let offset = today.getTimezoneOffset();
+    today = today.setHours(0,0,0,0);
+    //console.log(typeof(today))
+    today = today - offset;
     var date = new Date()
     let year = date.getFullYear();
     let month = date.getMonth()+1;
@@ -25,16 +28,23 @@ function initGUI(){
     if (String(month).length == 1) month = "0" + month;
     console.log(`${year}-${month}-${day}`)
     $("#datePicker").val(`${year}-${month}-${day}`)
+    today = new Date($("#datePicker").val())
+    today = today.setHours(0,0,0,0);
     console.log($(".devices:has(i)"))
     let device = $(".devices:has(i)")[0].id;
+    console.log(`initGUI ${today}`)
+    //today = new Date(`${year}-${month}-${day}`)
     updateGUI(today, device);
 }
 
 
 function dateChange(){
   let selectedDate = $("#datePicker").val();
+  console.log(`selectedDate ${selectedDate})`)
   var date = new Date(selectedDate);
+  
   date = date.setHours(0,0,0,0);
+  console.log(`dateChange ${date}`)
   console.log(date)
   let device = $(".devices:has(i)")[0].id;
   updateGUI(date, device);
@@ -163,8 +173,8 @@ function tempSuccess(data, textStatus, jqXHR){
         if (String(hour).length == 1) hour = '0' + hour
         if (String(min).length == 1) min = '0' + min
         /*
-        if((parseInt(min) % 10 == 0) || parseInt(min)%10 == 1 || parseInt(min)%10 == 9){
-          min[-1] = "0"
+        if((parseInt(min) % 10 == 0)|| parseInt(min)%10 == 1 || parseInt(min)%10 == 9){// || parseInt(min)%10 == 1 || parseInt(min)%10 == 9
+          xValues.push(`${hour}:${min}`)
           
         }
         else{
@@ -193,7 +203,8 @@ function tempSuccess(data, textStatus, jqXHR){
     //change gui
     $("#temp").text(data[data.length-1].temperature.toFixed(2))
     $("#humid").text(data[data.length-1].humidity.toFixed(2))
-    $("#lastChecked").html(data[data.length-1].postDate)
+    $("#tlastChecked").html(data[data.length-1].postDate)
+    $("#hlastChecked").html(data[data.length-1].postDate)
 
     $("#tHigh").text(tHigh.toFixed(2))
     $("#tLow").text(tLow.toFixed(2))
@@ -208,8 +219,8 @@ function tempSuccess(data, textStatus, jqXHR){
     let month = date.getMonth();
     month = monthNames[month];
     let day = date.getDate();
-    tempTitle = `Temperature(°F) for ${month} ${day}, ${year}`;
-    humidTitle = `Humidty(%) for ${month} ${day}, ${year}`;
+    tempTitle = `Temperature(°F)`;// for ${month} ${day}, ${year}
+    humidTitle = `Humidty(%)`;
     if (String(day).length == 1) day = '0' + day
     console.log(xValues)
     var tempChart = new Chart(temp, {

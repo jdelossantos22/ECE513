@@ -200,9 +200,12 @@ function powSuccess(data, textStatus, jqXHR){
       dayOfWeek = 6
     }
     weekSum += parseInt(data[i].power)
-    week[dayOfWeek] += parseInt(data[i].power)
-    console.log(data[i])
+    let samPeriod = parseInt(window.localStorage.getItem("samplingPeriod"));
+    console.log(parseInt(data[i].power)*(samPeriod/(60.0*60)))
+    week[dayOfWeek] += parseInt(data[i].power)*(samPeriod/(60.0*60))
+    //console.log(data[i])
   }
+  console.log(week)
   $("#powerWeekVal").text(weekSum)
   var dailyChart = new Chart(daily, {
     type: 'line',

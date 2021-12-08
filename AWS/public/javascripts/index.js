@@ -4,6 +4,7 @@ var samplingPeriod = 1/5;
 var simTime;
 $(function (){
     initRangeSliders();
+    window.localStorage.setItem("samplingPeriod",1);
 });
 
 function initRangeSliders() {
@@ -33,7 +34,8 @@ function updateHandle(el, val) {
 }
 
 function changeSamplingPeriod(val){
-  samplingPeriod = val
+  samplingPeriod = val/5
+  window.localStorage.setItem("samplingPeriod",val)
 }
 
 function updateGUI(data) {

@@ -79,7 +79,7 @@ function updateDevice(e){
 
 function deviceSuccess(data, textStatus, jqXHR){
   console.log(data.devices)
-  window.localStorage.setItem("devices", JSON.stringify(data.devices))
+  //window.localStorage.setItem("devices", JSON.stringify(data.devices))
   let devices = data.devices
   for(let i = devices.length-1; i >=0; i--){
       console.log(devices.length)

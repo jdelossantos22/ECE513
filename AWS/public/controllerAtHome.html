@@ -258,18 +258,18 @@
                             <tr><td colspan="5" style="background: linear-gradient(to bottom, #00ffff 0%, #009900 100%); color: #000; font-weight: bolder;">Color Selector</td></tr>
                             <tr>
                                 <td>
-                                    <input type="color" id="color" name="color" value="#ff0000" onchange="changeColor(this.value)">
+                                    <input type="color" id="color" name="color" value="#ffffff" onchange="console.log(this.value)" onchange="smartLightControl('color', this.value)" onchange="changeColor(this.value)">
                                 </td>
                             </tr>
                             <tr><td colspan="5" style="background: linear-gradient(to bottom, #00ffff 0%, #009900 100%); color: #000; font-weight: bolder;">Bedtime/ Wake-up Time Settings</td></tr>
                             <tr>
                                 <td>
                                     <label for="bedtime">Bedtime (8pm-2am):</label>
-                                    <input type="time" id="bedtime" name="bedtime" value="20:00" min="20:00" max="02:00">
+                                    <input type="time" id="bedtime" name="bedtime" value="20:00" min="20:00" max="02:00" onchange="console.log(Number(this.value.split(':')[0]) * 60 * 60 * 1000 + Number(this.value.split(':')[1]) * 60 * 1000)" onchange="smartLightControl('bedtime', Number(this.value.split(':')[0]) * 60 * 60 * 1000 + Number(this.value.split(':')[1]) * 60 * 1000)">
                                 </td>
                                 <td>
-                                    <label for="wakeUpTime">Wake-up Time (6am-12pm):</label>
-                                    <input type="time" id="wakeUpTime" name="wakeUpTime" value="06:00" min="06:00" max="12:00">
+                                    <label for="wakeup">Wake-up Time (6am-12pm):</label>
+                                    <input type="time" id="wakeup" name="wakeup" value="06:00" min="06:00" max="12:00" onchange="smartLightControl('wakeup', Number(this.value.split(':')[0]) * 60 * 60 * 1000 + Number(this.value.split(':')[1]) * 60 * 1000)">
                                 </td>
                             </tr>
                             <tr><td colspan="5" style="background: linear-gradient(to bottom, #00ffff 0%, #009900 100%); color: #000; font-weight: bolder;">Display</td></tr>

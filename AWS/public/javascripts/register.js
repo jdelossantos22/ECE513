@@ -1,14 +1,23 @@
 function Register() {
+  let errors = [];
   let email = $('#email').val().toLowerCase();
   let password = $('#password').val();
   let fullName = $('#fullName').val();
   let passwordConfirm = $('#passwordConfirm').val();
   let zip = $('#zip').val();
 
-
   var strongRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
   let strongPassword = !strongRegex.test(password)
   //strongPassword = false
+  let reEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$/;
+  if (!reEmail.test(email)){
+    //email.classList.add("errorBox");
+    //errors.push("Invalid or missing email address.");
+    $('#ServerResponse').html("<span class='red-text text-darken-2'>Invalid or missing email address."
+    +"</span>");
+    $('#ServerResponse').show();
+    return;
+  }
   if(strongPassword){
     $('#ServerResponse').html("<span class='red-text text-darken-2'>Password is not strong enough.:"
                               +"<ul> <li>length of 8 or more characters</li>"

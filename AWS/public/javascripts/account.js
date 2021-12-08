@@ -119,7 +119,7 @@ function updateUser() {
   }*/
   console.log("updating user")
 
-  let email = $('#email').val();
+  //let email = $('#email').val();
   let password = $('#password').val();
   let fullName = $('#fullName').val();
   let passwordConfirm = $('#passwordConfirm').val();
@@ -166,7 +166,7 @@ var strongRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,
     return;
   }
 
-let txdata = {email:email, 
+let txdata = {//email:email, 
   fullName:fullName, 
   //APIKEY: authorizationKey,
   password: password,

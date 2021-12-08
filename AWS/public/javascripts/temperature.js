@@ -16,7 +16,7 @@ let humidTitle = `Humidty for December 12, 2021`;
 
 function initGUI(){
     var today = new Date();
-    today = today.setHours(0,0,0,0);
+    //today = today.setHours(0,0,0,0);
     var date = new Date()
     let year = date.getFullYear();
     let month = date.getMonth()+1;

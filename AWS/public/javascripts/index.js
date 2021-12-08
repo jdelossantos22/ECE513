@@ -231,23 +231,25 @@ function pingTest() {
     let humidity = thermostatData.h;
     simTime = data.simclock;
     let power = thermostatData.w
-    let txdata = {
-      id:deviceId,
-      postDate:simTime,
-      temperature:temperature,
-      humidity:humidity,
-      power:power
+    if(parseFloat(temperature) < 100){
+      let txdata = {
+        id:deviceId,
+        postDate:simTime,
+        temperature:temperature,
+        humidity:humidity,
+        power:power
+      }
+      console.log(txdata)
+      
+      $.ajax({
+        url: '/temperature/create',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(txdata),
+        dataType: 'json'
+      }).done((data, textStatus, jqXHR) => {console.log(data)})
+      .fail(particleFailure);
     }
-    console.log(txdata)
-    
-    $.ajax({
-      url: '/temperature/create',
-      method: 'POST',
-      contentType: 'application/json',
-      data: JSON.stringify(txdata),
-      dataType: 'json'
-    }).done((data, textStatus, jqXHR) => {console.log(data)})
-    .fail(particleFailure);
     
     /*
     txdata = {

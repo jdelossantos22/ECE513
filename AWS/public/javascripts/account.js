@@ -82,10 +82,10 @@ function deleteDevices(){
     }
 
       let txdata = {
-        email:user[0].email
+        id:$("deviceId").val()
       };
       $.ajax({
-          url: '/device/findAll',
+          url: '/device/delete',
           method: 'POST',
           contentType: 'application/json',
           data: JSON.stringify(txdata),

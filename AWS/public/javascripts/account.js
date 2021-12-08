@@ -134,38 +134,18 @@ function deleteDevices(){
       window.localStorage.setItem("devices", JSON.stringify(devices.filter((a)=>a)));
       console.log(devices[i])
     }
-/*
-   let devices1 = window.localStorage.getItem("devices")
-   devices1 = JSON.parse(devices1)
-   //devices1=devices11.filter((a)=>a);
-   //let devices = data.devices
-   for(let i = 0; i < devices1.length; i++){
-       console.log(devices1[i])
-       $("#addDeviceList").prepend(`<li><a class="dropdown-item devices" href="#"">${"Device #"+i
-        + "&nbsp &nbsp &nbsp &nbsp &nbsp  Device Name: "+ devices1[i].deviceName
-         + "&nbsp &nbsp &nbsp &nbsp &nbsp Devide ID: "+ devices1[i].deviceId
-          + "&nbsp &nbsp &nbsp &nbsp &nbsp Apikey: "+ devices1[i].apikey}</a> 
-          </li>`)
-       //$("#main").show();
-       
-   }*/
-  //}
+
       let txdata = {
-        device:devices
+        email:user[0].email
       };
       $.ajax({
-          url: '/device/delete',
+          url: '/device/findAll',
           method: 'POST',
           contentType: 'application/json',
           data: JSON.stringify(txdata),
           dataType:'json'
       })//.done(deviceSuccess).fail(deviceFailure);
-      .done(function (data, textStatus, jqXHR) {
-        $('#rxData').html(JSON.stringify(data, null, 2));
-        })
-        .fail(function (jqXHR, textStatus, errorThrown) {
-        $('#rxData').html(JSON.stringify(jqXHR, null, 2));
-        });     
+      .done(deviceSuccess).fail(deviceFailure);
 
         window.location.reload();
   }
@@ -329,14 +309,30 @@ $(function() {
   // If there's no authToekn stored, redirect user to 
   // the sign-in page 
   //console.log(!window.localStorage.getItem("authToken"))
-  
-  if (!window.localStorage.getItem("authToken")) {
-    window.location.replace("signin.html");
-  }
-  else {
+  $.ajax({
+    url: '/users/status',
+    method: 'GET',
+    headers: { 'x-auth' : window.localStorage.getItem("authToken") },
+    dataType: 'json'
+  })
+  .done(function (data, textStatus, jqXHR) {
+    //console.log(data)
+    user = data;
     sendReqForAccountInfo();
+
+  })
+  
+  .fail(function (jqXHR, textStatus, errorThrown) {
+    window.localStorage.removeItem();
+    window.location = "index.html";
+  });
+  //if (!window.localStorage.getItem("authToken")) {
+   // window.location.replace("signin.html");
+  //}
+ // else {
+  //  sendReqForAccountInfo();
   //  initDevices()
-  }
+ // }
  // $('#update').click(updateAccInfo);
   $('#btnUpdate').click(updateUser);
   $('#btnDelete').click(deleteDevices);

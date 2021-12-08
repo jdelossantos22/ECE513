@@ -150,7 +150,7 @@ function updateUser() {
   }*/
   console.log("updating user")
 
-  //let email = $('#email').val();
+  let email = $('#email').val();
   let password = $('#password').val();
   let fullName = $('#fullName').val();
   let passwordConfirm = $('#passwordConfirm').val();

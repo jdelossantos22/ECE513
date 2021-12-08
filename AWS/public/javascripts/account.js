@@ -197,11 +197,8 @@ var strongRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,
     return;
   }
 
-let txdata = {//email:email, 
-  fullName:fullName, 
-  //APIKEY: authorizationKey,
-  password: password,
-  zip: zip
+let txdata = {
+  email:email 
 };
 console.log(txdata);
 

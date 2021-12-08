@@ -49,11 +49,12 @@ router.post('/find', function(req,res){
 //readAll
 router.post('/readAll', function(req,res,next){
     let day = 1000 * 60 * 60 * 24;
-    let today = req.body.date;
+    
+    let today = new Date(req.body.date);
     
     //today = today.setHours(0,0,0,0);
     
-    let tomorrow = req.body.date + day
+    let tomorrow = today + day
     //console.log(today)
     //console.log(tomorrow)
     //{date:{$gt: Date(today), $lt:Date(tomorrow)}}

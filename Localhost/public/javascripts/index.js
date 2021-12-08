@@ -61,16 +61,25 @@ function updateGUI(data) {
     if("door" in data){
         if ("d" in data.door) {
             if (data.door.d == 'open'){
-                $('#door').css("background-color", "red");
-                $("#door").text(data.door.d);
+                $("#openIcon").text("&#128308");       // Red Circle
+                $("#closedIcon").text("&#9898");       // White Circle
+
+                setInterval(function() {sendAlert();}, 10000);   // Send alert after 10s of door being opened
             }
             else{
-                $('#door').css("background-color", "green");
-                $("#door").text(data.door.d);
+                $('#door').css("color", "black");
+                $("#door").text("No Alert to Report.");
+                $("#openIcon").text("&#9898");         // White Circle
+                $("#closedIcon").text("&#128994");     // Green Circle
             }
         }
     }
     if ("simclock" in data) $('#curTime').html(data.simclock);
+}
+
+function sendAlert(){
+    $('#door').css("color", "red");
+    $("#door").text("ALERT: DOOR HAS BEEN OPEN FOR AN EXTENDED PERIOD OF TIME (15s)!!!");
 }
 
 function serailCmd(data) {

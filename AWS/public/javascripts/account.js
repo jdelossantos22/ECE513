@@ -1,5 +1,6 @@
 //const User = require("../../models/users");
 
+//Info Sumarry -------------------------------------------------------------
 function sendReqForAccountInfo() {
   $.ajax({
     url: '/users/status',
@@ -13,6 +14,7 @@ function sendReqForAccountInfo() {
 var user;
 
 var devices = [];
+
 function accountInfoSuccess(data, textSatus, jqXHR) {
     
     $("#email").html(JSON.stringify(data[0].email, null, 2));
@@ -37,81 +39,25 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
    }
 }
 
-/*
-function deviceDelete() {
 
-  let devNum = $('#deviceNum').val();
-  
-  let deviceNum = parseInt(devNum);
-  
-  let devices = window.localStorage.getItem("devices")
-  devices = JSON.parse(devices)
-  console.log("checkDevice with Number")
-  console.log(devices[deviceNum])
-  for(let i = 0; i < devices.length; i++)
-  {
-  
-  console.log(devices[i])
-  if (deviceNum == i) {
-    console.log("inside if statement")
-    console.log("deviceNumuber")
-    console.log(devices[i])
-    //delete devices[i].deviceName;
-    delete devices[i];
-    
-    window.localStorage.setItem("devices", JSON.stringify(devices))
-  }
-  
-  
-  }
-
-  //window.localStorage.setItem("devices", JSON.stringify(devices))
-  initDevices();
-  console.log("After Removing"+window.localStorage.getItem("devices"))
-
-}
-*/
-
-function updateDeviceList()
-{
-  let txdata = {
-    email: $('#userEmail').val()
-}
-$.ajax({
-  url: '/device/findAll',
-  method: 'POST',
-  contentType: 'application/json',
-  data: JSON.stringify(txdata),
-  dataType:'json'
-}).done(deviceSuccess).fail(deviceFailure);     
+function accountInfoError(jqXHR, textStatus, errorThrown) {
+  // If authentication error, delete the authToken 
+  // redirect user to sign-in page 
+  console.log("HEY")
+  if( jqXHR.status === 401 ) {
+    window.localStorage.removeItem("authToken");
+    window.location.replace("signin.html");
+  } 
+  else {
+    $("#error").html("Error: " + status.message);
+    $("#error").show();
+  } 
 }
 
-function deviceSuccess(data, textStatus, jqXHR){
-  console.log(data.devices)
-  window.localStorage.setItem("devices", JSON.stringify(data.devices))
-  let devices = data.devices
-    //devices1=devices11.filter((a)=>a);
-  //let devices = data.devices
-  for(let i = 0; i < devices.length; i++){
-      console.log(devices[i])
-      $("#addDeviceList").prepend(`<li><a class="dropdown-item devices" href="#"">${"Device #"+i
-       + "&nbsp &nbsp &nbsp &nbsp &nbsp  Device Name: "+ devices1[i].deviceName
-        + "&nbsp &nbsp &nbsp &nbsp &nbsp Devide ID: "+ devices1[i].deviceId
-         + "&nbsp &nbsp &nbsp &nbsp &nbsp Apikey: "+ devices1[i].apikey}</a> 
-         </li>`)
-      //$("#main").show();
-      
-  }
-   
-}
-
-function deviceFailure(jqXHR, textStatus, errorThrown){
-  console.log(jqXHR.responseText);
-}
+//Delete Device function ---------------------------------------------------
 
 function deleteDevices(){
-  //items.find.sort( [['_id', -1]] ) // get all items desc by created date.
-  //sort by first added, first added is the primary device
+  
   let devId = $('#deviceId').val();
   
   let deviceId = String(devId);
@@ -144,11 +90,16 @@ function deleteDevices(){
           contentType: 'application/json',
           data: JSON.stringify(txdata),
           dataType:'json'
-      })//.done(deviceSuccess).fail(deviceFailure);
-      .done(deviceSuccess).fail(deviceFailure);
+      })    .done(deviceSuccess).fail(deviceFailure);
 
         window.location.reload();
   }
+
+
+function deviceFailure(jqXHR, textStatus, errorThrown){
+  console.log(jqXHR.responseText);
+}
+
 
 
 function deviceSuccess(data, textStatus, jqXHR){
@@ -157,25 +108,8 @@ function deviceSuccess(data, textStatus, jqXHR){
     
 }
 
-function deviceFailure(jqXHR, textStatus, errorThrown){
-  console.log(jqXHR.responseText);
-}
 
-
-function accountInfoError(jqXHR, textStatus, errorThrown) {
-  // If authentication error, delete the authToken 
-  // redirect user to sign-in page 
-  console.log("HEY")
-  if( jqXHR.status === 401 ) {
-    window.localStorage.removeItem("authToken");
-    window.location.replace("signin.html");
-  } 
-  else {
-    $("#error").html("Error: " + status.message);
-    $("#error").show();
-  } 
-}
-
+//Update User function  -------------------------------------------------------------
 
 function updateUser() {
   // data validation
@@ -183,7 +117,7 @@ function updateUser() {
       window.alert("invalid email!");
       return;
   }*/
-
+  console.log("updating user")
   if ($('#password').val() === "") {
       window.alert("invalid password!");
       return;
@@ -226,14 +160,14 @@ var strongRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,
 
 let txdata = {email:email, 
   fullName:fullName, 
-  //APIKEY: authorizationKey,
+  APIKEY: authorizationKey,
   password: password,
   zip: zip
 };
 console.log(txdata);
 
   $.ajax({
-      url: '/students/update',
+      url: '/users/update',
       method: 'POST',
       contentType: 'application/json',
       data: JSON.stringify(txdata),
@@ -336,7 +270,7 @@ $(function() {
  // $('#update').click(updateAccInfo);
   $('#btnUpdate').click(updateUser);
   $('#btnDelete').click(deleteDevices);
-  $('#btnUpdate').click(updateDeviceList);
+  //$('#btnUpdate').click(updateDeviceList);
   //$('#remove').click(RemoveDevice);
   //console.log("account.js")
 });

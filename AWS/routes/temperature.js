@@ -54,14 +54,15 @@ router.post('/readAll', function(req,res,next){
     
     //today = today.setHours(0,0,0,0);
     //console.log()
-    console.log(`HERE: ${today}`)
+    console.log(`COMPARE: ${Date.now()}`)
+    console.log(`HERE: ${Date(today)}`);
     
-    let tomorrow = req.body.date + day
-    console.log(`HERE: ${tomorrow}`)
+    let tomorrow = req.body.date + day;
+    console.log(`HERE: ${tomorrow}`);
     //console.log(today)
     //console.log(tomorrow)
     //{date:{$gt: Date(today), $lt:Date(tomorrow)}}
-    Temperature.find({postDate:{$gte: Date(today), $lt:(tomorrow)}}, function(err, docs){
+    Temperature.find({postDate:{$gte: today, $lt:tomorrow}}, function(err, docs){
         if(err){
             let msg = `Can't find information on date ...`;
             res.status(201).json({msg:msg});

@@ -82,11 +82,7 @@ function deleteDevices(){
     }
 
       let txdata = {
-<<<<<<< HEAD
-        id:$("deviceId").val()
-=======
         id:$('#deviceId').val()
->>>>>>> 32dabc4d281b7b28719091d573bcbbcdd39bb661
       };
       $.ajax({
           url: '/device/delete',
@@ -128,7 +124,8 @@ function deviceSSuccess(data, textStatus, jqXHR){
 function updateSuccess(data, textSatus, jqXHR) {
     
  let devices = data
- devices = JSON.parse(devices)
+ window.localStorage.setItem("devices", JSON.stringify(devices))
+ //devices = JSON.parse(devices)
  //let devices = data.devices
  for(let i = 0; i < devices.length; i++){
      console.log(devices[i])

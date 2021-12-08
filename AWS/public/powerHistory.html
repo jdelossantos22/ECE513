@@ -6,8 +6,8 @@
       <meta name="description" content="">
       <meta name="author" content="Jero, Rey, Ian">
       <meta name="generator" content="Hugo 0.88.1">
-      <link href="stylesheets/power.css" rel="stylesheet">.
       <link href="stylesheets/info.css" rel="stylesheet">
+      <link href="stylesheets/history.css" rel="stylesheet">
       <link href="images/smart_home_icon.png" rel="icon">
       <!-- CSS only -->
       <!-- CSS only -->
@@ -21,72 +21,104 @@
       crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
-      <script src="javascripts/power.js" defer></script>
+      <script src="javascripts/temperature.js" defer></script>
       
       <title>Smart Home</title>
    </head>  
    
    <body>
-   <header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <div class="container-fluid">
-           <img id="logo" src="images/iot_logo.png" width=48px height=48px><a class="navbar-brand px-3" href="#">Smart Home</a>
-           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-               <span class="navbar-toggler-icon"></span>
-           </button>
-           <div class="collapse navbar-collapse" id="navbarCollapse">
-               <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                   <li class="nav-item">
-                       <a class="nav-link active" aria-current="page" href="controllerAtHome.html">Home</a>
-                   </li>
-                   <li class="nav-item dropdown">
-                       <a class="nav-link dropdown-toggle" href="#" id="devicesToggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                       Devices
-                       </a>
-                       <ul id="devicesList" class="dropdown-menu dropdown-menu-dark" aria-labelledby="devices">
-                           <li><a class="dropdown-item" href="deviceRegister.html">Add Device</a></li>
+    <header class="pb-3">
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+          <div class="container-fluid">
+               <img id="logo" src="images/iot_logo.png" width=48px height=48px><a class="navbar-brand px-3" href="#">Smart Home</a>
+               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                   <span class="navbar-toggler-icon"></span>
+               </button>
+               <div class="collapse navbar-collapse" id="navbarCollapse">
+                   <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                       <li class="nav-item">
+                           <a class="nav-link active" aria-current="page" href="controllerAtHome.html">Home</a>
+                       </li>
+                       <li class="nav-item dropdown">
+                           <a class="nav-link dropdown-toggle" href="#" id="devicesToggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                           Devices
+                           </a>
+                           <ul id="devicesList" class="dropdown-menu dropdown-menu-dark" aria-labelledby="devices">
+                               <li><a class="dropdown-item" href="deviceRegister.html">Add Device</a></li>
 
-                       </ul>    
-                   </li>
+                           </ul>    
+                       </li>
 
-               </ul>
-               <div class="d-flex">
-                   <div class="dropdown">
-                       <a id="dropdownMenuButton" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="white" class="bi bi-person-circle" viewBox="0 0 16 16">
-                               <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                               <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                           </svg>
-                       </a>
-                       <div class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuButton">
-                           <a class="dropdown-item" href="Account.html">Account Settings</a>
-                           <a class="dropdown-item" href="powerHistory.html">Power History</a>
-                           <a class="dropdown-item" href="tempHistory.html">Temperature History</a>
-                           <a class="dropdown-item" href="index.html" id="signout">Logout</a>
+                   </ul>
+                   <div class="d-flex">
+                       <div class="dropdown">
+                           <a id="dropdownMenuButton" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="white" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                   <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                   <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                               </svg>
+                           </a>
+                           <div class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuButton">
+                               <a class="dropdown-item" href="Account.html">Account Settings</a>
+                               <a class="dropdown-item" href="powerHistory.html">Power History</a>
+                               <a class="dropdown-item" href="tempHistory.html">Temperature History</a>
+                               <a class="dropdown-item" href="index.html" id="signout">Logout</a>
+                           </div>
                        </div>
                    </div>
                </div>
-           </div>
-      </div> 
-  </nav>
-    </header>
+          </div> 
+      </nav>
+  </header>
     <main>
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Dashboard</h1>
+          <h1 class="h2" id="deviceHeader">Device Name</h1>
+            <h1 class="h2">Temperature and Humidity History</h1>
+            
             <div class="btn-toolbar mb-2 mb-md-0">
-              <div class="btn-group me-2">
+              <div class="btn-group me-2 d-none">
                 <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
                 <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
               </div>
-              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                <span data-feather="calendar"></span>
-                This week
-              </button>
+              <input type="date" class="btn btn-sm btn-outline-secondary" id="datePicker" onchange="dateChange()">
             </div>
+        </div>
+        
+        <div id="tempDaily">
+          <table>
+            <tr><th colspan="6">Temperature</th></tr>
+            <tr><td colspan="3"><span>LAST CHECK IN</span><br><span id="temp">85</span>°F</td>
+            <td id="lastChecked" colspan="3">December 1, 2021<br> 5:30 pm</td>
+            </tr>
+            <tr>
+              <td colspan="2">HIGH<br><span id="tHigh">85</span>°</td>
+              <td colspan="2">LOW<br><span id="tLow">61</span>°</td>
+              <td colspan="2">AVERAGE<br><span id="tAvg">70</span>°</td>
+            </tr>
+          </table>
+        
+        </div>
+        <div id="humidDaily">
+          <table>
+            <tr>
+              <th colspan="6">Humidity</th>
+            </tr>
+            <tr>
+              <td colspan="3"><span>LAST CHECK IN</span><br><span id="humid">85</span>%</td>
+              <td id="lastChecked" colspan="3">December 1, 2021<br> 5:30 pm</td>
+            </tr>
+            <tr>
+              <td colspan="2">HIGH<br><span id="hHigh">85</span>%</td>
+              <td colspan="2">LOW<br><span id="hLow">61</span>%</td>
+              <td colspan="2">AVERAGE<br><span id="hAvg">70</span>%</td>
+            </tr>
+          </table>
+        </div id="data">
+        
+          <div id="chart-container" clas="align-items-center">
+            <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
           </div>
-    
-          <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-        <!--Footer-->
+        <!--Footer width="5rem" -->
         <footer class="page-footer bg-az-red darken-2">
             <div class="footer-copyright">
                 <div class="container">
@@ -98,3 +130,4 @@
     </main>
     </body>
 </html>
+

@@ -100,7 +100,7 @@ function deviceFailure(jqXHR, textStatus, errorThrown){
   console.log(jqXHR.responseText);
 }
 
-function updateGUI(date){
+function updateGUI(date, id){
   /*
     const token = localStorage.getItem("authToken");
     const respons = await fetch("/users/status",{
@@ -108,7 +108,7 @@ function updateGUI(date){
     });
 
     if (respons.status.ok){}  */
-    let jsonStr = JSON.stringify({date:date})
+    let jsonStr = JSON.stringify({date:date, id: id})
     console.log(jsonStr)
     let jsonData = JSON.parse(jsonStr)
     console.log(jsonData)

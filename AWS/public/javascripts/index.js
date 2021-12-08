@@ -234,7 +234,7 @@ function pingTest() {
       dataType: 'json'
     }).done((data, textStatus, jqXHR) => {console.log(data)})
     .fail(particleFailure);
-    /*
+    
     let power = thermostatData.w
     txdata = {
       id:deviceId,
@@ -250,7 +250,7 @@ function pingTest() {
       data: JSON.stringify(txdata),
       dataType: 'json'
     }).done((data, textStatus, jqXHR) => {console.log(data)})
-    .fail(particleFailure);*/
+    .fail(particleFailure);
   }
  
   function particleFailure(jqXHR, textStatus, errorThrown) {

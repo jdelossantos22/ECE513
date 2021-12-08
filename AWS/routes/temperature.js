@@ -34,7 +34,7 @@ router.post('/create', function(req, res){
 
 //find-use params
 router.post('/find', function(req,res){
-    Temperature.find({date:req.body.date}, function(err, temp){
+    Temperature.find({postDate:req.body.date}, function(err, temp){
         if(err){
             let msg = `Something wrong with device find ...`;
             res.status(201).json({msg:msg});
@@ -56,9 +56,9 @@ router.post('/readAll', function(req,res,next){
     //console.log(today)
     //console.log(tomorrow)
     //{date:{$gt: Date(today), $lt:Date(tomorrow)}}
-    Temperature.find({date:{$gt: Date(today), $lt:Date(tomorrow)}}, function(err, docs){
+    Temperature.find({postDate:{$gt: Date(today), $lt:Date(tomorrow)}, deviceId:req.body.id}, function(err, docs){
         if(err){
-            let msg = `Something wrong with device find ...`;
+            let msg = `Can't find information on date ...`;
             res.status(201).json({msg:msg});
         }
         else{

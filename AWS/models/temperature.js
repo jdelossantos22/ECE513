@@ -4,7 +4,8 @@ var db = require("../db");
       deviceId: String,
       postDate: Date,
       temperature: Number,
-      humidity: Number
+      humidity: Number,
+      power: Number
 
 });
 

@@ -11,10 +11,97 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
 function initGUI(){
     var today = new Date();
     today = today.setHours(0,0,0,0);
-    updateGUI(today);
+    var date = new Date()
+    let year = date.getFullYear();
+    let month = date.getMonth()+1;
+    let day = date.getDate();
+    if (String(day).length == 1) day = "0" + day;
+    if (String(month).length == 1) month = "0" + month;
+    console.log(`${year}-${month}-${day}`)
+    $("#datePicker").val(`${year}-${month}-${day}`)
+    console.log($(".devices:has(i)"))
+    let device = $(".devices:has(i)")[0].id;
+    updateGUI(today, device);
 }
 
-function updateGUI(date){
+
+function dateChange(){
+  let selectedDate = $("#datePicker").val();
+  var date = new Date(selectedDate);
+  date = date.setHours(0,0,0,0);
+  console.log(date)
+  let device = $(".devices:has(i)")[0].id;
+  updateGUI(date, device);
+}
+
+function initDevices(){
+//items.find.sort( [['_id', -1]] ) // get all items desc by created date.
+//sort by first added, first added is the primary device
+    let txdata = {
+        email:window.localStorage.getItem("email")
+    }
+    $.ajax({
+        url: '/device/findAll',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(txdata),
+        dataType:'json'
+    }).done(deviceSuccess).fail(deviceFailure);     
+}
+
+function updateDevice(e){
+  console.log("UPDATE DEVICES");
+  let id = e.target.id;
+  console.log(id)
+  let devices = window.localStorage.getItem("devices");
+  let index;
+  
+  devices = JSON.parse(devices)
+  let apikey;
+  $(".devices i").remove()
+  //console.log(devices)
+  for(let i = 0; i < devices.length; i++){
+      if(devices[i].deviceId == id){
+          index=i;
+          console.log(devices[i].deviceName)
+          $("#deviceHeader").text(devices[i].deviceName)
+          apikey = devices[i].apikey
+      }
+  }
+  $(".devices").each((i) =>{
+      if(i == index){
+          $(e.target).prepend('<i class="bi bi-check"></i>')
+      }
+  })
+  dateChange();
+  
+}
+
+
+function deviceSuccess(data, textStatus, jqXHR){
+  console.log(data.devices)
+  //window.localStorage.setItem("devices", JSON.stringify(data.devices))
+  let devices = data.devices
+  for(let i = devices.length-1; i >=0; i--){
+      console.log(devices.length)
+      //javascript:updateDevice()
+      if(i == 0){
+          $("#devicesList").prepend(`<li><a class="dropdown-item devices" id="${devices[i].deviceId}" href="#" onclick="updateDevice(event)"><i class="bi bi-check"></i>${devices[i].deviceName}</a></li>`)
+      }
+      else{
+          $("#devicesList").prepend(`<li><a class="dropdown-item devices" id="${devices[i].deviceId}" href="#" onclick="updateDevice(event)">${devices[i].deviceName}</a></li>`)
+      }
+      //$(".devices").click(updateGUI)
+  }
+  $("#deviceHeader").text(devices[0].deviceName)
+  initGUI();
+}
+
+function deviceFailure(jqXHR, textStatus, errorThrown){
+  console.log(jqXHR.responseText);
+}
+
+function updateGUI(date, id){
   /*
     const token = localStorage.getItem("authToken");
     const respons = await fetch("/users/status",{
@@ -22,7 +109,7 @@ function updateGUI(date){
     });
 
     if (respons.status.ok){}  */
-    let jsonStr = JSON.stringify({date:date})
+    let jsonStr = JSON.stringify({date:date, id: id})
     console.log(jsonStr)
     let jsonData = JSON.parse(jsonStr)
     console.log(jsonData)
@@ -31,11 +118,13 @@ function updateGUI(date){
         url: '/temperature/readAll',
         method: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify({date:date}),
+        data: JSON.stringify({date:date,id:id}),
         dataType:'json'
     }).done(tempSuccess).fail(tempFailure);
     
 }
+
+
 
 function findMin(num, low){
     if (num < low) low = num
@@ -180,6 +269,7 @@ function tempSuccess(data, textStatus, jqXHR){
 
 function tempFailure(jqXHR, textStatus, errorThrown){
     console.log(jqXHR.responseText);
+    $("#data").text(JSON.stringify(jqXHR, null, 2))
 }
 function generateTemp(){
     let today = new Date();
@@ -226,6 +316,8 @@ $(function() {
       window.localStorage.removeItem('authToken');
       window.location = "index.html";
     });
-    initGUI();
+    initDevices();
+    
+    
     
 });

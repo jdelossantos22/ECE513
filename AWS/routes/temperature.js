@@ -7,7 +7,7 @@ let Temperature = require("../models/temperature")
 router.post('/create', function(req, res){
     console.log(req.body.postDate)
     let date = new Date(req.body.postDate)
-    Temperature.findOne({date: date, deviceId:req.body.id}, function(err, temp){
+    Temperature.findOne({postDate: date, deviceId:req.body.id}, function(err, temp){
         if(err) res.status(401).json({success:false, err:err});
         else if(temp){
             res.status(401).json({success:false, msg:"The data for this date already saved"});
@@ -17,7 +17,8 @@ router.post('/create', function(req, res){
                 deviceId:req.body.id,
                 postDate:date,
                 temperature: req.body.temperature,
-                humidity:req.body.humidity
+                humidity:req.body.humidity,
+                power:req.body.power
             })
             newTemp.save(function(err, temp){
                 if(err){
@@ -34,7 +35,7 @@ router.post('/create', function(req, res){
 
 //find-use params
 router.post('/find', function(req,res){
-    Temperature.find({date:req.body.date}, function(err, temp){
+    Temperature.find({postDate:req.body.date}, function(err, temp){
         if(err){
             let msg = `Something wrong with device find ...`;
             res.status(201).json({msg:msg});
@@ -56,9 +57,9 @@ router.post('/readAll', function(req,res,next){
     //console.log(today)
     //console.log(tomorrow)
     //{date:{$gt: Date(today), $lt:Date(tomorrow)}}
-    Temperature.find({date:{$gt: Date(today), $lt:Date(tomorrow)}}, function(err, docs){
+    Temperature.find({postDate:{$gt: Date(today), $lt:Date(tomorrow)}}, function(err, docs){
         if(err){
-            let msg = `Something wrong with device find ...`;
+            let msg = `Can't find information on date ...`;
             res.status(201).json({msg:msg});
         }
         else{

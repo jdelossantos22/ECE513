@@ -95,7 +95,6 @@ function deviceSuccess(data, textStatus, jqXHR){
   }
   $("#deviceHeader").text(devices[0].deviceName)
   initGUI();
-
 }
 
 function deviceFailure(jqXHR, textStatus, errorThrown){
@@ -119,7 +118,7 @@ function updateGUI(date, id){
         url: '/temperature/readAll',
         method: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify({date:date}),
+        data: JSON.stringify({date:date,id:id}),
         dataType:'json'
     }).done(tempSuccess).fail(tempFailure);
     

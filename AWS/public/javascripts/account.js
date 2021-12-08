@@ -118,6 +118,14 @@ function updateUser() {
       return;
   }*/
   console.log("updating user")
+
+  let email = $('#email').val();
+  let password = $('#password').val();
+  let fullName = $('#fullName').val();
+  let passwordConfirm = $('#passwordConfirm').val();
+  let zip = $('#zip').val();
+
+
   if ($('#password').val() === "") {
       window.alert("invalid password!");
       return;
@@ -160,7 +168,7 @@ var strongRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,
 
 let txdata = {email:email, 
   fullName:fullName, 
-  APIKEY: authorizationKey,
+  //APIKEY: authorizationKey,
   password: password,
   zip: zip
 };

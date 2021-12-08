@@ -119,10 +119,10 @@ router.post("/update", function(req, res){
       else {
          let msgStr;
          if (doc == null) {
-            msgStr = `Student (name: ${req.body.name}) info does not exist in DB.`;      
+            msgStr = `user (name: ${req.body.email}) info does not exist in DB.`;      
          }
          else {
-            msgStr = `Student (name: ${req.body.name}) info has been updated.`;
+            msgStr = `Student (name: ${req.body.email}) info has been updated.`;
          }
          
          res.status(201).json({message: msgStr});

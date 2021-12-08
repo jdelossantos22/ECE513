@@ -19,7 +19,7 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://smtpjs.com/v3/smtp.js"></script>
-    <script src="/javascripts/register.js"></script>
+    <!--<script src="/javascripts/register.js"></script>-->
     <script src="/javascripts/account.js"></script>
     <link href="/stylesheets/style_Account.css" rel="stylesheet">
     
@@ -58,6 +58,12 @@
             
             <div class="collection-item">Email: <span id="email"></span></div>
             <div>
+
+              <div class="input-field">
+                <label for="email">Account Email</label>
+                <input type="email" id="email" name="email" required>
+              </div>
+
             <div class="input-field">
               <label for="fullName">Update Full Name</label>
               <input type="text" id="fullName" name="fullName" required>

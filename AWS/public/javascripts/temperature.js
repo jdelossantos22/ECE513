@@ -19,6 +19,7 @@ function initGUI(){
     if (String(month).length == 1) month = "0" + month;
     console.log(`${year}-${month}-${day}`)
     $("#datePicker").val(`${year}-${month}-${day}`)
+    console.log($(".devices:has(i)"))
     let device = $(".devices:has(i)")[0].id;
     updateGUI(today, device);
 }

@@ -4,9 +4,9 @@ Ian Louis Bell - ilbell@email.arizona.edu
 Reydesel Alejandro Cuevas - cuevasr@email.arizona.edu
 Jero Delos Santos - jdelossantos22@email.arizona.edu
 
-AWS Address: http://ec2-18-216-179-189.us-east-2.compute.amazonaws.com:3000/
-Checkpoint 2 Demos: http://ec2-18-216-179-189.us-east-2.compute.amazonaws.com:3000/checkpoint2.html
-Video Demo: http://ec2-18-216-179-189.us-east-2.compute.amazonaws.com:3000/checkpoint2.html
+AWS Address: http://ec2-3-20-194-35.us-east-2.compute.amazonaws.com:3000/
+Checkpoint 2 Demos: http://ec2-3-20-194-35.us-east-2.compute.amazonaws.com:3000/checkpoint2.html
+Video Demo: http://ec2-3-20-194-35.us-east-2.compute.amazonaws.com:3000/checkpoint2.html
 
 Test Account:
 username admin@email.arizona.edu

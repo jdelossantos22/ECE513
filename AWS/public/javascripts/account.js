@@ -150,7 +150,7 @@ function updateUser() {
   }*/
   console.log("updating user")
 
-  let email = $('#email').val();
+  //let email = $('#email').val();
   let password = $('#password').val();
   let fullName = $('#fullName').val();
   let passwordConfirm = $('#passwordConfirm').val();
@@ -198,7 +198,7 @@ var strongRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,
   }
 
 let txdata = {
-  email:email 
+  email:$('#email').val() 
 };
 console.log(txdata);
 
@@ -209,6 +209,7 @@ console.log(txdata);
       data: JSON.stringify(txdata),
       dataType: 'json'
   })
+  console.log("ajax ends")
   .done(function (data, textStatus, jqXHR) {
       $('#rxData').html(JSON.stringify(data, null, 2));
   })
@@ -296,14 +297,7 @@ $(function() {
     window.localStorage.removeItem();
     window.location = "index.html";
   });
-  //if (!window.localStorage.getItem("authToken")) {
-   // window.location.replace("signin.html");
-  //}
- // else {
-  //  sendReqForAccountInfo();
-  //  initDevices()
- // }
- // $('#update').click(updateAccInfo);
+ 
   $('#btnUpdate').click(updateUser);
   $('#btnDelete').click(deleteDevices);
   //$('#btnUpdate').click(updateDeviceList);

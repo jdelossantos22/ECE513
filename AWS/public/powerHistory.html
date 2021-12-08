@@ -21,7 +21,7 @@
       crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
-      <script src="javascripts/temperature.js" defer></script>
+      <script src="javascripts/power.js" defer></script>
       
       <title>Smart Home</title>
    </head>  
@@ -73,50 +73,32 @@
     <main>
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2" id="deviceHeader">Device Name</h1>
-            <h1 class="h2">Temperature and Humidity History</h1>
+            <h1 class="h2">Power Consumption History</h1>
             
             <div class="btn-toolbar mb-2 mb-md-0">
               <div class="btn-group me-2 d-none">
                 <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
                 <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
               </div>
-              <input type="date" class="btn btn-sm btn-outline-secondary" id="datePicker" onchange="dateChange()">
+              <input type="week" class="btn btn-sm btn-outline-secondary" id="weekPicker" onchange="weekChange()" min="2021-W48">
             </div>
         </div>
         
         <div id="tempDaily">
           <table>
-            <tr><th colspan="6">Temperature</th></tr>
-            <tr><td colspan="3"><span>LAST CHECK IN</span><br><span id="temp">85</span>°F</td>
-            <td id="lastChecked" colspan="3">December 1, 2021<br> 5:30 pm</td>
+            <tr><th colspan="6">Power</th></tr>
+            <td id="lastChecked" colspan="6">December 1, 2021<br> 5:30 pm</td>
             </tr>
             <tr>
-              <td colspan="2">HIGH<br><span id="tHigh">85</span>°</td>
-              <td colspan="2">LOW<br><span id="tLow">61</span>°</td>
-              <td colspan="2">AVERAGE<br><span id="tAvg">70</span>°</td>
+              <td colspan="6">Week Total Power Consumption<br><span id="tHigh">85</span>kWh</td>
             </tr>
           </table>
         
         </div>
-        <div id="humidDaily">
-          <table>
-            <tr>
-              <th colspan="6">Humidity</th>
-            </tr>
-            <tr>
-              <td colspan="3"><span>LAST CHECK IN</span><br><span id="humid">85</span>%</td>
-              <td id="lastChecked" colspan="3">December 1, 2021<br> 5:30 pm</td>
-            </tr>
-            <tr>
-              <td colspan="2">HIGH<br><span id="hHigh">85</span>%</td>
-              <td colspan="2">LOW<br><span id="hLow">61</span>%</td>
-              <td colspan="2">AVERAGE<br><span id="hAvg">70</span>%</td>
-            </tr>
-          </table>
-        </div id="data">
         
           <div id="chart-container" clas="align-items-center">
-            <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+            <canvas class="my-4 w-100" id="powerDailyChart" width="900" height="380"></canvas>
+            <canvas class="my-4 w-100 d-none" id="powerWeeklyChart" width="900" height="380"></canvas>
           </div>
         <!--Footer width="5rem" -->
         <footer class="page-footer bg-az-red darken-2">

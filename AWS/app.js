@@ -11,7 +11,7 @@ var usersRouter = require('./routes/users');
 var particleRouter = require('./routes/particle')
 var deviceRouter = require('./routes/device')
 var tempRouter = require('./routes/temperature')
-
+var powerRouter = require('./routes/power')
 var app = express();
 
 /* view engine setup
@@ -39,6 +39,7 @@ app.use('/users', usersRouter);
 app.use('/particle', particleRouter)
 app.use('/device', deviceRouter)
 app.use('/temperature', tempRouter)
+app.use('/power', powerRouter)
 
 
 // This is to enable cross-origin access

@@ -4,7 +4,7 @@
 #include "Particle.h"
 #include "Adafruit_DHT.h"
 
-#define PERIOD     1000
+#define PERIOD     200
 #define LOOP_FREQUENCY   (1000/PERIOD)   // Loop frequency
 // Blue led
 #define LED         D7

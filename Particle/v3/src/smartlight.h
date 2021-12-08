@@ -44,6 +44,7 @@ private:
     char color[6];
     int bedtimeStart;
     int wakeupStart;
+    int rgb[3];
     SmartLightCmdStruct cmd;
     String statusStr;
 };

@@ -1,5 +1,5 @@
 function sendSigninRequest() {
-  let email = $('#email').val();
+  let email = $('#email').val().toLowerCase();
   let password = $('#password').val();
   
   $.ajax({

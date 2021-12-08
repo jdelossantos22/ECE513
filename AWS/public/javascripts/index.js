@@ -1,6 +1,7 @@
 var myInterval = null;
 var guiUpdated = false;
-var samplingPeriod = 1;
+var samplingPeriod = 1/5;
+var simTime;
 $(function (){
     initRangeSliders();
 });
@@ -91,6 +92,7 @@ function changeColor(value){
   var value = value.match(/[A-Za-z0-9]{2}/g);
   value = value.map(function(v) { return parseInt(v, 16) });
   console.log(value)
+  
 
 }
 
@@ -220,12 +222,14 @@ function pingTest() {
   }
 
   function saveTemperature(data){
+    //let simClock = new Date(data.simclock)
+    //if()
     let deviceId = $(".devices:has(i)")[0].id;
     console.log($(".devices:has(i)")[0].id)
     let thermostatData = data.thermostat;
     let temperature = thermostatData.t;
     let humidity = thermostatData.h;
-    let simTime = data.simclock;
+    simTime = data.simclock;
     let power = thermostatData.w
     let txdata = {
       id:deviceId,

@@ -159,6 +159,14 @@ function finishOpenClose(data) {
     }
 }
 
+function changeColor(value){
+  
+    var value = value.match(/[A-Za-z0-9]{2}/g);
+    value = value.map(function(v) { return parseInt(v, 16) });
+    console.log(value)
+    smartLightControl("color", value)
+  }
+
 function smartLightControl(option, value) {
     let txcmd = {
         cmd: "write",

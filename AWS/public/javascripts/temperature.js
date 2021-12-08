@@ -1,4 +1,4 @@
-var xValues = [];
+var xValues = ["00:00", "01:00","02:00",];
 var tempValues = [];
 var humidValues = [];
 var tHigh =0,tLow=300, tAvg=0, hHigh=300,hLow=0,hAvg=0
@@ -7,6 +7,12 @@ var humid = document.getElementById('humidChart')
 const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
+
+let tempTitle = `Temperature for December 12, 2021`;
+let humidTitle = `Humidty for December 12, 2021`;
+
+
+
 
 function initGUI(){
     var today = new Date();
@@ -146,7 +152,9 @@ function tempSuccess(data, textStatus, jqXHR){
     console.log(data)
     tAvg = 0, tLow = 300, tHigh = 0, hAvg = 0, hLow = 300, hHigh= 0;
     
-    
+    xValues=[];
+    tempValues=[];
+    humidValues=[];
     for(let i = 0; i < data.length; i++){
         let date = new Date(data[i].postDate);
         console.log(typeof date);
@@ -154,6 +162,14 @@ function tempSuccess(data, textStatus, jqXHR){
         let min = date.getMinutes();
         if (String(hour).length == 1) hour = '0' + hour
         if (String(min).length == 1) min = '0' + min
+        /*
+        if((parseInt(min) % 10 == 0) || parseInt(min)%10 == 1 || parseInt(min)%10 == 9){
+          min[-1] = "0"
+          
+        }
+        else{
+          xValues.push('');
+        }*/
         xValues.push(`${hour}:${min}`);
         tempValues.push(data[i].temperature);
         humidValues.push(data[i].humidity);
@@ -192,79 +208,80 @@ function tempSuccess(data, textStatus, jqXHR){
     let month = date.getMonth();
     month = monthNames[month];
     let day = date.getDate();
-    let tempTitle = `Temperature for ${month} ${day}, ${year}`;
-    let humidTitle = `Humidty for ${month} ${day}, ${year}`;
+    tempTitle = `Temperature(°F) for ${month} ${day}, ${year}`;
+    humidTitle = `Humidty(%) for ${month} ${day}, ${year}`;
     if (String(day).length == 1) day = '0' + day
     console.log(xValues)
     var tempChart = new Chart(temp, {
-        type: 'line',
-        data: {
-          labels: xValues,
-          datasets: [{
-            data: tempValues,
-            lineTension: 0,
-            backgroundColor: 'transparent',
-            borderColor: '#007bff',
-            borderWidth: 4,
-            pointBackgroundColor: '#007bff',
-            fill: true
+      type: 'line',
+      data: {
+        labels: xValues,
+        datasets: [{
+          data: tempValues,
+          lineTension: 0,
+          backgroundColor: 'transparent',
+          borderColor: '#007bff',
+          borderWidth: 4,
+          pointBackgroundColor: '#007bff',
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        aspectRatio: 2,
+        maintainAsepctRatio: true,
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: false
+            }
           }]
         },
-        options: {
-          responsive: true,
-          aspectRatio: 2,
-          maintainAsepctRatio: true,
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: false
-              }
-            }]
-          },
-          legend: {
-            display: false
-          },
-          
-        title: {
-            display: true,
-            text: tempTitle
-        }
-        }
+        legend: {
+          display: false
+        },
+        
+      title: {
+          display: true,
+          text: tempTitle
+      }
+      }
     })
     var humidChart = new Chart(humid, {
-        type: 'line',
-        data: {
-          labels: xValues
-          ,
-          datasets: [{
-            data: humidValues,
-            lineTension: 0,
-            backgroundColor: 'transparent',
-            borderColor: '#007bff',
-            borderWidth: 4,
-            pointBackgroundColor: '#007bff'
+      type: 'line',
+      data: {
+        labels: xValues
+        ,
+        datasets: [{
+          data: humidValues,
+          lineTension: 0,
+          backgroundColor: 'transparent',
+          borderColor: '#007bff',
+          borderWidth: 4,
+          pointBackgroundColor: '#007bff'
+        }]
+      },
+      options: {
+        responsive: true,
+        aspectRatio: 2,
+        maintainAsepctRatio: true,
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: false
+            }
           }]
         },
-        options: {
-          responsive: true,
-          aspectRatio: 2,
-          maintainAsepctRatio: true,
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: false
-              }
-            }]
-          },
-          legend: {
-            display: false
-          },
-          title: {
-            display: true,
-            text: humidTitle
-        }
-        }
-    })
+        legend: {
+          display: false
+        },
+        title: {
+          display: true,
+          text: humidTitle
+      }
+      }
+    });
+    
 }
 
 function tempFailure(jqXHR, textStatus, errorThrown){
@@ -316,6 +333,7 @@ $(function() {
       window.localStorage.removeItem('authToken');
       window.location = "index.html";
     });
+    
     initDevices();
     
     

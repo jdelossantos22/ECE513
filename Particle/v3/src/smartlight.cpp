@@ -6,7 +6,7 @@ CSmartLight::CSmartLight() {
     brightness = RGB_BRIGHTNESS_DEAULT;
     sensorMax = LIGHT_SENSOR_MAX;
     sensorMin = LIGHT_SENSOR_MIN;
-    color = "#ffffff";
+    //color = "#ffffff";
     bedtimeStart = -1;
     wakeupStart = 0;
 

@@ -82,15 +82,15 @@ function deleteDevices(){
     }
 
       let txdata = {
-        email:user[0].email
+        id:$('#deviceId').val()
       };
       $.ajax({
-          url: '/device/findAll',
+          url: '/device/delete',
           method: 'POST',
           contentType: 'application/json',
           data: JSON.stringify(txdata),
           dataType:'json'
-      })    .done(deviceSuccess).fail(deviceFailure);
+      })    .done(deviceSSuccess).fail(deviceFailure);
 
         window.location.reload();
   }
@@ -102,11 +102,42 @@ function deviceFailure(jqXHR, textStatus, errorThrown){
 
 
 
-function deviceSuccess(data, textStatus, jqXHR){
+function deviceSSuccess(data, textStatus, jqXHR){
     console.log(data.devices)
     window.localStorage.setItem("devices", JSON.stringify(data.devices))
+
+    let txdata = {
+      id:$('#deviceId').val()
+    };
+    $.ajax({
+        url: '/device/findAll',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(txdata),
+        dataType:'json'
+    })    .done(updateSuccess).fail(deviceFailure);
+
     
 }
+
+
+function updateSuccess(data, textSatus, jqXHR) {
+    
+ let devices = data
+ devices = JSON.parse(devices)
+ //let devices = data.devices
+ for(let i = 0; i < devices.length; i++){
+     console.log(devices[i])
+     $("#addDeviceList").prepend(`<li><a class="dropdown-item devices" href="#"">${"Device #"+i
+      + "&nbsp &nbsp &nbsp &nbsp &nbsp  Device Name: "+ devices[i].deviceName
+       + "&nbsp &nbsp &nbsp &nbsp &nbsp Devide ID: "+ devices[i].deviceId
+        + "&nbsp &nbsp &nbsp &nbsp &nbsp Apikey: "+ devices[i].apikey}</a> 
+        </li>`)
+     //$("#main").show();
+     
+ }
+}
+
 
 
 //Update User function  -------------------------------------------------------------

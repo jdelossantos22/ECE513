@@ -6,6 +6,10 @@ CSmartLight::CSmartLight() {
     brightness = RGB_BRIGHTNESS_DEAULT;
     sensorMax = LIGHT_SENSOR_MAX;
     sensorMin = LIGHT_SENSOR_MIN;
+    color = "#ffffff";
+    bedtimeStart = -1;
+    wakeupStart = 0;
+
     statusStr = "{}";
     resetCmd();
 }
@@ -28,6 +32,15 @@ void CSmartLight::cmdProcessing(JSONValue cmdJson) {
         else if (iter.name() == "max") {
             sensorMax = iter.value().toInt();
         }
+        else if (iter.name() == "color") {
+            color = iter.value().toString();
+        }
+        else if (iter.name() == "bedtime") {
+            bedtimeStart = iter.value().toInt();        //In milliseconds (See controllerAtHome.html)
+        }
+        else if (iter.name() == "wakeup") {
+            wakeupStart = iter.value().toInt();         //In milliseconds (See controllerAtHome.html)
+        }
     }
 }
 
@@ -40,12 +53,17 @@ void CSmartLight::execute() {
                     state_L0 = CSmartLight::S_ON;
                     state_L1 = CSmartLight::S_MANUAL;
                 }
-            }  
+            }
+            else if (!(bedtimeActive())) {
+                state_L0 = CSmartLight::S_ON;
+                state_L1 = CSmartLight::S_MANUAL;
+            }
             break;
         case CSmartLight::S_ON:
             switch (state_L1) {
                 case CSmartLight::S_MANUAL:
                     updateBrightnessManually(cmd.Brightness);
+                    updateColor();
                     if (cmd.Auto != INVALID_CMD) {
                         if(cmd.Auto) state_L1 = CSmartLight::S_AUTO;
                     }
@@ -53,6 +71,7 @@ void CSmartLight::execute() {
                 
                 case CSmartLight::S_AUTO:
                     updataBrightnessAutomatically();
+                    updateColor();
                     if (cmd.Auto != INVALID_CMD) {
                         if(!cmd.Auto) state_L1 = CSmartLight::S_MANUAL;
                     }
@@ -63,6 +82,9 @@ void CSmartLight::execute() {
             }
             if (cmd.On != INVALID_CMD) {
                 if(!cmd.On) state_L0= CSmartLight::S_OFF;
+            }
+            else if (bedtimeActive()) {
+                state_L0 = CSmartLight::S_OFF;
             }
             break;
         default:
@@ -105,6 +127,20 @@ void CSmartLight::updataBrightnessAutomatically() {
     RGB.brightness(brightness);
 }
 
+void CSmartLight::updateColor() {
+    RGB.color(color);
+}
+
+bool CSmartLight::bedtimeActive() {
+    int currentTime = millis();
+
+    if ((currentTime % bedtimeStart) > bedtimeStart && (currentTime % wakeupStart) < wakeupStart) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
 
 void CSmartLight::readSensorVal() {
     sensorVal = analogRead(LIGHT_SENSOR);

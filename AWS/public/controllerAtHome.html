@@ -109,6 +109,28 @@
                     </div>
                 </div>
                 <!--Weather display End-->
+                <!--Serial Comm Port-->
+                <div class="bg-dark row rounded m-3 shadow-lg py-2 justify-content-end align-items-end d-none">
+                    <table>
+                        <tr><td colspan="4"><span id="curTime"></span></td></tr>
+                        <tr><th colspan="4">Serial Comm. </th></tr>
+                        <tr>
+                          <td>
+                            <select id="com_ports_list">
+                              <option selected value="null">Please select your port</option>
+                            </select>
+                          </td>
+                          <td>
+                            <button id="btnConnect" onclick="connectDisconnect()">Connect</button>
+                          </td>
+                          <td>COM status:</td>
+                          <td>
+                            <input id="com_status" name="com_status" style="width:600px;" readonly value="">
+                          </td>
+                        </tr>  
+                    </table>
+                </div>
+                <!--Serial Comm Port End-->
                 <!--General Sampling Information Start-->
                 <div class="bg-dark row rounded m-3 shadow-lg py-2 justify-content-end align-items-end" id="sampleInfo">
                     <div class="col-md">

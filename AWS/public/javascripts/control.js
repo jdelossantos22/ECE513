@@ -70,8 +70,12 @@ function getUserInfo(){
 function initDevices(){
 //items.find.sort( [['_id', -1]] ) // get all items desc by created date.
 //sort by first added, first added is the primary device
+    let decoded = window.localStorage.getItem("authToken");
+    console.log(decoded);
+    let userEmail = decoded.email;
+    console.log(userEmail)
     let txdata = {
-        email:user[0].email
+        email:userEmail
     }
     $.ajax({
         url: '/device/findAll',

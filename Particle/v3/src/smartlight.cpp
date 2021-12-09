@@ -195,6 +195,12 @@ bool CSmartLight::bedtimeActive() {
     int currentTime = ((int)Time.hour() * 60 * 60 * 1000 + (int)Time.minute() * 60 * 1000 + Time.second() * 1000) / 24;
     bedtimeStart /= 3600;
     wakeupStart /= 3600;
+    Serial.printf("%d ", (int)Time.hour()+1);
+    Serial.printf("Sim Hour: %d ", ((int)Time.hour()+1)/5);
+    Serial.printf("%d ", (int)Time.minute()+1);
+    Serial.printf("Sim Minute: %d ", ((int)Time.minute()+1)/5);
+    Serial.printf("%d ", (int)Time.second()+1);
+    Serial.printf("Sim Second: %d ", ((int)Time.second()+1)/5);
     Serial.printf("%d ",currentTime);
     Serial.printf("%d ",bedtimeStart);
     Serial.printf("%d ",wakeupStart);

@@ -1,35 +1,74 @@
 var user;
 function Register(){
   //const user = await response.json();
-  console.log(user)
-  let deviceName = $("#deviceName").val();
+  console.log(user);
+  pingTest(); // verify id and key AND create db entry
+}
+
+function pingTest() {
   let deviceId = $("#deviceId").val();
   let deviceKey = $("#apiKey").val();
-  let userEmail = user[0].email;
-  let date = $("#startDate").val() + " " + $("#startTime").val()
-  date = new Date(date);
-  console.log(date)
+  //verify id by pinging particle
   let txdata = {
-      name:deviceName,
-      id:deviceId,
-      api:deviceKey,
-      email: userEmail,
-      startDate:date
-  };
-  console.log(txdata)
-  
-  $.ajax({
-      url: '/device/create',
-      type: 'POST',
+    id:deviceId,
+    token:deviceKey
+  }
+  console.log("PING")
+    $.ajax({
+      url: '/particle/verify',
+      method: 'POST',
       contentType: 'application/json',
       data: JSON.stringify(txdata),
       dataType: 'json'
-      }).done(registerSuccess)
-      .fail(registerError);
-  
-  
+    }).done(deviceSuccess).fail(deviceFailure);
 }
 
+function deviceSuccess(data, textStatus, jqXHR){
+  if (data.success) {
+    console.log(data)
+    let deviceName = $("#deviceName").val();
+    let deviceId = $("#deviceId").val();
+    let deviceKey = $("#apiKey").val();
+    let userEmail = user[0].email;
+    let date = $("#startDate").val() + " " + $("#startTime").val()
+    date = new Date(date);
+    console.log(date)
+    let txdata = {
+        name:deviceName,
+        id:deviceId,
+        api:deviceKey,
+        email: userEmail,
+        startDate:date
+    };
+    console.log(txdata)
+    
+    $.ajax({
+        url: '/device/create',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(txdata),
+        dataType: 'json'
+        }).done(registerSuccess)
+        .fail(registerError);
+  }
+  else{
+    $('#ServerResponse').html("<span class='red-text text-darken-2'>Error: " + data.data.error + "</span>"
+    +"<br><span class='red-text text-darken-2'>Error: " + data.data.error_description + "</span>");
+    $('#ServerResponse').show();
+  }
+
+}
+function deviceFailure(jqXHR, textStatus, errorThrown){
+  console.log(jqXHR);
+  if (jqXHR.statusCode == 404) {
+    $('#ServerResponse').html("<span class='red-text text-darken-2'>Server could not be reached.</p>");
+    $('#ServerResponse').show();
+  }
+  else {
+    $('#ServerResponse').html("<span class='red-text text-darken-2'>Error: " + jqXHR.responseJSON + "</span>");
+    $('#ServerResponse').show();
+  }
+}
 function registerSuccess(data, textStatus, jqXHR) {
     if (data.success) {
         window.localStorage.setItem('dKey', data.dKey);

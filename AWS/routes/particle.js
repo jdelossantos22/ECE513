@@ -71,6 +71,20 @@ router.get('/ping', function (req,res, next) {
         });
 });
 
+router.post('/verify', function (req,res, next) {
+    request
+        .put("https://api.particle.io/v1/devices/" + req.body.id + "/ping")
+        .set('Authorization', 'Bearer ' + req.body.token)
+        .set('Accept', 'application/json')
+        .send() 
+        .then(response => {
+            res.status(200).json({cmd: 'verify', success: true, data: JSON.parse(response.text)});
+        })
+        .catch(err => {
+            res.status(201).json({cmd: 'verify', success: false, data: JSON.parse(err.response.text)});  
+        });
+});
+
 router.get('/read', function (req, res, next) {
     let retData = rxData;
     if (simulatedTime) retData["simclock"] = simulatedTime.toString();

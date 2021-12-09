@@ -12,6 +12,13 @@ Test Account:
 username admin@email.arizona.edu
 password: ece513Fall2021!
 
+Simulation Time:
+1 sec(Real World) == 5 minutes(Simulation World)
+Minimum Sampling Period = 10 mins
+
+Temperature History:
+Starting on - 
+
 Particle Device: Particle Argon
 Particle ID: e00fce684118b517fd70df3b
 Particled Token: 1b876e93a09ff60c17322cd98e10abfbae2701ca

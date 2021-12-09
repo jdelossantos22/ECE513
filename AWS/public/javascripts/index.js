@@ -2,6 +2,7 @@ var myInterval = null;
 var guiUpdated = false;
 var samplingPeriod = 1;
 var simTime;
+var diff;
 $(function (){
     initRangeSliders();
     window.localStorage.setItem("samplingPeriod",1);
@@ -233,7 +234,9 @@ function pingTest() {
     let humidity = thermostatData.h;
     simTime = data.simclock;
     let power = thermostatData.w
-    if(parseFloat(temperature) < 100){
+    if(diff == null) diff = parseFloat(temperature);
+    diff -= temperature;
+    if(Math.abs(diff) < 10 && parseFloat(temperature) < 100){
       let txdata = {
         id:deviceId,
         postDate:simTime,
@@ -252,7 +255,7 @@ function pingTest() {
       }).done((data, textStatus, jqXHR) => {console.log(data)})
       .fail(particleFailure);
     }
-    
+    diff = temperature;
     /*
     txdata = {
       id:deviceId,

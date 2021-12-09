@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Serial communication example</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/stylesheets/switch.css">
+    <link rel="stylesheet" href="/stylesheets/rangeslider.css">
+    <link rel="stylesheet" href="/stylesheets/index.css">
+    <link href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="/javascripts/rangeslider.min.js"></script>
+    <script type="text/javascript" src="/javascripts/index.js"></script>
+</head>
+<body>
+    <h1>Controller GUI</h1>
+    
+    <div class="centerDiv">
+      <table>
+        <tr><td colspan="4"><span id="curTime"></span></td></tr>
+        <tr><th colspan="4">Serial Comm. </th></tr>
+        <tr>
+          <td>
+            <select id="com_ports_list">
+              <option selected value="null">Please select your port</option>
+            </select>
+          </td>
+          <td>
+            <button id="btnConnect" onclick="connectDisconnect()">Connect</button>
+          </td>
+          <td>COM status:</td>
+          <td>
+            <input id="com_status" name="com_status" style="width:600px;" readonly value="">
+          </td>
+        </tr>  
+      </table>
+      <br/>
+      <table>
+        <tr>
+          <th colspan="4">Smart Light</th>
+        </tr>
+        <tr>
+          <td>
+            <div class="toggleswitch">
+              <input type="checkbox" name="toggleswitch" class="toggleswitch-checkbox" id="smartlightonoff" onchange="smartLightControl('on', this.checked)">
+              <label class="toggleswitch-label" for="smartlightonoff">
+                  <span class="toggleswitch-inner onoffSwitchText"></span>
+                  <span class="toggleswitch-switch"></span>
+              </label>
+            </div>
+          </td>
+          <td>
+            <div class="toggleswitch">
+              <input type="checkbox" name="toggleswitch" class="toggleswitch-checkbox" id="smartlightMode" onchange="smartLightControl('auto', this.checked)">
+              <label class="toggleswitch-label" for="smartlightMode">
+                  <span class="toggleswitch-inner manualAutoSwitchText"></span>
+                  <span class="toggleswitch-switch"></span>
+              </label>
+            </div>
+          </td>
+          <td>Brightness:</td>
+          <td colspan="3">
+            <input id="birghtnessSlider" type="range" min="0" max="100" step="1" value="0" onchange="smartLightControl('brightness', this.value)">
+          </td>
+        </tr>
+        <tr><td colspan="4" style="background-color:linen;">Sensor setting</td></tr>
+        <tr>
+          <td>Sensor min:</td>
+          <td>
+            <input id="sensorMinSlider" type="range" min="0" max="4095" step="1" value="500" onchange="smartLightControl('min', this.value)">
+          </td>
+          <td>Sensor max:</td>
+          <td>
+            <input id="sensorMaxSlider" type="range" min="0" max="4095" step="1" value="2500" onchange="smartLightControl('max', this.value)">
+          </td>
+        </tr>
+        <tr><td colspan="5" style="background: linear-gradient(to bottom, #00ffff 0%, #009900 100%); color: #000; font-weight: bolder;">Color Selector</td></tr>
+        <tr>
+            <td>
+                <input type="color" id="color" name="color" value="#ffffff" onchange="console.log(this.value)" onchange="smartLightControl('color', this.value)" onchange="changeColor(this.value)">
+            </td>
+        </tr>
+        <tr>
+          <td>Sensor Val:</td>
+          <td><span id="sensorVal"></span></td>
+          <td>Present brightness:</td>
+          <td><div id="curBrightness" style="width: 100%; height:100%;"></div></td>
+        </tr>
+        
+      </table>
+      <br/>
+      <table>
+        <tr>
+          <th colspan="2">LED (D7) blinking</th>
+        </tr>
+        <tr>
+          <td>Hz:</td>
+          <td><input id="ledHzSlider" type="range" min="1" max="10" step="1" value="1" onchange="toggleLedControl(this.value)"></td>
+          
+        </tr>
+      </table>
+      <br/>
+      <table>
+        <tr>
+          <th colspan="4">Thermostat</th>
+        </tr>
+        <tr>
+          <td>Thermostat Mode</td>
+          <td>
+            <div class="switch-toggle switch-2 switch-candy">
+              <input id="off" name="state-d" type="radio" value="0" onchange="thermostatControl('mode', this.value)" checked/>
+              <label for="off" onclick="">OFF</label>
+            
+              <input id="heat" name="state-d" type="radio" value="1" onchange="thermostatControl('mode', this.value)"/>
+              <label for="heat" onclick="">HEAT</label>
+            
+              <input id="cold" name="state-d" type="radio" value="2" onchange="thermostatControl('mode', this.value)"/>
+              <label for="cold" onclick="">COLD</label>
+            
+              <a></a>
+            </div>
+          </td>
+          <td>Fan Mode</td>
+          <td>
+            <div class="toggleswitch">
+              <input type="checkbox" name="toggleswitch" class="toggleswitch-checkbox" id="fanMode" onchange="thermostatControl('fanOn', !this.checked)">
+              <label class="toggleswitch-label" for="fanMode">
+                  <span class="toggleswitch-inner manualAutoSwitchText"></span>
+                  <span class="toggleswitch-switch"></span>
+              </label>
+            </div>
+          </td>
+        </tr>
+        <tr><td colspan="4" style="background-color:linen;">Sensor Reading</td></tr>
+        <tr>
+          <td>Temperature:</td>
+          <td><span id="tempVal"></span></td>
+          <td>Humidity:</td>
+          <td><div id="humidity" style="width: 100%; height:100%;"></div></td>
+        </tr>
+      </table>
+      <table>
+        <tr><th colspan="4">Door Sensor</th></tr>
+        <tr>
+          <td>Door Status:</td>
+          <td><div id="door" style="width: 100%; height:100%;"></div></td>
+        </tr>
+      </table>
+      <div style="display:inline-block; width:49%; height: 200px;">
+        <textarea id="cmdStatusData" style="width:100%; height:100%"></textarea>
+      </div>
+      <div style="display:inline-block; width:49%; height: 200px;">
+        <textarea id="rdData" style="width:100%; height:100%"></textarea>
+      </div>
+    </div>
+</body>
+</html>

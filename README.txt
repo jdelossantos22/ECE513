@@ -119,6 +119,16 @@ System Tutorial:
 			  D2 - DHT11
 		       Your device must also be registered and have a webhook created (Follow instructions in lecture 11_08).
 
+Localhost tutorial:
+The localhost is under directory Localhost/
+And is run with - node localhost.js
+Once the device is connected via USB, the localhost can then be connect using Serial Communication
+Once Connected, the GUI will update with the current data. 
+From the controllerAtHome_v0.html, the user can control the device. It includes control for the Smart Light(color, brightness, on/off, manual/auto),
+and Thermostat(setTemp, read Temperature, read Humidity, off/cool/heat modes, and fanmode on/auto)
+It also includes a section for the door alerts
+
+
 Power Consumption:
 When the Thermostat is in idle, it is consuming 1 watt
 When the Thermostat is in Heat, it is consuming 1500 watts

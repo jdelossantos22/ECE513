@@ -164,7 +164,7 @@ void loop() {
     period = PERIOD - (millis() - t);
   }
   //Serial.println(period);
-  delay(150);
+  delay(period);
 }
 
 // When obtain response from the publish

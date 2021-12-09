@@ -172,7 +172,7 @@ function finishOpenClose(data) {
 
 function changeColor(value){
   
-    var value = value.match(/[A-Za-z0-9]{2}/g);
+    var value = value.match(/^#([A-Za-z0-9]{6})/g);
     value = value.map(function(v) { return parseInt(v, 16) });
     console.log(value)
     smartLightControl("color", value)

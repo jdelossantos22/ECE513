@@ -1,14 +1,12 @@
 var user;
-
+const jwt = require("jwt-simple");
 function Register(){
   //const user = await response.json();
   console.log(user)
   let deviceName = $("#deviceName").val();
   let deviceId = $("#deviceId").val();
   let deviceKey = $("#apiKey").val();
-  let decoded = window.localStorage.getItem("authToken");
-  console.log(decoded);
-  let userEmail = decoded.email;
+  let userEmail = user[0].email;
   let date = $("#startDate").val() + " " + $("#startTime").val()
   date = new Date(date);
   console.log(date)

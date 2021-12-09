@@ -70,9 +70,9 @@ function getUserInfo(){
 function initDevices(){
 //items.find.sort( [['_id', -1]] ) // get all items desc by created date.
 //sort by first added, first added is the primary device
-    let decoded = window.localStorage.getItem("authToken");
-    console.log(decoded);
-    let userEmail = decoded.email;
+    //let decoded = jwt.decode(window.localStorage.getItem("authToken"), s);
+    //console.log(decoded);
+    let userEmail = user[0].email;
     console.log(userEmail)
     let txdata = {
         email:userEmail

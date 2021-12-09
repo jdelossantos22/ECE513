@@ -31,6 +31,9 @@ function updateHandle(el, val) {
     el.textContent = val;
 }
 
+var alert;
+var statusAlert;
+
 function updateGUI(data) {
     if (!guiUpdated) {
         if ("light" in data) {
@@ -61,25 +64,32 @@ function updateGUI(data) {
     if("door" in data){
         if ("d" in data.door) {
             if (data.door.d == 'open'){
-                $("#openIcon").text("&#128308");       // Red Circle
-                $("#closedIcon").text("&#9898");       // White Circle
+                $("#openIcon").html("&#128308");       // Red Circle
+                $("#closedIcon").html("&#9898");       // White Circle
 
-                setInterval(function() {sendAlert();}, 10000);   // Send alert after 10s of door being opened
+                alert = window.setInterval(sendAlert, 3000);   // Send alert after 10s of door being opened
+                statusAlert = true;
             }
             else{
                 $('#door').css("color", "black");
-                $("#door").text("No Alert to Report.");
-                $("#openIcon").text("&#9898");         // White Circle
-                $("#closedIcon").text("&#128994");     // Green Circle
+                $("#door").val("No Alert to Report.");
+                $("#openIcon").html("&#9898");         // White Circle
+                $("#closedIcon").html("&#128994");     // Green Circle
+                statusAlert = false;
+                clearInterval(alert);
+                alert = 0;
             }
+            console.log(alert);
         }
     }
     if ("simclock" in data) $('#curTime').html(data.simclock);
 }
 
 function sendAlert(){
-    $('#door').css("color", "red");
-    $("#door").text("ALERT: DOOR HAS BEEN OPEN FOR AN EXTENDED PERIOD OF TIME (15s)!!!");
+    if(statusAlert){
+        $('#door').css("color", "red");
+        $('#door').val("ALERT: DOOR HAS BEEN OPEN FOR OVER 10 SECONDS!!!");
+    }
 }
 
 function serailCmd(data) {

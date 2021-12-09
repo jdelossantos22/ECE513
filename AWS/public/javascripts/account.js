@@ -22,9 +22,9 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
     //$("#lastAccess").html(JSON.stringify(data[0].lastAccess, null, 2));
     //$("#zip").html(JSON.stringify(data[0].zip, null, 2));
     $("#email").html(data[0].email);
-    $("#fullName").val(data[0].fullName);
-    $("#lastAccess").val(data[0].lastAccess);
-    $("#zip").val(data[0].zip);
+    $("#fullName").val(data[0].fullName);$("#fullName").html(data[0].fullName);
+    $("#lastAccess").val(data[0].lastAccess);$("#lastAccess").html(data[0].lastAccess);
+    $("#zip").val(data[0].zip);$("#zip").html(data[0].zip);
     $("#accountInfo label").addClass("active");
     $("#main").show();
     console.log(data)
@@ -33,19 +33,44 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
    devices = JSON.parse(devices)
    //let devices = data.devices
    for(let i = devices.length-1; i >=0; i--){
-       console.log(devices[i])
-       htmlText= `<span style="">Device ${i+1}</span>`
-       htmlText+=`<div class="input-field"><label for="deviceName" class="active">Update Device Name</label>`
-       htmlText+=`<input type="text" id="deviceName" name="deviceName" value="${devices[i].deviceName}"required></input></div>`
-       htmlText+=`<div class="input-field"><label for="deviceId" class="active">Update Device Id</label>`
-       htmlText+=`<input type="text" id="deviceId" name="deviceId" value="${devices[i].deviceId}"required></input></div>`
-       htmlText+=`<div class="input-field"><label for="apikey" class="active">Update Device API Key</label>`
-       htmlText+=`<input type="text" id="apikey" name="apikey" value="${devices[i].apikey}"required></input></div>`
+      console.log(devices[i])
+      htmlText= `<span style="">Device ${i+1}</span>`
+      htmlText+=`<div class="input-field"><label for="deviceName${i}" class="active">Update Device Name</label>`
+      htmlText+=`<input type="text" id="deviceName${i}" name="deviceName" value="${devices[i].deviceName}"required></input></div>`
+      htmlText+=`<div class="input-field"><label for="deviceId${i}" class="active">Update Device Id</label>`
+      htmlText+=`<input type="text" id="deviceId${i}" name="deviceId" value="${devices[i].deviceId}"required></input></div>`
+      htmlText+=`<div class="input-field"><label for="apikey${i}" class="active">Update Device API Key</label>`
+      htmlText+=`<input type="text" id="apikey${i}" name="apikey" value="${devices[i].apikey}"required></input></div>`
+      htmlText+=`<div class="input-field"><label for="startDate" class="active">Update Device Start Date</label>`
+      htmlText+=`<input type="date" id="startDate" name="startDate" value=""required></input></div>`
+      let startDate = new Date(devices[i].startDate);
+      let year = startDate.getFullYear();
+      let month = startDate.getMonth()+1;
+      let day = startDate.getDate();
+      if (String(day).length == 1) day = "0" + day;
+      if (String(month).length == 1) month = "0" + month;
+      console.log(`${year}-${month}-${day}`)
+      $("#startDate").val(`${year}-${month}-${day}`)
+      htmlText+=`<div class="input-field"><label for="startTime" class="active">Update Device Start Time</label>`
+      htmlText+=`<input type="time" id="startTime" name="startTime" value=""required></input></div>`
+      let hour = startDate.getHours();
+      let minute = startDate.getMinutes();
+      if (String(hour).length == 1) hour = "0" + hour;
+      if (String(minute).length == 1) minute = "0" + minute;
+      $("#startTime").val(`${hour}:${minute}`)
+
+
 
        $("#addDeviceList").prepend(htmlText)
        //$("#main").show();
        
    }
+   var classList = $('#addDeviceList').attr('class').split(/\s+/);
+    $.each(classList, function(index, item) {
+      if (item === 'readonly') {
+          $("#addDeviceList input").prop('readonly', true);
+      }
+    });
 }
 
 
@@ -136,16 +161,37 @@ function updateSuccess(data, textSatus, jqXHR) {
  window.localStorage.setItem("devices", JSON.stringify(devices))
  //devices = JSON.parse(devices)
  //let devices = data.devices
- for(let i = 0; i < devices.length; i++){
-     console.log(devices[i])
-     $("#addDeviceList").prepend(`<li><a class="dropdown-item devices" href="#"">${"Device #"+i
-      + "&nbsp &nbsp &nbsp &nbsp &nbsp  Device Name: "+ devices[i].deviceName
-       + "&nbsp &nbsp &nbsp &nbsp &nbsp Devide ID: "+ devices[i].deviceId
-        + "&nbsp &nbsp &nbsp &nbsp &nbsp Apikey: "+ devices[i].apikey}</a> 
-        </li>`)
-     //$("#main").show();
-     
- }
+ for(let i = devices.length-1; i >=0; i--){
+  console.log(devices[i])
+  htmlText= `<span style="">Device ${i+1}</span>`
+  htmlText+=`<div class="input-field"><label for="deviceName${i}" class="active">Update Device Name</label>`
+  htmlText+=`<input type="text" id="deviceName${i}" name="deviceName" value="${devices[i].deviceName}"required></input></div>`
+  htmlText+=`<div class="input-field"><label for="deviceId${i}" class="active">Update Device Id</label>`
+  htmlText+=`<input type="text" id="deviceId${i}" name="deviceId" value="${devices[i].deviceId}"required></input></div>`
+  htmlText+=`<div class="input-field"><label for="apikey${i}" class="active">Update Device API Key</label>`
+  htmlText+=`<input type="text" id="apikey${i}" name="apikey" value="${devices[i].apikey}"required></input></div>`
+  htmlText+=`<div class="input-field"><label for="startDate" class="active">Update Device Start Date</label>`
+  htmlText+=`<input type="date" id="startDate" name="startDate" value=""required></input></div>`
+  let startDate = new Date(devices[i].startDate);
+  let year = startDate.getFullYear();
+  let month = startDate.getMonth()+1;
+  let day = startDate.getDate();
+  if (String(day).length == 1) day = "0" + day;
+  if (String(month).length == 1) month = "0" + month;
+  console.log(`${year}-${month}-${day}`)
+  $("#startDate").val(`${year}-${month}-${day}`)
+  htmlText+=`<div class="input-field"><label for="startTime" class="active">Update Device Start Time</label>`
+  htmlText+=`<input type="time" id="startTime" name="startTime" value=""required></input></div>`
+  let hour = startDate.getHours();
+  let minute = startDate.getMinutes();
+  if (String(hour).length == 1) hour = "0" + hour;
+  if (String(minute).length == 1) minute = "0" + minute;
+  $("#startTime").val(`${hour}:${minute}`)
+
+  $("#addDeviceList").prepend(htmlText)
+  //$("#main").show();
+  
+}
 }
 
 
@@ -208,7 +254,10 @@ var strongRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,
   }
 
 let txdata = {
-  email:$('#userEmail').val()
+  email:$('#userEmail').val(),
+  password:$('#password').val(),
+  fullName:$('#fullName').val(),
+  zip:$('#zip').val()
 };
 console.log(txdata);
 

@@ -28,7 +28,6 @@ router.post('/register', function(req, res) {
             email: req.body.email,
             fullName: req.body.fullName,
             passwordHash: passwordHash,
-            userDevices:[],
             zip:req.body.zip
          });
 
@@ -111,7 +110,24 @@ router.get("/status", function(req, res, next){
 
 
 router.post("/update", function(req, res){
-   Student.findOneAndUpdate({email: req.body.email}, req.body, function (err, doc){
+   let data = {};
+   if("password" in req.body){
+      const passwordHash = bcrypt.hashSync(req.body.password,10);
+      data = {
+         email: req.body.email,
+         fullName: req.body.fullName,
+         passwordHash: passwordHash,
+         zip:req.body.zip
+      }
+   }
+   else{
+      data = {
+         email: req.body.email,
+         fullName: req.body.fullName,
+         zip:req.body.zip
+      }
+   }
+   User.findOneAndUpdate({email: req.body.email}, data, function (err, doc){
       if (err){
          let msgStr = `Something wrong....`;
          res.status(201).json({message: msgStr, err: err});
@@ -128,6 +144,14 @@ router.post("/update", function(req, res){
          res.status(201).json({message: msgStr});
       }
    })
+   //update this
+   data={
+      userEmail: req.body.email,
+      deviceId:req.body.deviceId,
+      apikey:req.body.apikey,
+      deviceName:req.body.deviceName,
+      startDate:req.body.startDate,
+   }
 });
 
 

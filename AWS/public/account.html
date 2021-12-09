@@ -59,25 +59,29 @@
         </ul>
           
         
-        <div><a class="dropdown-item" href="UpdateUserInfo.html">Update User Account Information</a></div>
+        <div><!--<a class="dropdown-item" href="UpdateUserInfo.html">Update User Account Information</a>-->
+          <a class="waves-effect waves-light btn-large" href="UpdateUserInfo.html">Update User Account Information</a></div>
         
         
         <ul class="collection with-header" id="devices">
           <li class="collection-header">
             <h5>Devices</h5>
           </li>
-          <li class="collection-item" id="addDeviceList">
+          <li class="collection-item readonly" id="addDeviceList">
                      
           </li>
         </ul>
-        <div><a class="dropdown-item" href="deviceRegister.html">Add Device</a></div>
+        <div><!--<a class="dropdown-item" href="deviceRegister.html">Add Device</a>-->
+          <a class="waves-effect waves-light btn-large" href="deviceRegister.html">Add Device</a>
+        </div>
         
         <div><p>Remove Device</p></div>
         <div class="input-field">
           <label for="deviceId">Remove Device ID</label>
           <input type="text" id="deviceId" name="deviceId" required>
         </div>
-        <button id="btnDelete">Remove Device</button>
+        <!--<button id="btnDelete">Remove Device</button>-->
+        <a class="waves-effect waves-light btn-large" id="btnDelete">Remove Device</a>
         <!--<button id="btnUpdate">Update Device List</button>-->
         <div class='red-text text-darken-2' id="error"></div>
         

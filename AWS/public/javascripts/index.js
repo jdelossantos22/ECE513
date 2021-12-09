@@ -1,6 +1,6 @@
 var myInterval = null;
 var guiUpdated = false;
-var samplingPeriod = 1/5;
+var samplingPeriod = 1;
 var simTime;
 $(function (){
     initRangeSliders();

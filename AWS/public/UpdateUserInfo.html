@@ -57,33 +57,38 @@
             <span class="card-title">Update Account Information</span>
             
             <div class="collection-item">Email: <span id="email"></span></div>
-            <div>
+            <div id="accountInfo"> 
               <!--
               <div class="input-field">
                 <label for="email">Account Email</label>
                 <input type="text" id="email" name="email" required>
               </div>
               -->
+            
+              <div class="input-field">
+                <label for="fullName">Update Full Name</label>
+                <input type="text" id="fullName" name="fullName" required>
+              </div>
 
-            <div class="input-field">
-              <label for="fullName">Update Full Name</label>
-              <input type="text" id="fullName" name="fullName" required>
-            </div>
+              <div class="input-field">
+                <label for="zip">Update Zip Code</label>
+                <input type="text" id="zip" name="zip" required>
+              </div>
 
-            <div class="input-field">
-              <label for="zip">Update Zip Code</label>
-              <input type="text" id="zip" name="zip" required>
-            </div>
+              <div class="input-field">
+                <label for="password">Update Password</label>
+                <input type="password" id="password" name="password" required>
+              </div>
 
-            <div class="input-field">
-              <label for="password">Update Password</label>
-              <input type="password" id="password" name="password" required>
+              <div class="input-field">
+                <label for="passwordConfirm">Confirm Password</label>
+                <input type="password" id="passwordConfirm" name="passwordConfirm" required>
+              </div>
             </div>
-
-            <div class="input-field">
-              <label for="passwordConfirm">Confirm Password</label>
-              <input type="password" id="passwordConfirm" name="passwordConfirm" required>
+            <span class="card-title">Device Information</span>
+            <div class="input-field" id="addDeviceList">
             </div>
+            
 
             <button id="btnUpdate">Update</button>
 

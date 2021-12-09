@@ -25,19 +25,24 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
     $("#fullName").val(data[0].fullName);
     $("#lastAccess").val(data[0].lastAccess);
     $("#zip").val(data[0].zip);
+    $("#accountInfo label").addClass("active");
     $("#main").show();
     console.log(data)
    
    let devices = window.localStorage.getItem("devices")
    devices = JSON.parse(devices)
    //let devices = data.devices
-   for(let i = 0; i < devices.length; i++){
+   for(let i = devices.length-1; i >=0; i--){
        console.log(devices[i])
-       $("#addDeviceList").prepend(`<li><a class="dropdown-item devices" href="#"">${"Device #"+i
-        + "&nbsp &nbsp &nbsp &nbsp &nbsp  Device Name: "+ devices[i].deviceName
-         + "&nbsp &nbsp &nbsp &nbsp &nbsp Devide ID: "+ devices[i].deviceId
-          + "&nbsp &nbsp &nbsp &nbsp &nbsp Apikey: "+ devices[i].apikey}</a> 
-          </li>`)
+       htmlText= `<span style="">Device ${i+1}</span>`
+       htmlText+=`<div class="input-field"><label for="deviceName" class="active">Update Device Name</label>`
+       htmlText+=`<input type="text" id="deviceName" name="deviceName" value="${devices[i].deviceName}"required></input></div>`
+       htmlText+=`<div class="input-field"><label for="deviceId" class="active">Update Device Id</label>`
+       htmlText+=`<input type="text" id="deviceId" name="deviceId" value="${devices[i].deviceId}"required></input></div>`
+       htmlText+=`<div class="input-field"><label for="apikey" class="active">Update Device API Key</label>`
+       htmlText+=`<input type="text" id="apikey" name="apikey" value="${devices[i].apikey}"required></input></div>`
+
+       $("#addDeviceList").prepend(htmlText)
        //$("#main").show();
        
    }

@@ -52,7 +52,7 @@ function deviceSuccess(data, textStatus, jqXHR){
         .fail(registerError);
   }
   else{
-    $('#ServerResponse').html("<span class='red-text text-darken-2'>Error: " + data.data.error + "</span>"
+    $('#ServerResponse').html("<span class='red-text text-darken-2'>Error: invalid_id/" + data.data.error + "</span>"
     +"<br><span class='red-text text-darken-2'>Error: " + data.data.error_description + "</span>");
     $('#ServerResponse').show();
   }

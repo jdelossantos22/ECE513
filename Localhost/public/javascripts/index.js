@@ -127,6 +127,7 @@ function serialFailure(jqXHR, textStatus, errorThrown) {
 }
 
 function updateAvailableSerialList(data) {
+    console.log("Scanning")
     if ("list" in data) {
         let curList = data.list;
         for (let newPort of curList) {

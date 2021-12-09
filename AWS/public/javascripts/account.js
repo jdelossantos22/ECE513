@@ -17,10 +17,14 @@ var devices = [];
 
 function accountInfoSuccess(data, textSatus, jqXHR) {
     
-    $("#email").html(JSON.stringify(data[0].email, null, 2));
-    $("#fullName").html(JSON.stringify(data[0].fullName, null, 2));
-    $("#lastAccess").html(JSON.stringify(data[0].lastAccess, null, 2));
-    $("#zip").html(JSON.stringify(data[0].zip, null, 2));
+    //$("#email").html(JSON.stringify(data[0].email, null, 2));
+    //$("#fullName").html(JSON.stringify(data[0].fullName, null, 2));
+    //$("#lastAccess").html(JSON.stringify(data[0].lastAccess, null, 2));
+    //$("#zip").html(JSON.stringify(data[0].zip, null, 2));
+    $("#email").html(data[0].email);
+    $("#fullName").val(data[0].fullName);
+    $("#lastAccess").val(data[0].lastAccess);
+    $("#zip").val(data[0].zip);
     $("#main").show();
     console.log(data)
    

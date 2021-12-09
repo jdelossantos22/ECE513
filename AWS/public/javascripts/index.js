@@ -122,9 +122,10 @@ function thermostatControl(option, value) {
     let txcmd = {
       thermostat: { }
     };
+    
     txcmd.thermostat[option] = value;
 
-    console.log(JSON.stringify(txcmd));
+    console.log(`Thermostat Control: ${JSON.stringify(txcmd)}`);
     //serailCmd(txcmd);
     cloudCmd(txcmd);
   }
@@ -228,7 +229,11 @@ function pingTest() {
             myInterval = null;
           }
         }
-      }          
+      }
+      else{
+        console.log(`Particle Success Else:${JSON.stringify(data, null, 2)}`)
+      }
+
     }
     //updateGUI(data.data);
   }

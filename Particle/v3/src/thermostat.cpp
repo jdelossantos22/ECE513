@@ -192,12 +192,12 @@ void CThermostat::checkMode(){
         case 0://off
             state_mode = CThermostat::S_OFF;
             break;
-        case 1://cool
+        case 1://heat
             counter = 0;
             startTime = millis();
             state_mode = CThermostat::S_HEAT;
             break;
-        case 2://heat
+        case 2://cool
             counter = 0;
             startTime = millis();
             state_mode = CThermostat::S_COOL;

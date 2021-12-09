@@ -17,7 +17,7 @@ Simulation Time:
 Minimum Sampling Period = 10 mins
 
 Temperature History:
-Starting on - 
+Starting on - 12/9 -12/20
 
 Particle Device: Particle Argon
 Particle ID: e00fce684118b517fd70df3b

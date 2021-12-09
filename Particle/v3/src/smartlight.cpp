@@ -192,10 +192,13 @@ void CSmartLight::updateColor() {
 }
 
 bool CSmartLight::bedtimeActive() {
-    int currentTime = (int)(Time.hour() * 60 * 60 * 1000 + (int)Time.minute() * 60 * 1000 + Time.second() * 1000) / 24;
+    int currentTime = ((int)Time.hour() * 60 * 60 * 1000 + (int)Time.minute() * 60 * 1000 + Time.second() * 1000) / 24;
     bedtimeStart /= 3600;
     wakeupStart /= 3600;
-
+    Serial.printf("%d ",currentTime);
+    Serial.printf("%d ",bedtimeStart);
+    Serial.printf("%d ",wakeupStart);
+    Serial.println();
     if ((currentTime > bedtimeStart) && (currentTime < wakeupStart)) {
         return false;
     }

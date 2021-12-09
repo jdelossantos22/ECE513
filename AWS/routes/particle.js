@@ -29,6 +29,7 @@ router.post('/device', function(req,res, next){
     let device = req.body.device;
     deviceInfo.id = device.id;
     deviceInfo.token = device.token;
+    referenceTimeInSec = new Date(deviceInfo.startDate);
     res.status(201).json({success : true, message : "Device updated for the particle", data:JSON.stringify(deviceInfo)});
 });
 

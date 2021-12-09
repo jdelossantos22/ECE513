@@ -214,7 +214,7 @@ function pingTest() {
         if ("simclock" in data.data) $('#curTime').html(data.data.simclock);
         updateGUI(data.data);
         //update dbs
-        saveTemperature(data.data);
+        //saveTemperature(data.data);
         
       }
       else if ((data.cmd === "publish") && (data.success)){

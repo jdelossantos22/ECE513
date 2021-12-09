@@ -1,5 +1,4 @@
 var user;
-const jwt = require("jwt-simple");
 function Register(){
   //const user = await response.json();
   console.log(user)

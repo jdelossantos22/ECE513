@@ -80,7 +80,7 @@ router.get('/read', function (req, res, next) {
 // Simulated clock
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 var referenceTimeInSec = null;
-var clockUnit = 60;     // 1 sec --> 1 minutes
+var clockUnit = 60*5;     // 1 sec --> 1 minutes
 let simulatedTime = null;
 function simulatedClock(data) {
     let str = "";

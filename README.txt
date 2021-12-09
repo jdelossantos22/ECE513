@@ -15,6 +15,7 @@ password: ece513Fall2021!
 Particle Device: Particle Argon
 Particle ID: e00fce684118b517fd70df3b
 Particled Token: 1b876e93a09ff60c17322cd98e10abfbae2701ca
+de7806638bd9c27b456dfd6efd56d7a1db416d2a
 
 Registration:
 users/register - registers user

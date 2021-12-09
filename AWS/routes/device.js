@@ -4,13 +4,14 @@ let Device = require("../models/device");
 
 /* //add */
 router.post('/create', function(req, res) {
-   
+    console.log(req.body)
     Device.findOne({deviceId: req.body.id, userEmail:req.body.email}, function(err, user){
        if(err) res.status(401).json({success:false, err:err});
        else if(user){
           res.status(401).json({success: false, msg: "This device id already created" });
        }
        else{
+
           const newDevice = new Device({
             apikey:       req.body.api,
             deviceId:     req.body.id,

@@ -16,6 +16,7 @@ function Register(){
       email: userEmail,
       startDate:date
   };
+  console.log(txdata)
   
   $.ajax({
       url: '/device/create',

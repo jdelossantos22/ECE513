@@ -6,7 +6,9 @@ function Register(){
   let deviceName = $("#deviceName").val();
   let deviceId = $("#deviceId").val();
   let deviceKey = $("#apiKey").val();
-  let userEmail = user[0].email;
+  let decoded = window.localStorage.getItem("authToken");
+  console.log(decoded);
+  let userEmail = decode.email;
   let date = $("#startDate").val() + " " + $("#startTime").val()
   date = new Date(date);
   console.log(date)

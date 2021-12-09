@@ -128,6 +128,9 @@ From the controllerAtHome_v0.html, the user can control the device. It includes 
 and Thermostat(setTemp, read Temperature, read Humidity, off/cool/heat modes, and fanmode on/auto)
 It also includes a section for the door alerts
 
+Particle tutorial:
+The particle files are under directory Particle/v3/
+
 
 Power Consumption:
 When the Thermostat is in idle, it is consuming 1 watt

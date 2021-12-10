@@ -191,6 +191,26 @@ function smartLightControl(option, value) {
     serailCmd(txcmd);
     }
 
+function colorControl(option, value) {
+    let txcmd = {
+        cmd: "write",
+        data: {
+        smartlight: { }
+        }
+    };
+  
+    console.log(value);
+    let re = /^#([a-z0-9]{6})$/;
+    re.exec(value);
+    let hex = re.exec(value)[1];
+    console.log(parseInt(hex, 16));
+    
+    txcmd.data.smartlight[option] = parseInt(hex, 16);
+  
+    console.log(JSON.stringify(txcmd));
+    serailCmd(txcmd);
+}
+
 function toggleLedControl(value) {
     let txcmd = {
         cmd: "write",

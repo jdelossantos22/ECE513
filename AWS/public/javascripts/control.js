@@ -105,8 +105,14 @@ function deviceSuccess(data, textStatus, jqXHR){
     let txdata = {
         device:{
             id:devices[0].deviceId,
-            token:devices[0].apikey
+            token:devices[0].apikey,
         }
+    }
+    if ("startDate" in devices[0]){
+        txdata.device.startDate = devices[0].startDate;
+    }
+    else{
+        txdata.device.startDate = null;
     }
 
     $.ajax({

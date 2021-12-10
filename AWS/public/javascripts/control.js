@@ -114,6 +114,7 @@ function deviceSuccess(data, textStatus, jqXHR){
     else{
         txdata.device.startDate = null;
     }
+    console.log(devices)
 
     $.ajax({
         url: '/particle/device',
@@ -135,6 +136,7 @@ function updateDevice(e){
     
     devices = JSON.parse(devices)
     let apikey;
+    let startDate;
     $(".devices i").remove()
     //console.log(devices)
     for(let i = 0; i < devices.length; i++){
@@ -143,6 +145,12 @@ function updateDevice(e){
             console.log(devices[i].deviceName)
             $("#deviceHeader").text(devices[i].deviceName)
             apikey = devices[i].apikey
+            if ("startDate" in devices[i]){
+                startDate = devices[i].startDate;
+            }
+            else{
+                startDate = null;
+            }
         }
     }
     $(".devices").each((i) =>{
@@ -154,7 +162,8 @@ function updateDevice(e){
     let txdata = {
         device:{
             id:id,
-            token:apikey
+            token:apikey,
+            startDate:startDate
         }
     }
     $.ajax({

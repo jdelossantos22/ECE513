@@ -118,6 +118,23 @@ function smartLightControl(option, value) {
     //serailCmd(txcmd);
     cloudCmd(txcmd);
     }
+
+function colorControl(option, value) {
+  let txcmd = {
+    smartlight: { }
+  };
+
+  let re = /^#([a-z0-9]{6})$/;
+  re.exec(value);
+  let hex = re.exec(value)[1];
+  
+  txcmd.smartlight[option] = parseInt(hex, 16);
+
+  console.log(JSON.stringify(txcmd));
+  //serailCmd(txcmd);
+  cloudCmd(txcmd);
+}
+
 function thermostatControl(option, value) {
     let txcmd = {
       thermostat: { }

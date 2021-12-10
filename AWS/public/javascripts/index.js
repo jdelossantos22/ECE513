@@ -174,7 +174,7 @@ function pingTest() {
 
   function enableDisablePublish() {
     let bPublish;
-    if ($('#btnEnablePublish').text() == 'Enable publish') bPublish = true; //html()
+    if ($('#btnEnablePublish').html() == 'Enable publish') bPublish = true; //html()
     else bPublish = false;
     let cmd = {
       publish: bPublish

@@ -269,12 +269,8 @@ console.log(txdata);
       dataType: 'json'
   })
   console.log("ajax ends")
-  .done(function (data, textStatus, jqXHR) {
-      $('#rxData').html(JSON.stringify(data, null, 2));
-  })
-  .fail(function (jqXHR, textStatus, errorThrown) {
-      $('#rxData').html(JSON.stringify(jqXHR, null, 2));
-  });
+  .done(updateSuccess).fail(updateFailure)
+  
 }
 
 
@@ -297,7 +293,7 @@ function updateAccInfo(){
   .done(updateSuccess)
   .fail(updateFailure);
 }
-
+*/
 function updateSuccess(data, textStatus, jqXHR) {
   window.localStorage.setItem('authToken', data.authToken);
   window.location.reload(false)
@@ -310,7 +306,6 @@ function updateFailure(jqXHR, textStatus, errorThrown) {
   console.log(errorThrown)
 }
 
-*/
 /*
 function removeDevice(data, textSatus, jqXHR){
   $.ajax({

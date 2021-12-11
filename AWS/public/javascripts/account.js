@@ -204,8 +204,15 @@ function updateUser() {
       window.alert("invalid email!");
       return;
   }*/
+  $.ajax({
+    url: '/users/status',
+    type: 'GET',
+    headers: { 'x-auth': window.localStorage.getItem("authToken") },
+    dataType: 'json'
+  })
+  
 
-  sendReqForAccountInfo()
+
   console.log("updating user")
 
   //let email = $('#email').val();

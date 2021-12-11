@@ -265,7 +265,9 @@ console.log(txdata);
   }).done(function(data, textStatus, jqXHR){
     window.location.replace("account.html");}).fail(updateFailure)
   console.log("ajax ends")
+  }
 
+  function updateDevice() {
   //for loop devices
   //ajax call to /device/update
   $("#addDeviceList input").each(function(){
@@ -349,6 +351,7 @@ $(function() {
  
   $('#btnUpdate').click(updateUser);
   $('#btnDelete').click(deleteDevices);
+  $('#btnupdatedevice').click(updateDevice);
   //$('#btnUpdate').click(updateDeviceList);
   //$('#remove').click(RemoveDevice);
   //console.log("account.js")

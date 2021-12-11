@@ -131,11 +131,13 @@ function thermostatControl(option, value) {
     };
     
     txcmd.thermostat[option] = value;
-
+    if(option == 'mode'){
+      txcmd.thermostat['setTemp'] = $("#set-temp-num").val()
+    }
     console.log(`Thermostat Control: ${JSON.stringify(txcmd)}`);
     //serailCmd(txcmd);
     cloudCmd(txcmd);
-  }
+}
 function toggleLedControl(value) {
     let txcmd = {
       led: {frequency: value}

@@ -247,9 +247,9 @@ var strongRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,
     $('#ServerResponse').show();
     return;
   }
-  console.log(email)
+  //console.log(email)
 let txdata = {
-  email:email,
+  //email:email,
   password:$('#password').val(),
   fullName:$('#fullName').val(),
   zip:$('#zip').val()

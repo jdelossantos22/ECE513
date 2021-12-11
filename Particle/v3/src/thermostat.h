@@ -36,7 +36,7 @@ private:
     STATE_FAN_MODE state_fan_mode;
     STATE_POWER state_power;
     int counter;
-    int lastRead;
+    unsigned long lastRead;
     int dT=2;
     int startTime;
     int samplingPeriod=1;

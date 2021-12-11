@@ -1,6 +1,6 @@
 var myInterval = null;
 var guiUpdated = false;
-var samplingPeriod = 1;
+var samplingPeriod = 2;
 var simTime;
 var diff;
 $(function (){
@@ -237,6 +237,7 @@ function pingTest() {
       else if ((data.cmd === "publish") && (data.success)){
         if ($('#btnEnablePublish').html() == 'Enable publish') {
           $('#btnEnablePublish').html('Disable publish'); 
+          console.log(`Sampling Period: ${samplingPeriod}`);
           myInterval = setInterval(readData, 1000*samplingPeriod);
         }
         else {

@@ -268,8 +268,8 @@ console.log(txdata);
       data: JSON.stringify(txdata),
       dataType: 'json'
   })
-  console.log("ajax ends")
   .done(updateSuccess).fail(updateFailure)
+  console.log("ajax ends")
   
 }
 

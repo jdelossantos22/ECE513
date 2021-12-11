@@ -28,6 +28,7 @@
 #define POWER_COOL 3000
 #define POWER_HEAT 1500 
 #define POWER_OFF 1
+#define HOUR 1000*12
 
 // serial communication
 #define SERAIL_COMM_FREQUENCY   1   // 1 Hz

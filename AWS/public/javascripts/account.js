@@ -270,6 +270,7 @@ console.log(txdata);
   function updateDevice() {
   //for loop devices
   //ajax call to /device/update
+  
   $("#addDeviceList input").each(function(){
     let id;
     let name;
@@ -279,10 +280,40 @@ console.log(txdata);
     if(this.name === "deviceId"){
       id = this.value
     }
+
+
   });
   alert("Something")
-  
+
+  let deviceName = $("#deviceName").val();
+  let deviceId = $("#deviceId").val();
+  let deviceKey = $("#apiKey").val();
+  let date = $("#startDate").val() + " " + $("#startTime").val()
+  date = new Date(date);
+  console.log(date)
+  let txdata = {
+      name:deviceName,
+      id:deviceId,
+      api:deviceKey,
+      email: userEmail,
+      startDate:date
+  };
+  console.log(txdata)
+  //email=window.localStorage.getItem("devices")
+
+  $.ajax({
+    url: '/device/update',
+    method: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify(txdata),
+    dataType: 'json'
+}).done(function(data, textStatus, jqXHR){
+  window.location.replace("account.html");}).fail(updateFailure)
+console.log("ajax ends")
 }
+
+
+
   
 
 

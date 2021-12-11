@@ -141,7 +141,7 @@ function deviceSSuccess(data, textStatus, jqXHR){
     window.localStorage.setItem("devices", JSON.stringify(data.devices))
 
     let txdata = {
-      id:$('#deviceId').val()
+      email:$('#email').val()
     };
     $.ajax({
         url: '/device/findAll',
@@ -270,16 +270,51 @@ console.log(txdata);
   function updateDevice() {
   //for loop devices
   //ajax call to /device/update
+  let id = [];
+  let name = [];
+  let apikey = [];
+  let date = [];
+  let time = [];
   $("#addDeviceList input").each(function(){
-    let id;
-    let name;
-    let apikey;
-    let date;
-    let time;
+    
     if(this.name === "deviceId"){
-      id = this.value
+      id.push(this.value)
     }
+    else if(this.name === "deviceName"){
+      name.push(this.value)
+    }
+    else if(this.name === "apikey"){
+      apikey.push(this.value)
+    }
+    else if(this.name === "startDate"){
+      date.push(this.value)
+    }
+    else if(this.name === "startTime"){
+      time.push(this.value)
+    }
+
   });
+  for(let i=0; i < id.length; i++){
+    date = new Date(`${date[i]} ${time[i]}`)
+    let txdata = {
+      apikey:apikey[i],
+      deviceId:id[i],
+      deviceName:name[i],
+      userEmail:$("#email").val(),
+      startDate:date
+    }
+    
+    $.ajax({
+      url: '/device/update',
+      method: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(txdata),
+      dataType: 'json'
+    }).done(function(data, textStatus, jqXHR){
+      window.location.replace("account.html");}).fail(updateFailure)
+    console.log("ajax ends")
+  }
+  
   alert("Something")
   
 }

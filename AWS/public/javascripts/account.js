@@ -204,43 +204,9 @@ function updateUser() {
       window.alert("invalid email!");
       return;
   }*/
-  $.ajax({
-    url: '/users/status',
-    type: 'GET',
-    headers: { 'x-auth': window.localStorage.getItem("authToken") },
-    dataType: 'json'
-  }).done(AccountupdateSuccess)
-  .fail(accountInfoError);
-  
-}
-
-
-
-/*
-function updateAccInfo(){
-  let email = $('#email').val();
-  let password = $('#password').val();
-  let fullName = $('#fullName').val();
-  let passwordConfirm = $('#passwordConfirm').val();
-  let zip = $('#zip').val();
-
-  $.ajax({
-    url: '/users/updateAccount',
-    type: 'POST',
-    headers: { 'x-auth': window.localStorage.getItem("authToken") },
-    contentType: 'application/json',
-    data: JSON.stringify({fullName:fullName, password:password, passwordConfirm:passwordConfirm, zip:zip}),
-    dataType: 'json'
-  })
-  .done(updateSuccess)
-  .fail(updateFailure);
-}
-*/
-function AccountupdateSuccess(data, textStatus, jqXHR) {
-  
   
   console.log("updating user")
-
+  email=window.localStorage.getItem("email")
  
   if ($('#password').val() === "") {
       window.alert("invalid password!");
@@ -281,9 +247,9 @@ var strongRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,
     $('#ServerResponse').show();
     return;
   }
-  console.log(data[0].email)
+  console.log(email)
 let txdata = {
-  email:data[0].email,
+  email:email,
   password:$('#password').val(),
   fullName:$('#fullName').val(),
   zip:$('#zip').val()
@@ -297,19 +263,23 @@ console.log(txdata);
       data: JSON.stringify(txdata),
       dataType: 'json'
   })
-  .done(Account1updateSuccess).fail(updateFailure)
+  .done(AccountupdateSuccess).fail(updateFailure)
   console.log("ajax ends")
   
   
 }
-  //$("#email").html(data[0].email);
-  //window.localStorage.setItem('authToken', data.authToken);
-  //window.location.reload(false)
-  function Account1updateSuccess(data, textStatus, jqXHR) {
-    let user = data
-    window.localStorage.setItem("User", JSON.stringify(user))
+  
 
-  }
+
+
+function AccountupdateSuccess(data, textStatus, jqXHR) {
+  
+  let user = data
+    window.localStorage.setItem("User", JSON.stringify(user))
+  
+  
+}
+
 
 function updateFailure(jqXHR, textStatus, errorThrown) {
   console.log("Update Failed")

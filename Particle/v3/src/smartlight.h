@@ -32,8 +32,9 @@ private:
     void updateBrightnessManually(int val);
     void updataBrightnessAutomatically();
     void updateColor();
-    bool bedtimeActive();
+    void bedtimeActive();
     void createStatusStr();
+    bool updateSimTime();
 private:
     STATE_L0 state_L0;
     STATE_L1 state_L1;
@@ -41,9 +42,13 @@ private:
     int sensorVal;
     int sensorMax;
     int sensorMin;
-    int color;
-    int bedtimeStart;
-    int wakeupStart;
+    long unsigned int color;
+    long unsigned int bedtimeStart;
+    long unsigned int wakeupStart;
+    long unsigned int simMils;
+    int currSecond;
+    long unsigned int maxMils;
+    bool isBedtime;
     SmartLightCmdStruct cmd;
     String statusStr;
 };

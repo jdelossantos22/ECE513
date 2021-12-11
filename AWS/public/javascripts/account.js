@@ -242,32 +242,31 @@ let strongPassword = !strongRegex.test($('#password').val())
     return;
   }
   
-  if ($('#password').val() != $('#passwordConfirm').val()) {
+  if ($('#password').val() != passwordConfirm) {
     $('#ServerResponse').html("<span class='red-text text-darken-2'>Passwords don't match.</span>");
     $('#ServerResponse').show();
     return;
   }
-  //console.log(email)
-let txdata = {
-  email:email,
-  password:$('#password').val(),
-  fullName:$('#fullName').val(),
-  zip:$('#zip').val()
-};
+  console.log(email)
+  let txdata = {
+    email:email,
+    password:$('#password').val(),
+    fullName:$('#fullName').val(),
+    zip:$('#zip').val()
+  };
 console.log(txdata);
 
   $.ajax({
       url: '/users/update',
       method: 'POST',
-      headers: { 'x-auth': window.localStorage.getItem("authToken")},
       contentType: 'application/json',
       data: JSON.stringify(txdata),
       dataType: 'json'
   })
-  console.log("AccountSuccess start")
-  .done(function(data, textStatus, jqXHR){
-    window.location.replace("account.html");}).fail(updateFailure)
+  .done(AccountupdateSuccess).fail(updateFailure)
   console.log("ajax ends")
+
+  //for loop devices
   
   
 }

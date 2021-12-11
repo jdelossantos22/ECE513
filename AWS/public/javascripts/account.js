@@ -254,7 +254,7 @@ var strongRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,
   }
 
 let txdata = {
-  //email:$('#userEmail').val(),
+  email:$('#userEmail').val(),
   password:$('#password').val(),
   fullName:$('#fullName').val(),
   zip:$('#zip').val()

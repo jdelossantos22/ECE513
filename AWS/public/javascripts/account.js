@@ -204,6 +204,8 @@ function updateUser() {
       window.alert("invalid email!");
       return;
   }*/
+
+  sendReqForAccountInfo()
   console.log("updating user")
 
   let email = $('#email').val();
@@ -297,6 +299,8 @@ function updateAccInfo(){
 function AccountupdateSuccess(data, textStatus, jqXHR) {
   let user = data
   window.localStorage.setItem("User", JSON.stringify(user))
+
+  $("#email").html(data[0].email);
   //window.localStorage.setItem('authToken', data.authToken);
   //window.location.reload(false)
 }

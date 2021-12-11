@@ -93,7 +93,7 @@ function updateGUI(data) {
     if ("simclock" in data) {
       console.log("IM GETTING IN if simclock")
       console.log(data.simclock)
-      $('#curTime').html(data.simclock);
+      $('#curTime').text(data.simclock);
     };
 }
 

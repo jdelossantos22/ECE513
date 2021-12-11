@@ -304,32 +304,32 @@ console.log(txdata);
       let date = $("#startDate").val() + " " + $("#startTime").val()
       date = new Date(date);
       console.log(date)
-      
+      let txdata = {
+        name:deviceName,
+        id:deviceId,
+        api:deviceKey,
+        startDate:date
+    };
+    console.log(txdata)
+  
+    $.ajax({
+      url: '/device/update',
+      method: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(txdata),
+      dataType: 'json'
+  }).done(function(data, textStatus, jqXHR){console.log("inside")}).fail(updateFailure)
+    //window.location.replace("account.html");}).fail(updateFailure)
+  console.log("ajax ends")
       
         }
       
-      window.localStorage.setItem("devices", JSON.stringify(devices.filter((a)=>a)));
-      console.log(devices[i])
-    }
-    let txdata = {
-      name:deviceName,
-      id:deviceId,
-      api:deviceKey,
-      //email: userEmail,
-      startDate:date
-  };
-  console.log(txdata)
-  //email=window.localStorage.getItem("devices")
+      //window.localStorage.setItem("devices", JSON.stringify(devices.filter((a)=>a)));
+      //console.log(devices[i])
 
-  $.ajax({
-    url: '/device/update',
-    method: 'POST',
-    contentType: 'application/json',
-    data: JSON.stringify(txdata),
-    dataType: 'json'
-}).done(function(data, textStatus, jqXHR){console.log("inside")}).fail(updateFailure)
-  //window.location.replace("account.html");}).fail(updateFailure)
-console.log("ajax ends")
+      
+    }
+    
 }
 
 

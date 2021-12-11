@@ -127,6 +127,7 @@ router.post("/update", function(req, res){
          zip:req.body.zip
       }
    }
+   console.log(data)
    User.findOneAndUpdate({email: req.body.email}, data, function (err, doc){
       if (err){
          let msgStr = `Something wrong....`;
@@ -141,7 +142,7 @@ router.post("/update", function(req, res){
             msgStr = `user (email: ${req.body.email}) info has been updated.`;
          }
          
-         res.status(201).json({message: msgStr});
+         res.status(201).json({success:false,message: msgStr});
       }
    })
    //update this

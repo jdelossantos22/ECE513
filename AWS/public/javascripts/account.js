@@ -157,40 +157,40 @@ function deviceSSuccess(data, textStatus, jqXHR){
 
 function updateSuccess(data, textSatus, jqXHR) {
     
- let devices = data
- window.localStorage.setItem("devices", JSON.stringify(devices))
- //devices = JSON.parse(devices)
- //let devices = data.devices
- for(let i = devices.length-1; i >=0; i--){
-  console.log(devices[i])
-  htmlText= `<span style="">Device ${i+1}</span>`
-  htmlText+=`<div class="input-field"><label for="deviceName${i}" class="active">Update Device Name</label>`
-  htmlText+=`<input type="text" id="deviceName${i}" name="deviceName" value="${devices[i].deviceName}"required></input></div>`
-  htmlText+=`<div class="input-field"><label for="deviceId${i}" class="active">Update Device Id</label>`
-  htmlText+=`<input type="text" id="deviceId${i}" name="deviceId" value="${devices[i].deviceId}"required></input></div>`
-  htmlText+=`<div class="input-field"><label for="apikey${i}" class="active">Update Device API Key</label>`
-  htmlText+=`<input type="text" id="apikey${i}" name="apikey" value="${devices[i].apikey}"required></input></div>`
-  htmlText+=`<div class="input-field"><label for="startDate" class="active">Update Device Start Date</label>`
-  htmlText+=`<input type="date" id="startDate" name="startDate" value=""required></input></div>`
-  let startDate = new Date(devices[i].startDate);
-  let year = startDate.getFullYear();
-  let month = startDate.getMonth()+1;
-  let day = startDate.getDate();
-  if (String(day).length == 1) day = "0" + day;
-  if (String(month).length == 1) month = "0" + month;
-  console.log(`${year}-${month}-${day}`)
-  $("#startDate").val(`${year}-${month}-${day}`)
-  htmlText+=`<div class="input-field"><label for="startTime" class="active">Update Device Start Time</label>`
-  htmlText+=`<input type="time" id="startTime" name="startTime" value=""required></input></div>`
-  let hour = startDate.getHours();
-  let minute = startDate.getMinutes();
-  if (String(hour).length == 1) hour = "0" + hour;
-  if (String(minute).length == 1) minute = "0" + minute;
-  $("#startTime").val(`${hour}:${minute}`)
+  let devices = data
+  window.localStorage.setItem("devices", JSON.stringify(devices))
+  //devices = JSON.parse(devices)
+  //let devices = data.devices
+  for(let i = devices.length-1; i >=0; i--){
+    console.log(devices[i])
+    htmlText= `<span style="">Device ${i+1}</span>`
+    htmlText+=`<div class="input-field"><label for="deviceName${i}" class="active">Update Device Name</label>`
+    htmlText+=`<input type="text" id="deviceName${i}" name="deviceName" value="${devices[i].deviceName}"required></input></div>`
+    htmlText+=`<div class="input-field"><label for="deviceId${i}" class="active">Update Device Id</label>`
+    htmlText+=`<input type="text" id="deviceId${i}" name="deviceId" value="${devices[i].deviceId}"required></input></div>`
+    htmlText+=`<div class="input-field"><label for="apikey${i}" class="active">Update Device API Key</label>`
+    htmlText+=`<input type="text" id="apikey${i}" name="apikey" value="${devices[i].apikey}"required></input></div>`
+    htmlText+=`<div class="input-field"><label for="startDate" class="active">Update Device Start Date</label>`
+    htmlText+=`<input type="date" id="startDate" name="startDate" value=""required></input></div>`
+    let startDate = new Date(devices[i].startDate);
+    let year = startDate.getFullYear();
+    let month = startDate.getMonth()+1;
+    let day = startDate.getDate();
+    if (String(day).length == 1) day = "0" + day;
+    if (String(month).length == 1) month = "0" + month;
+    console.log(`${year}-${month}-${day}`)
+    $("#startDate").val(`${year}-${month}-${day}`)
+    htmlText+=`<div class="input-field"><label for="startTime" class="active">Update Device Start Time</label>`
+    htmlText+=`<input type="time" id="startTime" name="startTime" value=""required></input></div>`
+    let hour = startDate.getHours();
+    let minute = startDate.getMinutes();
+    if (String(hour).length == 1) hour = "0" + hour;
+    if (String(minute).length == 1) minute = "0" + minute;
+    $("#startTime").val(`${hour}:${minute}`)
 
-  $("#addDeviceList").prepend(htmlText)
-  //$("#main").show();
-  
+    $("#addDeviceList").prepend(htmlText)
+    //$("#main").show();
+    
 }
 }
 
@@ -228,7 +228,7 @@ if ($('#zip').val() === "") {
 }
 
 var strongRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
-  let strongPassword = !strongRegex.test(password)
+let strongPassword = !strongRegex.test($('#password').val())
   //strongPassword = false
   if(strongPassword){
     $('#ServerResponse').html("<span class='red-text text-darken-2'>Password is not strong enough.:"
@@ -242,7 +242,7 @@ var strongRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,
     return;
   }
   
-  if (password != passwordConfirm) {
+  if ($('#password').val() != $('#passwordConfirm').val()) {
     $('#ServerResponse').html("<span class='red-text text-darken-2'>Passwords don't match.</span>");
     $('#ServerResponse').show();
     return;

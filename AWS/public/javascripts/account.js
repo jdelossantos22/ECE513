@@ -257,7 +257,7 @@ let txdata = {
 console.log(txdata);
 
   $.ajax({
-      url: '/users/updateAccount',
+      url: '/users/update',
       method: 'POST',
       headers: { 'x-auth': window.localStorage.getItem("authToken")},
       contentType: 'application/json',

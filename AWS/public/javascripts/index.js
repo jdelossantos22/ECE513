@@ -221,9 +221,7 @@ function pingTest() {
         //if ("simclock" in data.data) $('#curTime').text(data.data.simclock);
         updateGUI(data.data);
         //update dbs
-        //saveTemperature(data.data);
-
-        
+        saveTemperature(data.data);
       }
       else if ((data.cmd === "publish") && (data.success)){
         if ($('#btnEnablePublish').html() == 'Enable publish') {
@@ -262,6 +260,7 @@ function pingTest() {
     if(Math.abs(diff) < 10 && parseFloat(temperature) < 100){
       let txdata = {
         id:deviceId,
+        email:window.localStorage.getItem("email"),
         postDate:simTime,
         temperature:temperature,
         humidity:humidity,

@@ -7,7 +7,7 @@ let Temperature = require("../models/temperature")
 router.post('/create', function(req, res){
     console.log(req.body.postDate)
     let date = new Date(req.body.postDate)
-    Temperature.findOne({postDate: date, deviceId:req.body.id}, function(err, temp){
+    Temperature.findOne({postDate: date, deviceId:req.body.id, userEmail:req.body.email}, function(err, temp){
         if(err) res.status(401).json({success:false, err:err});
         else if(temp){
             res.status(401).json({success:false, msg:"The data for this date already saved"});
@@ -15,6 +15,7 @@ router.post('/create', function(req, res){
         else{
             const newTemp = new Temperature({
                 deviceId:req.body.id,
+                userEmail:req.body.email,
                 postDate:date,
                 temperature: req.body.temperature,
                 humidity:req.body.humidity,
@@ -62,7 +63,7 @@ router.post('/readAll', function(req,res,next){
     //console.log(today)
     //console.log(tomorrow)
     //{date:{$gt: Date(today), $lt:Date(tomorrow)}}
-    Temperature.find({postDate:{$gte: today, $lt:tomorrow}, deviceId:req.body.id}).sort({postDate:1}).exec(function(err, docs){
+    Temperature.find({postDate:{$gte: today, $lt:tomorrow}, deviceId:req.body.id, userEmail:req.body.email}).sort({postDate:1}).exec(function(err, docs){
         if(err){
             let msg = `Can't find information on date ...`;
             res.status(201).json({msg:msg});

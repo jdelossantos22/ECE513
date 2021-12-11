@@ -204,8 +204,15 @@ function updateUser() {
       window.alert("invalid email!");
       return;
   }*/
+  $.ajax({
+    url: '/users/status',
+    type: 'GET',
+    headers: { 'x-auth': window.localStorage.getItem("authToken") },
+    dataType: 'json'
+  })
+  
 
-  sendReqForAccountInfo()
+
   console.log("updating user")
 
   //let email = $('#email').val();
@@ -254,7 +261,7 @@ var strongRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,
     $('#ServerResponse').show();
     return;
   }
-
+  console.log($('#email').val())
 let txdata = {
   email:$('#email').val(),
   password:$('#password').val(),
@@ -300,7 +307,7 @@ function AccountupdateSuccess(data, textStatus, jqXHR) {
   let user = data
   window.localStorage.setItem("User", JSON.stringify(user))
 
-  $("#email").html(data[0].email);
+  //$("#email").html(data[0].email);
   //window.localStorage.setItem('authToken', data.authToken);
   //window.location.reload(false)
 }

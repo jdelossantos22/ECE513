@@ -5,6 +5,7 @@ Reydesel Alejandro Cuevas - cuevasr@email.arizona.edu
 Jero Delos Santos - jdelossantos22@email.arizona.edu
 
 AWS Address: http://ec2-3-20-194-35.us-east-2.compute.amazonaws.com:3000/
+https://ec2-3-20-194-35.us-east-2.compute.amazonaws.com:3443/
 Checkpoint 2 Demos: http://ec2-3-20-194-35.us-east-2.compute.amazonaws.com:3000/checkpoint2.html
 Video Demo: http://ec2-3-20-194-35.us-east-2.compute.amazonaws.com:3000/checkpoint2.html
 

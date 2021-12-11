@@ -90,7 +90,10 @@ function updateGUI(data) {
             console.log(alert);
         }
     }
-    if ("simclock" in data) $('#curTime').html(data.simclock);
+    if ("simclock" in data) {
+      console.log("IM GETTING IN if simclock")
+      $('#curTime').html(data.simclock);
+    };
 }
 
 function sendAlert(){

@@ -262,8 +262,13 @@ console.log(txdata);
       contentType: 'application/json',
       data: JSON.stringify(txdata),
       dataType: 'json'
+<<<<<<< HEAD
   })
   .done(AccountupdateSuccess).fail(updateFailure)
+=======
+  }).done(function(data, textStatus, jqXHR){
+    window.location.replace("account.html");}).fail(updateFailure)
+>>>>>>> a7f0650f7db1cfc46e7c301ab17e211c617e4b2b
   console.log("ajax ends")
 
   //for loop devices

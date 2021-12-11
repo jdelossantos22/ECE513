@@ -228,10 +228,11 @@ function pingTest() {
         }
       }
       else if (data.cmd === "read") {
-        if ("simclock" in data.data) $('#curTime').html(data.data.simclock);
+        //if ("simclock" in data.data) $('#curTime').text(data.data.simclock);
         updateGUI(data.data);
         //update dbs
         //saveTemperature(data.data);
+
         
       }
       else if ((data.cmd === "publish") && (data.success)){

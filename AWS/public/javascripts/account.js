@@ -242,7 +242,7 @@ let strongPassword = !strongRegex.test($('#password').val())
     return;
   }
   
-  if ($('#password').val() != passwordConfirm) {
+  if ($('#password').val() != $('#passwordConfirm').val()) {
     $('#ServerResponse').html("<span class='red-text text-darken-2'>Passwords don't match.</span>");
     $('#ServerResponse').show();
     return;

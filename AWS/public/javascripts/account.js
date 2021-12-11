@@ -259,11 +259,14 @@ console.log(txdata);
   $.ajax({
       url: '/users/update',
       method: 'POST',
+      headers: { 'x-auth': window.localStorage.getItem("authToken"),
       contentType: 'application/json',
       data: JSON.stringify(txdata),
       dataType: 'json'
   })
-  .done(AccountupdateSuccess).fail(updateFailure)
+  console.log("AccountSuccess start")
+  .done(function(data, textStatus, jqXHR){
+    window.location.replace("account.html");}).fail(updateFailure)
   console.log("ajax ends")
   
   

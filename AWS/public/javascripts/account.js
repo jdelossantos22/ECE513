@@ -249,7 +249,7 @@ var strongRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,
   }
   //console.log(email)
 let txdata = {
-  //email:email,
+  email:email,
   password:$('#password').val(),
   fullName:$('#fullName').val(),
   zip:$('#zip').val()
@@ -257,7 +257,7 @@ let txdata = {
 console.log(txdata);
 
   $.ajax({
-      url: '/users/update',
+      url: '/users/updateAccount',
       method: 'POST',
       headers: { 'x-auth': window.localStorage.getItem("authToken")},
       contentType: 'application/json',

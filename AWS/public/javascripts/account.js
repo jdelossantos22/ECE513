@@ -270,15 +270,11 @@ console.log(txdata);
   function updateDevice() {
   //for loop devices
   //ajax call to /device/update
-<<<<<<< HEAD
   let id = [];
   let name = [];
   let apikey = [];
   let date = [];
   let time = [];
-=======
-  
->>>>>>> 05db569a07a6af5d704c19bbdb5fd8c3be00248b
   $("#addDeviceList input").each(function(){
     
     if(this.name === "deviceId"){
@@ -293,13 +289,9 @@ console.log(txdata);
     else if(this.name === "startDate"){
       date.push(this.value)
     }
-<<<<<<< HEAD
     else if(this.name === "startTime"){
       time.push(this.value)
     }
-=======
-
->>>>>>> 05db569a07a6af5d704c19bbdb5fd8c3be00248b
 
   });
   for(let i=0; i < id.length; i++){
@@ -324,34 +316,14 @@ console.log(txdata);
   }
   
   alert("Something")
-  let devId = $('#deviceI').val();
-  
-  let devicId = String(devId);
-  let devices = window.localStorage.getItem("devices")
-  devices = JSON.parse(devices)
-  console.log("checkDevice with Id")
-  //console.log(devices[deviceNum])
-  
-  for(let i = 0; i < devices.length; i++){
-    if(devices[i].deviceId == devicId){
-      console.log("inside if statement")
-      console.log("deviceNumuber")
-      console.log(devices[i])
-      
-      let deviceName = $("#deviceName").val();
-      let deviceId = $("#deviceId").val();
-      let deviceKey = $("#apiKey").val();
-      let date = $("#startDate").val() + " " + $("#startTime").val()
-      date = new Date(date);
-      console.log(date)
-      
-      
-        }
-      
-      window.localStorage.setItem("devices", JSON.stringify(devices.filter((a)=>a)));
-      console.log(devices[i])
-    }
-    let txdata = {
+
+  let deviceName = $("#deviceName").val();
+  let deviceId = $("#deviceId").val();
+  let deviceKey = $("#apiKey").val();
+  let date = $("#startDate").val() + " " + $("#startTime").val()
+  date = new Date(date);
+  console.log(date)
+  let txdata = {
       name:deviceName,
       id:deviceId,
       api:deviceKey,
@@ -367,16 +339,10 @@ console.log(txdata);
     contentType: 'application/json',
     data: JSON.stringify(txdata),
     dataType: 'json'
-}).done(function(data, textStatus, jqXHR){console.log("inside")}).fail(updateFailure)
-  //window.location.replace("account.html");}).fail(updateFailure)
+}).done(function(data, textStatus, jqXHR){
+  window.location.replace("account.html");}).fail(updateFailure)
 console.log("ajax ends")
 }
-
-
-
-  
-
-
 
 function AccountupdateSuccess(data, textStatus, jqXHR) {
   

@@ -182,7 +182,7 @@ void CThermostat::execute() {
             break;
     }
     //(howeverlong the time elapsed since last execution)/(hour is simulation time)*(POWER kwH)
-    power = ((signed)lastRead - (signed)millis())/HOUR*power*1.0;
+    //power = ((signed)lastRead - (signed)millis())/HOUR*power*1.0;
     lastRead = millis();
     resetCmd();
     createStatusStr();

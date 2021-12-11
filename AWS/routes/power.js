@@ -55,7 +55,7 @@ router.post('/readAll', function(req,res,next){
     console.log(nextWeek)
     //{date:{$gt: Date(today), $lt:Date(tomorrow)}}
     //{postDate:{$gte: today, $lt:nextWeek}}
-    Power.find({postDate:{$gte: today, $lte:nextWeek}, deviceId:req.body.id}, function(err, docs){
+    Power.find({postDate:{$gte: today, $lte:nextWeek}, deviceId:req.body.id, userEmail:req.body.email}).sort({postDate:1}).exec(function(err, docs){
         if(err){
             let msg = `Something wrong with power readAll ...`;
             res.status(201).json({msg:msg});

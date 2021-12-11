@@ -193,16 +193,20 @@ function powSuccess(data, textStatus, jqXHR){
   let week = [0,0,0,0,0,0,0]
   let weekSum = 0;
   console.log(data)
-  for (let i = 0; i < data.length; i++){
+  for (let i = 0; i < data.length-1; i++){
     //[0-6]0 - Sunday 1 - M 2 - T6 - Saturday
     let dayOfWeek = new Date(data[i].postDate).getDay() - 1;
     if(dayOfWeek == -1){
       dayOfWeek = 6
     }
-    weekSum += parseInt(data[i].power)
-    let samPeriod = parseInt(window.localStorage.getItem("samplingPeriod"));
-    console.log(parseInt(data[i].power)*(samPeriod/(60.0*60)))
-    week[dayOfWeek] += parseInt(data[i].power)*(samPeriod/(60.0*60))
+    let power = 0
+    let diffTime = new Date(data[i+1].postDate) - new Date(data[i].postDate)
+    let hour = 1000 * 60 * 60
+    power = parseFloat(data[i].power) * diffTime/hour
+    weekSum += power
+    //let samPeriod = parseInt(window.localStorage.getItem("samplingPeriod"));
+    console.log(power)
+    week[dayOfWeek] += power
     //console.log(data[i])
   }
   console.log(week)

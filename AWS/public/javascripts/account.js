@@ -204,24 +204,10 @@ function updateUser() {
       window.alert("invalid email!");
       return;
   }*/
-  $.ajax({
-    url: '/users/status',
-    type: 'GET',
-    headers: { 'x-auth': window.localStorage.getItem("authToken") },
-    dataType: 'json'
-  })
   
-
-
   console.log("updating user")
-
-  //let email = $('#email').val();
-  let password = $('#password').val();
-  let fullName = $('#fullName').val();
-  let passwordConfirm = $('#passwordConfirm').val();
-  let zip = $('#zip').val();
-
-
+  email=window.localStorage.getItem("email")
+ 
   if ($('#password').val() === "") {
       window.alert("invalid password!");
       return;
@@ -261,9 +247,9 @@ var strongRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,
     $('#ServerResponse').show();
     return;
   }
-  console.log($('#email').val())
+  console.log(email)
 let txdata = {
-  email:$('#email').val(),
+  email:email,
   password:$('#password').val(),
   fullName:$('#fullName').val(),
   zip:$('#zip').val()
@@ -280,37 +266,20 @@ console.log(txdata);
   .done(AccountupdateSuccess).fail(updateFailure)
   console.log("ajax ends")
   
+  
 }
+  
 
 
-/*
-function updateAccInfo(){
-  let email = $('#email').val();
-  let password = $('#password').val();
-  let fullName = $('#fullName').val();
-  let passwordConfirm = $('#passwordConfirm').val();
-  let zip = $('#zip').val();
 
-  $.ajax({
-    url: '/users/updateAccount',
-    type: 'POST',
-    headers: { 'x-auth': window.localStorage.getItem("authToken") },
-    contentType: 'application/json',
-    data: JSON.stringify({fullName:fullName, password:password, passwordConfirm:passwordConfirm, zip:zip}),
-    dataType: 'json'
-  })
-  .done(updateSuccess)
-  .fail(updateFailure);
-}
-*/
 function AccountupdateSuccess(data, textStatus, jqXHR) {
+  
   let user = data
-  window.localStorage.setItem("User", JSON.stringify(user))
-
-  //$("#email").html(data[0].email);
-  //window.localStorage.setItem('authToken', data.authToken);
-  //window.location.reload(false)
+    window.localStorage.setItem("User", JSON.stringify(user))
+  
+  
 }
+
 
 function updateFailure(jqXHR, textStatus, errorThrown) {
   console.log("Update Failed")

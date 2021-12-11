@@ -84,7 +84,7 @@
         <tr>
             <td>
                 <label for="bedtime">Bedtime (8pm-2am):</label>
-                <input type="time" id="bedtime" name="bedtime" value="20:00" min="20:00" max="02:00" onchange="console.log(Number(this.value.split(':')[0]) * 60 * 60 * 1000 + Number(this.value.split(':')[1]) * 60 * 1000)" onchange="smartLightControl('bedtime', Number(this.value.split(':')[0]) * 60 * 60 * 1000 + Number(this.value.split(':')[1]) * 60 * 1000)">
+                <input type="time" id="bedtime" name="bedtime" value="20:00" min="20:00" max="02:00" onchange="console.log(Number(this.value.split(':')[0]) * 60 * 60 * 1000 + Number(this.value.split(':')[1]) * 60 * 1000);smartLightControl('bedtime', Number(this.value.split(':')[0]) * 60 * 60 * 1000 + Number(this.value.split(':')[1]) * 60 * 1000)">
             </td>
             <td>
                 <label for="wakeup">Wake-up Time (6am-12pm):</label>

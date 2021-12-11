@@ -263,9 +263,7 @@ console.log(txdata);
       contentType: 'application/json',
       data: JSON.stringify(txdata),
       dataType: 'json'
-  })
-  console.log("AccountSuccess start")
-  .done(function(data, textStatus, jqXHR){
+  }).done(function(data, textStatus, jqXHR){
     window.location.replace("account.html");}).fail(updateFailure)
   console.log("ajax ends")
   

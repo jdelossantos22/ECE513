@@ -348,7 +348,7 @@ $(function() {
   })
   
   .fail(function (jqXHR, textStatus, errorThrown) {
-    window.localStorage.removeItem();
+    //window.localStorage.removeItem();
     window.location = "index.html";
   });
  

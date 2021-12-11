@@ -9,6 +9,10 @@ CSmartLight::CSmartLight() {
     color = 16777215;   //ffffff (white)
     bedtimeStart = 72000000;
     wakeupStart = 21600000;
+    simMils = (Time.hour() * 60 * 60 * 1000) + (Time.minute() * 60 * 1000) + (Time.second() * 1000);
+    currSecond = Time.second();
+    maxMils = 86400000;
+    isBedtime = false;
     
     statusStr = "{}";
     resetCmd();
@@ -54,10 +58,6 @@ void CSmartLight::execute() {
                     state_L1 = CSmartLight::S_MANUAL;
                 }
             }
-            else if (!(bedtimeActive())) {
-                state_L0 = CSmartLight::S_ON;
-                state_L1 = CSmartLight::S_MANUAL;
-            }
             break;
         case CSmartLight::S_ON:
             switch (state_L1) {
@@ -70,10 +70,18 @@ void CSmartLight::execute() {
                     break;
                 
                 case CSmartLight::S_AUTO:
-                    updataBrightnessAutomatically();
                     updateColor();
                     if (cmd.Auto != INVALID_CMD) {
                         if(!cmd.Auto) state_L1 = CSmartLight::S_MANUAL;
+                    }
+                    else {
+                        bedtimeActive();
+                        if (isBedtime) {
+                            RGB.brightness(0);
+                        }
+                        else {
+                            updataBrightnessAutomatically();
+                        }   
                     }
                     break;
                 
@@ -82,9 +90,6 @@ void CSmartLight::execute() {
             }
             if (cmd.On != INVALID_CMD) {
                 if(!cmd.On) state_L0= CSmartLight::S_OFF;
-            }
-            else if (bedtimeActive()) {
-                state_L0 = CSmartLight::S_OFF;
             }
             break;
         default:
@@ -191,25 +196,20 @@ void CSmartLight::updateColor() {
     RGB.color(RGB1, RGB2, RGB3);
 }
 
-bool CSmartLight::bedtimeActive() {
-    int currentTime = ((int)Time.hour() * 60 * 60 * 1000 + (int)Time.minute() * 60 * 1000 + Time.second() * 1000) / 24;
-    bedtimeStart /= 3600;
-    wakeupStart /= 3600;
-    Serial.printf("%d ", (int)Time.hour()+1);
-    Serial.printf("Sim Hour: %d ", ((int)Time.hour()+1)/5);
-    Serial.printf("%d ", (int)Time.minute()+1);
-    Serial.printf("Sim Minute: %d ", ((int)Time.minute()+1)/5);
-    Serial.printf("%d ", (int)Time.second()+1);
-    Serial.printf("Sim Second: %d ", ((int)Time.second()+1)/5);
-    Serial.printf("%d ",currentTime);
-    Serial.printf("%d ",bedtimeStart);
-    Serial.printf("%d ",wakeupStart);
-    Serial.println();
-    if ((currentTime > bedtimeStart) && (currentTime < wakeupStart)) {
-        return false;
+void CSmartLight::bedtimeActive() {
+    if (updateSimTime()) {
+        simMils = simMils + 300000;
+
+        if (simMils > maxMils) {
+            simMils = 0;
+        }
+    }
+
+    if ((simMils > wakeupStart) && (simMils < bedtimeStart)) {
+        isBedtime = false;
     }
     else {
-        return false;
+        isBedtime = true;
     }
 }
 
@@ -221,6 +221,17 @@ int CSmartLight::getSensorVal() {
     return sensorVal;
 }
 
+bool CSmartLight::updateSimTime() {
+    int nextSecond = (int)Time.second();
+
+    if (nextSecond != currSecond) {
+        currSecond = nextSecond;
+        return true;
+    }
+    else{
+        return false;
+    }
+}
 
 void CSmartLight::createStatusStr() {
     statusStr = String::format("{\"L0\":%d,\"L1\":%d,\"b\":%d,\"s\":%d,\"m\":%d,\"M\":%d,\"D\":%d}", 

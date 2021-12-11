@@ -204,9 +204,11 @@ function updateUser() {
       window.alert("invalid email!");
       return;
   }*/
+
+  sendReqForAccountInfo()
   console.log("updating user")
 
-  let email = $('#email').val();
+  //let email = $('#email').val();
   let password = $('#password').val();
   let fullName = $('#fullName').val();
   let passwordConfirm = $('#passwordConfirm').val();
@@ -254,7 +256,7 @@ var strongRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,
   }
 
 let txdata = {
-  //email:$('#userEmail').val(),
+  email:$('#email').val(),
   password:$('#password').val(),
   fullName:$('#fullName').val(),
   zip:$('#zip').val()
@@ -268,7 +270,7 @@ console.log(txdata);
       data: JSON.stringify(txdata),
       dataType: 'json'
   })
-  .done(updateSuccess).fail(updateFailure)
+  .done(AccountupdateSuccess).fail(updateFailure)
   console.log("ajax ends")
   
 }
@@ -294,9 +296,13 @@ function updateAccInfo(){
   .fail(updateFailure);
 }
 */
-function updateSuccess(data, textStatus, jqXHR) {
-  window.localStorage.setItem('authToken', data.authToken);
-  window.location.reload(false)
+function AccountupdateSuccess(data, textStatus, jqXHR) {
+  let user = data
+  window.localStorage.setItem("User", JSON.stringify(user))
+
+  $("#email").html(data[0].email);
+  //window.localStorage.setItem('authToken', data.authToken);
+  //window.location.reload(false)
 }
 
 function updateFailure(jqXHR, textStatus, errorThrown) {
@@ -348,7 +354,7 @@ $(function() {
   })
   
   .fail(function (jqXHR, textStatus, errorThrown) {
-    window.localStorage.removeItem();
+    //window.localStorage.removeItem();
     window.location = "index.html";
   });
  

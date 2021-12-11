@@ -268,7 +268,7 @@ console.log(txdata);
       data: JSON.stringify(txdata),
       dataType: 'json'
   })
-  .done(updateSuccess).fail(updateFailure)
+  .done(AccountupdateSuccess).fail(updateFailure)
   console.log("ajax ends")
   
 }
@@ -294,9 +294,11 @@ function updateAccInfo(){
   .fail(updateFailure);
 }
 */
-function updateSuccess(data, textStatus, jqXHR) {
-  window.localStorage.setItem('authToken', data.authToken);
-  window.location.reload(false)
+function AccountupdateSuccess(data, textStatus, jqXHR) {
+  let user = data
+  window.localStorage.setItem("User", JSON.stringify(user))
+  //window.localStorage.setItem('authToken', data.authToken);
+  //window.location.reload(false)
 }
 
 function updateFailure(jqXHR, textStatus, errorThrown) {

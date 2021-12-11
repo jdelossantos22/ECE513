@@ -295,7 +295,7 @@ console.log(txdata);
       name:deviceName,
       id:deviceId,
       api:deviceKey,
-      email: userEmail,
+      //email: userEmail,
       startDate:date
   };
   console.log(txdata)

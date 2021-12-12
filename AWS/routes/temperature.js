@@ -57,15 +57,17 @@ router.post('/readAll', function(req,res,next){
     today = today.setHours(0,0,0,0);
     //console.log()
     console.log(`COMPARE: ${Date.now()}`)
-    console.log(`HERE: ${Date(today)}`);
+    console.log(`HERE: ${today}}`);
     //console.log(day)
     let tomorrow = today + day;
+    tomorrow = new Date(tomorrow)
+    tomorrow = tomorrow.setHours(0,0,0,0);
     console.log(`HERE: ${tomorrow}`);
     //console.log(today)
     //console.log(tomorrow)
     //{date:{$gt: Date(today), $lt:Date(tomorrow)}}
-    console.log(req.body.id)
-    console.log(req.body.email)
+    //console.log(req.body.id)
+    //console.log(req.body.email)
     //, $lt: Date(tomorrow)}
     Temperature.find({postDate:{$gte: today, $lt: Date(tomorrow)}, deviceId:req.body.id, userEmail:req.body.email}).sort({postDate:1}).exec(function(err, docs){
         if(err){

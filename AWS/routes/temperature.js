@@ -69,7 +69,7 @@ router.post('/readAll', function(req,res,next){
     //console.log(req.body.id)
     //console.log(req.body.email)
     //, $lt: Date(tomorrow)}
-    Temperature.find({postDate:{$gte: Date(today).toString(), $lt: Date(tomorrow).toString()}, deviceId:req.body.id, userEmail:req.body.email}).sort({postDate:1}).exec(function(err, docs){
+    Temperature.find({postDate:{$gte: ISODate(today), $lt: ISODate(tomorrow)}, deviceId:req.body.id, userEmail:req.body.email}).sort({postDate:1}).exec(function(err, docs){
         if(err){
             let msg = `Can't find information on date ...`;
             res.status(201).json({msg:msg});

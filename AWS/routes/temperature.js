@@ -67,7 +67,8 @@ router.post('/readAll', function(req,res,next){
     //console.log(tomorrow)
     //{date:{$gt: Date(today), $lt:Date(tomorrow)}}
     //console.log(req.body.id)
-    //console.log(req.body.email)
+    console.log(new Date(today).toISOString())
+    console.log(new Date(tomorrow).toISOString())
     //, $lt: Date(tomorrow)}
     Temperature.find({postDate:{$gte: new Date(today).toISOString(), $lt: new Date(tomorrow).toISOString()}, deviceId:req.body.id, userEmail:req.body.email}).sort({postDate:1}).exec(function(err, docs){
         if(err){

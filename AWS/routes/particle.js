@@ -30,8 +30,8 @@ router.post('/device', function(req,res, next){
     deviceInfo.id = device.id;
     deviceInfo.token = device.token;
     console.log(device.startDate);
-    referenceTimeInSec = new Date(device.startDate)/1000;
-    console.log(referenceTimeInSec)
+    //referenceTimeInSec = new Date(device.startDate)/1000;
+    //console.log(referenceTimeInSec)
     res.status(201).json({success : true, message : "Device updated for the particle", data:JSON.stringify(deviceInfo)});
 });
 

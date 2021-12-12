@@ -282,7 +282,8 @@ console.log(txdata);
       dataType: 'json'
   }).done(function(data, textStatus, jqXHR){
     updateDevice();
-    window.location.replace("account.html");}).fail(updateFailure)
+    //window.location.replace("account.html");
+  }).fail(updateFailure)
   console.log("ajax ends")
   }
 

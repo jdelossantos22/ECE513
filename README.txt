@@ -44,6 +44,9 @@ particle/publish - publish commands and enable webhook
 particle/ping - ping if device is online
 particle/read - read rxData
 
+Temperature:
+
+
 Data Sent from Particle Device: JSON
 Format: {
   "cmd": "read",

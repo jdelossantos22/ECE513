@@ -105,9 +105,13 @@ function simulatedClock(data) {
         if (referenceTimeInSec == null) {
           referenceTimeInSec = data.t;
         }
-        console.log(referenceTimeInSec)
+        
         let curTimeInSec = data.t;
+        console.log(referenceTimeInSec)
+        console.log(curTimeInSec)
+        console.log((curTimeInSec-referenceTimeInSec)*clockUnit)
         let simTimeInSec = referenceTimeInSec + (curTimeInSec-referenceTimeInSec)*clockUnit;
+        console.log(simTimeInSec)
         let curTime = new Date(curTimeInSec*1000);
         simulatedTime = new Date(simTimeInSec*1000);
     }

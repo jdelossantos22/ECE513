@@ -60,7 +60,7 @@ router.post('/readAll', function(req,res,next){
     console.log(`HERE: ${today}`);
     //console.log(day)
     let tomorrow = today + day;
-    tomorrow = new Date(tomorrow)
+    tomorrow = new Date(tomorrow.toString())
     tomorrow = tomorrow.setHours(0,0,0,0);
     console.log(`HERE: ${tomorrow}`);
     //console.log(today)

@@ -209,8 +209,9 @@ function powSuccess(data, textStatus, jqXHR){
     week[dayOfWeek] += power
     //console.log(data[i])
   }
+  weekSum /=1000
   console.log(week)
-  $("#powerWeekVal").text(weekSum)
+  $("#powerWeekVal").text(weekSum.toFixed(2))
   var dailyChart = new Chart(daily, {
     type: 'line',
     data: {

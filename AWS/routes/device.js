@@ -79,7 +79,7 @@ router.post('/delete', function(req,res){
 
 //update
 router.post('/update', function(req, res){
-   Device.findOneAndUpdate({deviceId:req.body.id}, req.body, function(err,doc){
+   Device.findOneAndUpdate({deviceId:req.body.deviceId}, req.body, function(err,doc){
       if(err){
          let msg = 'Something wrong with update ...'
          res.status(201).json({msg:msg, err:err});

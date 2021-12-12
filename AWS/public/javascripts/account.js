@@ -29,49 +29,67 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
     $("#main").show();
     console.log(data)
    
-   let devices = window.localStorage.getItem("devices")
-   devices = JSON.parse(devices)
-   //let devices = data.devices
-   for(let i = devices.length-1; i >=0; i--){
-      console.log(devices[i])
-      htmlText= `<span style="">Device ${i+1}</span>`
-      htmlText+=`<div class="input-field"><label for="deviceName${i}" class="active">Update Device Name</label>`
-      htmlText+=`<input type="text" id="deviceName${i}" name="deviceName" value="${devices[i].deviceName}"required></input></div>`
-      htmlText+=`<div class="input-field"><label for="deviceId${i}" class="active">Update Device Id</label>`
-      htmlText+=`<input type="text" id="deviceId${i}" name="deviceId" value="${devices[i].deviceId}"required></input></div>`
-      htmlText+=`<div class="input-field"><label for="apikey${i}" class="active">Update Device API Key</label>`
-      htmlText+=`<input type="text" id="apikey${i}" name="apikey" value="${devices[i].apikey}"required></input></div>`
-      htmlText+=`<div class="input-field"><label for="startDate" class="active">Update Device Start Date</label>`
-      htmlText+=`<input type="date" id="startDate" name="startDate" value=""required></input></div>`
-      let startDate = new Date(devices[i].startDate);
-      let year = startDate.getFullYear();
-      let month = startDate.getMonth()+1;
-      let day = startDate.getDate();
-      if (String(day).length == 1) day = "0" + day;
-      if (String(month).length == 1) month = "0" + month;
-      console.log(`${year}-${month}-${day}`)
-      $("#startDate").val(`${year}-${month}-${day}`)
-      htmlText+=`<div class="input-field"><label for="startTime" class="active">Update Device Start Time</label>`
-      htmlText+=`<input type="time" id="startTime" name="startTime" value=""required></input></div>`
-      let hour = startDate.getHours();
-      let minute = startDate.getMinutes();
-      if (String(hour).length == 1) hour = "0" + hour;
-      if (String(minute).length == 1) minute = "0" + minute;
-      $("#startTime").val(`${hour}:${minute}`)
+    //let devices = window.localStorage.getItem("devices")//we shouldnt use this
+    $.ajax({
+      url: '/device/findAll',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({email:window.localStorage.getItem("email")}),
+      dataType:'json'
+    }).done(function(data,textStatus,jqXHR){
+      //we need an ajax call
+      //devices = JSON.parse(devices)
+      devices = data.devices
+      console.log(devices)
+      //let devices = data.devices
+      for(let i = devices.length-1; i >=0; i--){
+          console.log(devices[i])
+          htmlText= `<span style="">Device ${i+1}</span>`
+          htmlText+=`<div class="input-field"><label for="deviceName${i}" class="active">Update Device Name</label>`
+          htmlText+=`<input type="text" id="deviceName${i}" name="deviceName" value="${devices[i].deviceName}"required></input></div>`
+          htmlText+=`<div class="input-field"><label for="deviceId${i}" class="active">Update Device Id</label>`
+          htmlText+=`<input type="text" id="deviceId${i}" name="deviceId" value="${devices[i].deviceId}"required></input></div>`
+          htmlText+=`<div class="input-field"><label for="apikey${i}" class="active">Update Device API Key</label>`
+          htmlText+=`<input type="text" id="apikey${i}" name="apikey" value="${devices[i].apikey}"required></input></div>`
+          htmlText+=`<div class="input-field"><label for="startDate" class="active">Update Device Start Date</label>`
+          htmlText+=`<input type="date" id="startDate${i}" name="startDate" value="2023-02-01"required></input></div>`
+          htmlText+=`<div class="input-field"><label for="startTime" class="active">Update Device Start Time</label>`
+          htmlText+=`<input type="time" id="startTime${i}" name="startTime" value=""required></input></div>`
+          $("#addDeviceList").prepend(htmlText)
+
+          let startDate = new Date(devices[i].startDate);
+          let year = startDate.getFullYear();
+          let month = startDate.getMonth()+1;
+          let day = startDate.getDate();
+          if (String(day).length == 1) day = "0" + day;
+          if (String(month).length == 1) month = "0" + month;
+          //console.log(`${year}-${month}-${day}`)
+          let elemId = `#startDate${i}`
+          //console.log($('#startDate'+(i)))
+          //console.log($('#startDate'+(i)).val())
+          $('#startDate'+i).val(`${year}-${month}-${day}`)
+          
+          let hour = startDate.getHours();
+          let minute = startDate.getMinutes();
+          if (String(hour).length == 1) hour = "0" + hour;
+          if (String(minute).length == 1) minute = "0" + minute;
+          elemId = `#startTime${i}`
+          $('#startTime'+i).val(`${hour}:${minute}`)
 
 
 
-       $("#addDeviceList").prepend(htmlText)
-       //$("#main").show();
-       
-   }
-   var classList = $('#addDeviceList').attr('class').split(/\s+/);
-    $.each(classList, function(index, item) {
-      if (item === 'readonly') {
-          $("#addDeviceList input").prop('readonly', true);
+          
+          //$("#main").show();
+          
       }
-    });
-}
+      var classList = $('#addDeviceList').attr('class').split(/\s+/);
+        $.each(classList, function(index, item) {
+          if (item === 'readonly') {
+              $("#addDeviceList input").prop('readonly', true);
+          }
+        });
+    }).fail(accountInfoError);
+   }
 
 
 function accountInfoError(jqXHR, textStatus, errorThrown) {
@@ -263,6 +281,7 @@ console.log(txdata);
       data: JSON.stringify(txdata),
       dataType: 'json'
   }).done(function(data, textStatus, jqXHR){
+    updateDevice();
     window.location.replace("account.html");}).fail(updateFailure)
   console.log("ajax ends")
   }
@@ -294,15 +313,18 @@ console.log(txdata);
     }
 
   });
+  console.log($("#email").text())
   for(let i=0; i < id.length; i++){
-    date = new Date(`${date[i]} ${time[i]}`)
+    iDate = date[i] + " " + time[i]
+    iDate = new Date(iDate);
     let txdata = {
       apikey:apikey[i],
       deviceId:id[i],
       deviceName:name[i],
-      userEmail:$("#email").val(),
-      startDate:date
+      userEmail:$("#email").text(),
+      startDate:iDate
     }
+    console.log(txdata)
     
     $.ajax({
       url: '/device/update',
@@ -311,92 +333,25 @@ console.log(txdata);
       data: JSON.stringify(txdata),
       dataType: 'json'
     }).done(function(data, textStatus, jqXHR){
-      window.location.replace("account.html");}).fail(updateFailure)
-    console.log("ajax ends")
+      }).fail(updateFailure)
+    //console.log("ajax ends")
   }
   
-  alert("Something")
-<<<<<<< HEAD
-
-  let deviceName = $("#deviceName").val();
-  let deviceId = $("#deviceId").val();
-  let deviceKey = $("#apiKey").val();
-  let date = $("#startDate").val() + " " + $("#startTime").val()
-  date = new Date(date);
-  console.log(date)
-  let txdata = {
-      name:deviceName,
-      id:deviceId,
-      api:deviceKey,
-      //email: userEmail,
-      startDate:date
-  };
-  console.log(txdata)
-  //email=window.localStorage.getItem("devices")
-
-  $.ajax({
-    url: '/device/update',
-    method: 'POST',
-    contentType: 'application/json',
-    data: JSON.stringify(txdata),
-    dataType: 'json'
-}).done(function(data, textStatus, jqXHR){
-  window.location.replace("account.html");}).fail(updateFailure)
-console.log("ajax ends")
-=======
-  let devId = $('#deviceI').val();
+  //alert("Something")
+  window.location.replace("account.html");
+  //let devId = $('#deviceI').val();
   
-  let devicId = String(devId);
+  //let devicId = String(devId);
   let devices = window.localStorage.getItem("devices")
   devices = JSON.parse(devices)
-  console.log("checkDevice with Id")
+  //console.log("checkDevice with Id")
   //console.log(devices[deviceNum])
-  
-  for(let i = 0; i < devices.length; i++){
-    if(devices[i].deviceId == devicId){
-      console.log("inside if statement")
-      console.log("deviceNumuber")
-      console.log(devices[i])
-      
-      let deviceName = $("#deviceName").val();
-      let deviceId = $("#deviceId").val();
-      let deviceKey = $("#apiKey").val();
-      let date = $("#startDate").val() + " " + $("#startTime").val()
-      date = new Date(date);
-      console.log(date)
-      let txdata = {
-        name:deviceName,
-        id:deviceId,
-        api:deviceKey,
-        startDate:date
-    };
-    console.log(txdata)
-  
-    $.ajax({
-      url: '/device/update',
-      method: 'POST',
-      contentType: 'application/json',
-      data: JSON.stringify(txdata),
-      dataType: 'json'
-  }).done(function(data, textStatus, jqXHR){console.log("inside")}).fail(updateFailure)
-    //window.location.replace("account.html");}).fail(updateFailure)
-  console.log("ajax ends")
-      
-        }
-      
-      //window.localStorage.setItem("devices", JSON.stringify(devices.filter((a)=>a)));
-      //console.log(devices[i])
-
-      
-    }
-    
->>>>>>> f89ecaabdd6e71116701817d4b5bab0705494d2d
 }
 
 function AccountupdateSuccess(data, textStatus, jqXHR) {
   
-  let user = data
-    window.localStorage.setItem("User", JSON.stringify(user))
+  user = data
+  window.localStorage.setItem("User", JSON.stringify(user))
   
   
 }

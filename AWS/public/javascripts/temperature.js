@@ -3,6 +3,7 @@ var tempValues = [];
 var humidValues = [];
 var tHigh =0,tLow=300, tAvg=0, hHigh=300,hLow=0,hAvg=0
 var temp = document.getElementById('tempChart')
+var user = [{email:'admin@email.arizona.edu'}];
 var humid = document.getElementById('humidChart')
 const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
@@ -134,7 +135,7 @@ function updateGUI(date, id){
         url: '/temperature/readAll',
         method: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify({date:date,id:id}),
+        data: JSON.stringify({date:date,id:id,email:user[0].email}),
         dataType:'json'
     }).done(tempSuccess).fail(tempFailure);
     

@@ -7,6 +7,7 @@ let Temperature = require("../models/temperature")
 router.post('/create', function(req, res){
     console.log(req.body.postDate)
     let date = new Date(req.body.postDate)
+    console.log(req.body.email)
     Temperature.findOne({postDate: date, deviceId:req.body.id, userEmail:req.body.email}, function(err, temp){
         if(err) res.status(401).json({success:false, err:err});
         else if(temp){

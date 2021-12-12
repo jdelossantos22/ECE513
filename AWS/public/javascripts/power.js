@@ -179,7 +179,7 @@ function getDateOfWeek(w, y) {
 }
 
 function updateGUI(date, id){
-  let jsonStr = JSON.stringify({date:date,id:id})
+  let jsonStr = JSON.stringify({date:date,id:id,email:user[0].email})
   
   $.ajax({
     url: '/power/readAll',

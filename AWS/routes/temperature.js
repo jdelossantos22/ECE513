@@ -54,20 +54,19 @@ router.post('/readAll', function(req,res,next){
     
     let today = req.body.date;
     
-    //today = today.setHours(0,0,0,0);
+    today = today.setHours(0,0,0,0);
     //console.log()
     console.log(`COMPARE: ${Date.now()}`)
     console.log(`HERE: ${Date(today)}`);
-    
-    let tomorrow = req.body.date + day;
-    tomorrow = new Date(tomorrow)
+    //console.log(day)
+    let tomorrow = today + day;
     console.log(`HERE: ${tomorrow}`);
     //console.log(today)
     //console.log(tomorrow)
     //{date:{$gt: Date(today), $lt:Date(tomorrow)}}
     console.log(req.body.id)
     console.log(req.body.email)
-    Temperature.find({postDate:{$gte: today, $lt:tomorrow}, deviceId:req.body.id, userEmail:req.body.email}).sort({postDate:1}).exec(function(err, docs){
+    Temperature.find({postDate:{$gte: Date(today), $lt:Date(tomorrow)}, deviceId:req.body.id, userEmail:req.body.email}).sort({postDate:1}).exec(function(err, docs){
         if(err){
             let msg = `Can't find information on date ...`;
             res.status(201).json({msg:msg});

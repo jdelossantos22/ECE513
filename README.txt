@@ -5,7 +5,7 @@ Reydesel Alejandro Cuevas - cuevasr@email.arizona.edu
 Jero Delos Santos - jdelossantos22@email.arizona.edu
 
 AWS Address: http://ec2-3-20-194-35.us-east-2.compute.amazonaws.com:3000/
-https://ec2-3-20-194-35.us-east-2.compute.amazonaws.com:3443/
+Final Demo: http://ec2-3-20-194-35.us-east-2.compute.amazonaws.com:3000/checkpoint2.html
 Checkpoint 2 Demos: http://ec2-3-20-194-35.us-east-2.compute.amazonaws.com:3000/checkpoint2.html
 Video Demo: http://ec2-3-20-194-35.us-east-2.compute.amazonaws.com:3000/checkpoint2.html
 
@@ -17,8 +17,8 @@ Simulation Time:
 1 sec(Real World) == 5 minutes(Simulation World)
 Minimum Sampling Period = 10 mins
 
-Temperature History:
-Starting on - 12/9 -12/20
+Temperature History and Power History:
+Starting on - 12/13 -01/01/2022
 
 Particle Device: Particle Argon
 Particle ID: e00fce684118b517fd70df3b
@@ -45,7 +45,9 @@ particle/ping - ping if device is online
 particle/read - read rxData
 
 Temperature:
-
+temperature/create
+temperature/readAll
+power/readAll
 
 Data Sent from Particle Device: JSON
 Format: {
@@ -107,7 +109,30 @@ Response Codes:
 		{success : false, message : "Error authenticating."}
 
 	404 - 	Not Found
-	
+
+Database Collections:
+User:
+	email:        { type: String, required: true, unique: true },
+  	fullName:     { type: String, required: true },
+  	passwordHash: { type: String, required: true },
+  	lastAccess:   { type: Date, default: Date.now },
+  	userDevices:  { type:[String], default:[], sparse:true},
+  	zip:      {type: Number},
+
+Device:
+      apikey:       String,
+      deviceId:     String,
+      deviceName: String,
+      userEmail:    String,
+      startDate: Date
+
+Temperature
+      postDate: Date,
+      deviceId: String,
+      userEmail: String,
+      temperature: Number,
+      humidity: Number,
+      power: Number
 
 System Tutorial:
 	
@@ -142,12 +167,17 @@ It also includes a section for the door alerts
 
 Particle tutorial:
 The particle files are under directory Particle/v3/
+In order to Flash/Compile, connect the Argon device via USB and Flash(local)
+The door sensor must be on pin A2
+The smart light sensor must be on pin A0
+The dht11 must be connected to D2
+
 
 
 Power Consumption:
-When the Thermostat is in idle, it is consuming 1 watt
-When the Thermostat is in Heat, it is consuming 1500 watts
-When the Thermostat is in Cold it is consuming 3000 watts
+When the Thermostat is in idle, it is consuming 1 watt/hour
+When the Thermostat is in Heat, it is consuming 1500 watts/hour
+When the Thermostat is in Cold it is consuming 3000 watts/hour
 
 The Power State Machine has 3 states P_OFF(POWER OFF), P_COOL, (POWER ON COOL), P_HEAT (POWER ON HEAT)
 if (thermostat mode is off OR (thermostat mode is COOL AND thermostat cool is on COOL_WAIT) OR (thermostat mode is HEAT AND thermostat heat is on HEAT WAIT)
@@ -156,5 +186,13 @@ else if (thermostat mode is COOL and thermostat cool is on COOL ON)
 	the power state is P_COOL
 else if (thermostat mode is HEAT and thermostat heat is on HEAT ON)
 	the power state is P_HEAT
+
+The Power Consumption at any point in time is saved in the same collection as the Temperatures and Humidity(The collection temperatures)
+
+During the composition of the chart. All values within a week is grabbed.
+Each value (3000,1500,1) is then grabbed and and multiplied with the time. The equation is as follows:
+(POWER)*((Next Collection Time) - (Current Collection Time))/(1000*60*60)) where 1000*60*60 is 1 hour in milliseconds
+
+The total for the week consumption is then summed up
 
 

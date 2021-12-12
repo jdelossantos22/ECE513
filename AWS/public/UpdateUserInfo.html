@@ -21,6 +21,7 @@
     <script src="https://smtpjs.com/v3/smtp.js"></script>
     <!--<script src="/javascripts/register.js"></script>-->
     <script src="/javascripts/account.js"></script>
+    <script src="javascripts/signout.js" defer></script>
     <link href="/stylesheets/style_Account.css" rel="stylesheet">
     
     
@@ -37,6 +38,10 @@
     <ul id='dropdown1' class='dropdown-content'>
        <li><a href="index.html">Home</a></li>
        <li><a href="controllerAtHome.html">Controller</a></li>
+       <li><a href="powerHistory.html">Power History</a></li>
+       <li><a href="tempHistory.html">Temperature History</a></li>
+       <li><a href="reference.html">References</a></li>
+       <li><a href="index.html" id="signout">Logout</a></li>
     </ul>
       
     <nav>
@@ -44,7 +49,7 @@
         <a href="index.html" class="brand-logo left" style="padding-bottom:10px"><img id="logo" src="images/iot_logo.png" width=65px height=65px><span id="name"> Smart Home</span></a>
         <ul class="right ">
             <!-- Dropdown Trigger -->
-           <li><a class='dropdown-trigger btn' href='#' data-target='dropdown1'><i class="material-icons">more_vert</i></a></li>
+           <li><a class='dropdown-trigger btn' href='#' data-target='dropdown1' data-constrainwidth="false"><i class="material-icons">more_vert</i></a></li>
         </ul>
       </div>
     </nav>

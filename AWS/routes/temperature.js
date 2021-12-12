@@ -60,10 +60,12 @@ router.post('/readAll', function(req,res,next){
     console.log(`HERE: ${Date(today)}`);
     
     let tomorrow = req.body.date + day;
+    tomorrow = new Date(tomorrow)
     console.log(`HERE: ${tomorrow}`);
     //console.log(today)
     //console.log(tomorrow)
     //{date:{$gt: Date(today), $lt:Date(tomorrow)}}
+    console.log(req.body.id)
     console.log(req.body.email)
     Temperature.find({postDate:{$gte: today, $lt:tomorrow}, deviceId:req.body.id, userEmail:req.body.email}).sort({postDate:1}).exec(function(err, docs){
         if(err){

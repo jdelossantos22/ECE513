@@ -70,10 +70,10 @@ router.post('/readAll', function(req,res,next){
     today = new Date(today)
     tomorrow = new Date(tomorrow)
     console.log(new Date(today.getFullYear(),today.getMonth(),today.getDate(),0,0,0).toISOString())
-    console.log(new Date(today.getFullYear(),today.getMonth(),today.getDate(),0,0,0).toISOString())
+    console.log(new Date(tomorrow.getFullYear(),tomorrow.getMonth(),tomorrow.getDate(),0,0,0).toISOString())
     //, $lt: Date(tomorrow)}
     //
-    Temperature.find({postDate:{$gte: new Date(today.getFullYear(),today.getMonth(),today.getDate(),0,0,0).toISOString(), $lt: new Date(today.getFullYear(),today.getMonth(),today.getDate(),0,0,0).toISOString()}, deviceId:req.body.id, userEmail:req.body.email}).sort({postDate:1}).exec(function(err, docs){
+    Temperature.find({postDate:{$gte: new Date(today.getFullYear(),today.getMonth(),today.getDate(),0,0,0).toISOString(), $lt: new Date(tomorrow.getFullYear(),tomorrow.getMonth(),tomorrow.getDate(),0,0,0).toISOString()}, deviceId:req.body.id, userEmail:req.body.email}).sort({postDate:1}).exec(function(err, docs){
         if(err){
             let msg = `Can't find information on date ...`;
             res.status(201).json({msg:msg});
